@@ -425,6 +425,148 @@ varioGram(fit_spl) |>
 :::
 :::
 
+## Genotypes are often not unrelated 
+
+::: {.columns}
+::: {.column width="35%"}
+
+![](images/pedigree.png){width="100%"}
+
+:::
+
+::: {.column width="65%"}
+
+```{r}
+#| echo: true
+ped <- data.frame(me=paste0("I", c(1:11, 13)),
+                  mum=c(0, 0, 0, 0, "I1", "I1", "I1", "I2", "I3", "I5", "I7", "I9"),
+                  dad=c(0, 0,0, 0, "I2", "I2", "I3", "I3", "I4", "I6", "I8", "I9"),
+                  fgen=c(rep(0, 11), 2))
+
+ped
+```
+
+:::
+:::
+
+
+
+
+
+```{r}
+#| eval: false
+library(visNetwork)
+nodes <- tibble(id = 1:13)
+edges <- tribble(~from, ~to,
+                 1, 5,
+                 1, 6, 
+                 1, 7,
+                 2, 5, 
+                 2, 6,
+                 2, 8,
+                 3, 7, 
+                 3, 8, 
+                 3, 9, 
+                 4, 9,
+                 5, 10,
+                 6, 10,
+                 7, 11, 
+                 8, 11, 
+                 9, 12,
+                 12, 13)
+
+visNetwork(nodes, edges) |> 
+  visEdges(arrows = "from") |> 
+  visHierarchicalLayout(direction = "DU") 
+```
+
+
+## Numerator relationship matrix 
+
+
+The $\mathbf{A}$ matrix is a square matrix that represents the additive genetic relationships between individuals in a population.
+
+
+::: {.columns}
+::: {.column width="15%"}
+
+![](images/pedigree.png){width="100%"}
+
+:::
+
+::: {.column width="85%"}
+
+::: f2
+
+```{r}
+ainverse(ped, fgen = list("fgen", 0)) |> 
+  sp2mat() |> 
+  solve() |> 
+  as.data.frame() |> 
+  mutate(across(everything(), ~kableExtra::cell_spec(scales::comma(.x, 0.001), background = ifelse(abs(.x) < 1e-6, "yellow", "white")))) |> 
+  knitr::kable(digits = 3) 
+```
+
+:::
+:::
+:::
+
+
+## $\mathbf{A}^{-1}$
+
+::: {.columns}
+::: {.column width="40%"}
+
+```{r}
+#| echo: true
+cropscan::met_pedigree
+```
+
+
+:::
+
+::: {.column width="60%"}
+
+
+```{r}
+#| echo: true
+Ainv <- ainverse(cropscan::met_pedigree, fgen = list("fgen", 0))
+Ainv
+```
+
+:::
+:::
+
+
+
+
+
+::: aside
+
+Meuwissen and Luo (1992) Computing inbreeding coefficients in large populations. Genetics Selection Evolution
+
+:::
+
+
+## Modelling additive and non-additive genetic effects
+
+
+$$\texttt{yield} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_a + \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}$$
+$$\begin{bmatrix}\boldsymbol{u}_a\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{bmatrix}\sim N\left(\begin{bmatrix}\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\end{bmatrix}, \begin{bmatrix}\sigma^2_a\mathbf{A} & \mathbf{0} & \mathbf{0}\\\mathbf{0} &\sigma^2_{\bar{a}}\mathbf{I}_G & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \sigma^2\mathbf{I}_{RC}\end{bmatrix}\right)$$
+
+
+```{r}
+#| echo: true
+#| output: false
+fit_nrm <- asreml(yield ~ 1, 
+                  random =~ vm(gen, Ainv) + gen2, 
+                  data = cropscan::trial_pheno |> 
+                    mutate(gen2 = gen))
+```
+
+
+
+
 
 
 
