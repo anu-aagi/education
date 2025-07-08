@@ -1,0 +1,14 @@
+---
+title: "ANU AAGI Education"
+listing: 
+  contents: 
+    - "resources/2025-07-09-selective-breeding/index.qmd"
+    - "resources/2025-07-09-analysis-of-a-single-field-trial/index.qmd"
+  type: grid
+  sort: date desc
+  fields: 
+    - title
+    - author
+    - date
+---
+

@@ -1,0 +1,341 @@
+---
+title: "Short introduction to <br>selective breeding"
+author: "Emi Tanaka"
+date: 2025/07/09
+institute: Australian National University
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    css: [/assets/custom.css, /assets/tachyons-addon.css, /assets/firework.css]
+---
+
+
+## Wild vs Cultivated
+
+```{r setup}
+#| message: false
+library(tidyverse)
+library(ggtext)
+library(geomtextpath)
+fao <- readRDS(here::here("resources/2025-07-09-selective-breeding/data/data-input/fao.rds")) |> 
+  mutate(item = fct_reorder(item, -production, sum))
+theme_set(theme_bw(base_size = 18))
+```
+
+::: {.columns}
+::: {.column width="50%"}
+
+What is this?
+
+
+![Image source [{{< fa solid link >}}](https://ticotimes.net/2023/05/12/wild-about-bananas)](images/wild-banana-1000.jpg)
+
+:::
+
+::: {.column width="50%" .fragment}
+
+![Image source: [<i class="fas fa-link"></i>](https://www.dole.com/en-gb/produce/bananas)](images/banana-cavendish_0.png)
+
+:::
+:::
+
+
+## Wild vs Cultivated
+
+What is this?
+
+::: {.columns}
+::: {.column width="50%"}
+
+
+
+
+![Image source: [Matt Lavin](https://eos.org/articles/corns-ancestor-could-help-it-go-green)](images/teosinte-corn-ancestor-closeup-e02.jpeg)
+
+:::
+
+::: {.column width="50%" .fragment}
+
+![Image source: [<i class="fas fa-link"></i>](https://www.britannica.com/plant/corn-plant)](images/Ears-corn.jpg)
+
+:::
+:::
+
+
+## Evolution of corn (maize)
+
+
+![Image source: [<i class="fas fa-link"></i>](https://www.facebook.com/GetWildwithNik/posts/evolution-of-corn-farmers-saved-kernels-from-plants-with-desirable-characteristi/556695640384143/)](images/484973437_658150280238678_1019421871484228107_n.jpg)
+
+
+## Breeding cycle
+
+::: {.columns}
+::: {.column width="50%"}
+
+<center>
+
+![](images/breeding-cycle.svg)
+
+</center>
+<br>
+
+<center class="fragment">
+
+![](images/breeding-spiral.svg)
+
+</center>
+
+:::
+
+::: {.column width="50%" .fragment}
+
+For plant breeding, the number of locations generally increase for later stages.
+
+```{r}
+#| fig-height: 8
+stages <- tibble(rep = c(1, 1.2, 2, 3),
+                 ngeno = c(1000, 525, 150, 25),
+                 nloc = c(1, 10, 50, 100),
+                 stage = 1:4)
+tribble(~nloc, ~ngeno, ~label, ~rep,
+        1, 800, "Early stage", 1.1,
+        100, 200, "Late stage", 2.2) |> 
+  ggplot(aes(rep, ngeno)) +
+  annotate("textcurve", x = 1, y = 1000, xend = 3.5, yend = 20,
+           label = "Stage number", size = 5,
+           arrow = arrow(length = unit(0.03, "npc"))) +
+  geom_point(data = stages,
+             aes(color = nloc),
+             size = 18) +
+  annotate("textline", x = c(1,1.7), y = c(40, 40),
+           label = "Accuracy", size = 8,
+           arrow = arrow(length = unit(0.03, "npc"))) +
+  annotate("textline", x = c(1.05,1.05), y = c(20, 400),
+           label = "Discovery", size = 8,
+           arrow = arrow(length = unit(0.03, "npc"))) +
+  geom_text(data = stages, aes(label = stage), color = "white", fontface = "bold", size = 8) +
+  geom_text(aes(label = label, color = nloc), size = 8, hjust = 0) +
+  theme(axis.text = element_blank(),
+        axis.ticks.length = unit(0, "mm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line.x.bottom = element_line(arrow = grid::arrow()),
+        axis.line.y.left = element_line(arrow = grid::arrow()),
+        legend.text = element_blank(),
+        legend.ticks.length = unit(0, "mm"),
+        #legend.justification = 'right',
+        #legend.position.inside = c(1, 0.8),
+        legend.position = c(0.5, 0.5),
+        legend.axis.line = element_line(arrow = grid::arrow()),
+        panel.border = element_blank()) +
+  labs(x = "Number of replications", y = "Number of genotypes",
+       color = "Number of\nlocations") +
+  guides(color = guide_colorbar(direction = "horizontal")) +
+  scale_colour_gradient(high = "#132B43", low = "#56B1F7") +
+  #colorspace::scale_color_continuous_sequential(palette = "Viridis") +
+  scale_x_continuous(expand = expansion(mult = c(0.1, 0.1)))
+```
+
+
+
+:::
+:::
+
+
+
+
+
+
+## Why do selective breeding?
+
+```{r}
+#| width: 8
+#| height: 10
+top_prod <- fao |> 
+  summarise(total = sum(production), .by = item) |> 
+  arrange(desc(total)) |> 
+  slice(1:4)
+```
+
+::: {.columns}
+::: {.column width="60%"}
+
+::: {.panel-tabset }
+
+
+## Production 
+
+```{r}
+fao |> 
+  ggplot(aes(year, production/1000000)) +
+  geom_point() +
+  geom_point(aes(color = item)) +
+  geom_smooth(aes(color = item)) +  
+  labs(x = "Year", y = "", title = "World production (million tonnes)",
+       color = "")
+```
+
+## Population
+
+```{r}
+fao |> 
+  distinct(year, pop) |> 
+  ggplot(aes(year, pop/1000000)) +
+  geom_point() +
+  geom_smooth(color = "black") +
+  labs(x = "Year", y = "", title = "World population (in billions)",
+       color = "") +
+  ggpubr::stat_regline_equation(size = 12)
+```
+
+## Production per capita
+
+```{r}
+fao |> 
+  ggplot(aes(year, production/pop/1000)) +
+  geom_point(aes(color = item)) +
+  geom_smooth(aes(color = item)) +  
+  labs(x = "Year", y = "", title = "World production (in tonnes) per capita",
+       color = "") 
+```
+
+
+:::
+
+
+
+:::
+
+::: {.column width="40%" .fragment}
+
+::: {.panel-tabset }
+
+## Arable land
+
+```{r}
+fao |> 
+  distinct(year, arable) |> 
+  ggplot(aes(year, arable/1000)) +
+  geom_point() +
+  geom_line() + 
+  labs(x = "Year", y = "", title = "Arable land (million ha)") 
+```
+
+## Yield
+
+Yield = Production / Area Harvested
+
+```{r}
+#| fig-height: 10
+fao |> 
+  ggplot(aes(year, production/area_harvested)) +
+  geom_point(aes(color = item)) +
+  geom_smooth(aes(color = item)) +
+  labs(x = "Year", y = "", title = "Yield (t/ha)",
+       color = "") +
+  theme(legend.position = "bottom")
+```
+
+:::
+
+
+:::
+:::
+
+
+
+
+## What trait to optimise?
+
+::: {.columns}
+
+::: {.column width="33%" .fragment}
+
+<br><br><br>
+
+<center>
+[Yield]{style="font-size:3em;"}
+
+(economic driver)
+
+</center>
+
+:::
+::: {.column width="33%" .fragment}
+
+![](images/broiler-chicken-weight.png){style="height:900px"}
+
+:::
+
+::: {.column width="33%" .fragment}
+
+<br><br><br><br>
+
+Quality traits, disease resistance, and other desirable traits.
+
+:::
+
+:::
+
+
+
+
+
+## Aim of selective breeding in a nutshell
+
+[🎯 Increase **genetic gain**]{style="border:4px solid black;border-radius:5px;background-color:#FFFACD;padding:10px;font-size:1.5em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+
+- **Genetic gain** measures improvement in the average genotype performance of a population over time due to selection for specific traits.
+
+
+![](images/genetic-gain-eq.png)
+
+
+:::
+
+::: {.column width="50%"}
+
+![](images/genetic-gain-img.png)
+
+:::
+:::
+
+
+
+
+
+
+
+::: aside
+
+For other ways to calculate $\Delta G$, see Rutkoski (2019) A practical guide to genetic gain. Advances in Agronomy 
+
+:::
+
+## Analytical strategies for selective breeding
+
+
+::: incremental
+
+- **Improve selection accuracy**
+  - Use effective experimental design that separate out sources of variation for the response
+  - Use appropriate models to disaggregate "noise" from "signal" to get accurate estimates of breeding values
+- **Marker assisted selection**
+  - Identify DNA markers related to desirable traits (e.g. disease resistance)
+  - Some traits are dependent only for a small number of DNA markers
+  - Screen candidate genotypes based on the absence/presence of these markers
+- **Genomic selection**
+  - Use a training population to estimate the additive marker effects
+  - Predict breeding values of candidate genotypes
+  
+:::
+
+
+

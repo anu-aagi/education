@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="-127 -64 591 448" width="591" height="448">
+  <defs/>
+  <g id="breeding_cycle_3" fill="none" stroke-opacity="1" stroke-dasharray="none" stroke="none" fill-opacity="1">
+    <title>breeding cycle 3</title>
+    <g id="breeding_cycle_3_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_68">
+        <path d="M 234.1539 329.30443 C 261.1769 305.958 277.24044 273.70958 279.3869 238.4999 C 281.53378 203.28347 269.50692 169.3158 245.5196 142.86646 C 226.0836 121.42975 199.28733 108.64103 170.05958 106.85924 C 140.83877 105.07787 112.6805 114.51643 90.78446 133.43344 C 72.987455 148.8027 62.40993 170.04698 60.99669 193.22905 C 59.58346 216.41111 67.50246 238.7762 83.30031 256.20026 C 109.89562 285.52604 155.9002 288.3306 185.86087 262.4526 C 210.4016 241.2443 212.64379 204.46434 190.86103 180.43207 C 172.92422 160.65608 141.894 158.7644 121.68777 176.2151 C 104.94764 190.68409 103.4254 215.76852 118.27744 232.15665 C 120.82674 234.96837 125.20813 235.23547 128.0801 232.75424 C 130.95208 230.273 131.21286 225.99533 128.66356 223.1836 C 118.89666 212.4113 119.88918 195.90213 130.90698 186.38334 C 145.38437 173.87564 167.61715 175.231 180.46798 189.4047 C 197.15824 207.82748 195.44578 236.03218 176.63472 252.28393 C 152.4029 273.21893 115.18882 270.95027 93.67949 247.2268 C 80.346185 232.52096 73.66202 213.64157 74.85492 194.07388 C 76.04781 174.50618 84.97581 156.57854 99.99675 143.60125 C 119.12365 127.07663 143.70166 118.83968 169.2274 120.39579 C 194.75316 121.9519 218.1551 133.12061 235.12655 151.83908 C 256.64892 175.57695 267.44135 206.05217 265.5148 237.65424 C 263.5887 269.24953 249.17385 298.19486 224.92776 319.13577 C 194.2689 345.6234 154.8514 358.839 113.93532 356.34466 C 73.01232 353.8499 35.492062 335.944 8.27777 305.9283 C -26.264538 267.823 -43.551467 219.00985 -40.4634 168.3545 C -40.441117 167.989 -40.41925 167.63027 -40.396966 167.26477 C -37.05891 117.18852 -14.015976 71.69677 24.484184 39.172066 C 115.48751 -37.680236 253.09113 -38.632856 344.56243 36.979097 C 347.49047 39.3995 351.87474 39.048553 354.34487 36.19635 C 356.82276 33.33103 356.4502 29.055497 353.52258 26.628327 C 256.87014 -53.25338 111.50617 -52.27112 15.382078 28.909067 C -25.94227 63.81601 -50.67674 112.62864 -54.25758 166.34506 C -54.281515 166.73764 -54.30462 167.11667 -54.328554 167.50924 C -57.63696 221.77897 -39.115607 274.08458 -2.108343 314.90133 C 27.570492 347.6353 68.485074 367.1612 113.11008 369.88163 C 157.73508 372.60208 200.71855 358.1908 234.1539 329.30443 Z" fill="black"/>
+      </g>
+      <g id="Graphic_59">
+        <rect x="146" y="194" width="101.2539" height="38" fill="#ec8f5e"/>
+        <text transform="translate(151 199)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="12.169918" y="22" xml:space="preserve">Select</tspan>
+        </text>
+      </g>
+      <g id="Graphic_58">
+        <rect x="50" y="247" width="101.2539" height="38" fill="#ec8f5e"/>
+        <text transform="translate(55 252)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="14.566402" y="22" xml:space="preserve">Cross</tspan>
+        </text>
+      </g>
+      <g id="Graphic_57">
+        <rect x="1.2538986" y="169" width="101.2539" height="38" fill="#ec8f5e"/>
+        <text transform="translate(6.2538986 174)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="17.701168" y="22" xml:space="preserve">Grow</tspan>
+        </text>
+      </g>
+      <g id="Graphic_56">
+        <rect x="59" y="102.5" width="101.2539" height="38" fill="#ec8f5e"/>
+        <text transform="translate(64 107.5)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="0" y="22" xml:space="preserve">Evaluate</tspan>
+        </text>
+      </g>
+      <g id="Graphic_55">
+        <rect x="193" y="119" width="101.2539" height="38" fill="#f3b664"/>
+        <text transform="translate(198 124)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="12.169918" y="22" xml:space="preserve">Select</tspan>
+        </text>
+      </g>
+      <g id="Graphic_74">
+        <rect x="258.06044" y="189" width="101.2539" height="38" fill="#f3b664"/>
+        <text transform="translate(263.06044 194)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="14.566402" y="22" xml:space="preserve">Cross</tspan>
+        </text>
+      </g>
+      <g id="Graphic_73">
+        <rect x="234" y="259" width="101.2539" height="38" fill="#f3b664"/>
+        <text transform="translate(239 264)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="17.701168" y="22" xml:space="preserve">Grow</tspan>
+        </text>
+      </g>
+      <g id="Graphic_72">
+        <rect x="162.7461" y="329" width="101.2539" height="38" fill="#f3b664"/>
+        <text transform="translate(167.7461 334)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="0" y="22" xml:space="preserve">Evaluate</tspan>
+        </text>
+      </g>
+      <g id="Graphic_71">
+        <rect x="31" y="329" width="101.2539" height="38" fill="#f1eb90"/>
+        <text transform="translate(36 334)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="12.169918" y="22" xml:space="preserve">Select</tspan>
+        </text>
+      </g>
+      <g id="Graphic_78">
+        <rect x="-62" y="280" width="101.2539" height="38" fill="#f1eb90"/>
+        <text transform="translate(-57 285)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="14.566402" y="22" xml:space="preserve">Cross</tspan>
+        </text>
+      </g>
+      <g id="Graphic_77">
+        <rect x="-101" y="212" width="101.2539" height="38" fill="#f1eb90"/>
+        <text transform="translate(-96 217)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="17.701168" y="22" xml:space="preserve">Grow</tspan>
+        </text>
+      </g>
+      <g id="Graphic_76">
+        <rect x="-112" y="135" width="101.2539" height="38" fill="#f1eb90"/>
+        <text transform="translate(-107 140)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="0" y="22" xml:space="preserve">Evaluate</tspan>
+        </text>
+      </g>
+      <g id="Graphic_75">
+        <rect x="-89" y="67" width="101.2539" height="38" fill="#9fbb73"/>
+        <text transform="translate(-84 72)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="12.169918" y="22" xml:space="preserve">Select</tspan>
+        </text>
+      </g>
+      <g id="Graphic_80">
+        <text transform="translate(356 53)" fill="black">
+          <tspan font-family="Roboto" font-size="28" fill="black" x="1.850586" y="26" xml:space="preserve">Release </tspan>
+          <tspan font-family="Roboto" font-size="28" fill="black" x="15.37207" y="59" xml:space="preserve">Stage</tspan>
+        </text>
+      </g>
+      <g id="Line_82">
+        <path d="M 342 -9.87923 C 355 40.12077 349.8908 37.863755 349.8908 37.863755" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+      </g>
+      <g id="Line_83">
+        <line x1="302.0215" y1="31.12245" x2="350.6984" y2="36.775914" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+      </g>
+      <g id="Graphic_84">
+        <text transform="translate(135.78412 49)" fill="#ec8f5e">
+          <tspan font-family="Roboto" font-weight="bold" font-size="28" fill="#ec8f5e" x="2.3857422" y="26" xml:space="preserve">Early Stage</tspan>
+        </text>
+      </g>
+      <g id="Graphic_87">
+        <rect x="-42" y="4" width="101.2539" height="38" fill="#9fbb73"/>
+        <text transform="translate(-37 9)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="14.566402" y="22" xml:space="preserve">Cross</tspan>
+        </text>
+      </g>
+      <g id="Graphic_88">
+        <rect x="65" y="-47" width="101.2539" height="38" fill="#9fbb73"/>
+        <text transform="translate(70 -42)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="17.701168" y="22" xml:space="preserve">Grow</tspan>
+        </text>
+      </g>
+      <g id="Graphic_89">
+        <rect x="193" y="-47" width="101.2539" height="38" fill="#9fbb73"/>
+        <text transform="translate(198 -42)" fill="black">
+          <tspan font-family="Roboto" font-size="24" fill="black" x="0" y="22" xml:space="preserve">Evaluate</tspan>
+        </text>
+      </g>
+      <g id="Graphic_90">
+        <text transform="translate(-121.18653 -59)" fill="#9fbb73">
+          <tspan font-family="Roboto" font-weight="bold" font-size="28" fill="#9fbb73" x="3.5410156" y="26" xml:space="preserve">Late Stage</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

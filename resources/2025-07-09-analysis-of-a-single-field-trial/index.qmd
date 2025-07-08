@@ -1,0 +1,431 @@
+---
+title: "Analysis of a single field trial"
+author: "Emi Tanaka"
+date: 2025/07/09
+institute: Australian National University
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    css: [/assets/tachyons-addon.css]
+---
+
+
+
+## USYD Plant Breeding Institute, Narrabri, NSW, Australia
+
+::: {.columns}
+::: {.column width="50%"}
+
+<br><br>
+
+![[Image credit: Kieran Shephard](https://groundcover.grdc.com.au/innovation/climate/global-search-helps-heat-tolerance-gains-to-be-made-in-wheat)](images/harvesting.jpg){.ba}
+
+:::
+
+::: {.column width="50%"}
+
+![Image credit: Melissa Eather](images/field.png){.ba}
+:::
+:::
+
+## International Maize and Wheat Improvement Center (CIMMYT), Mexico
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](images/double-bed.png)
+
+:::
+
+::: {.column width="50%"}
+
+![](images/double-bed-closeup.png)
+:::
+:::
+
+::: aside
+
+Images courtesy of Tony Fischer and Matthew Reynolds
+
+:::
+
+
+
+
+## Crop field trial for plant breeding
+
+::: {.columns}
+::: {.column width="50%"}
+
+- An experiment with candidate (and check) genotypes as treatment
+- Typically, 
+  - plots laid out as a rectangular array 
+  - plots have the same size
+  - one genotype per plot
+  - yield measured per plot
+  - spatially contiguous areas are grouped as blocks for experimental design
+
+
+:::
+
+::: {.column width="50%"}
+
+
+```{r}
+#| message: false
+library(tidyverse)
+library(cropscan)
+theme_set(theme_classic(base_size = 18))
+dat <- cropscan::trial_pheno |> 
+  as_field()
+plot_field_yield(dat) + labs(x = "Column", y = "Row", fill = "Yield (t/ha)") 
+```
+
+`r n_distinct(dat$gen)` genotypes, `r nrow(dat)` observations, 2 blocks
+
+```{r}
+#| fig-height: 4.8
+plot_field(dat, fill = block, max_cat = 3) + labs(x = "Column", y = "Row", fill = "Block", caption = "Text label = genotype label") + geom_text(aes(label = gen))
+```
+
+
+:::
+:::
+
+
+
+
+
+## Glasshouse trials
+
+- A glasshouse trial may also have similar structure, except plot = pot
+
+![[The Plant Accelerator, Adelaide, Australia](https://www.plantphenomics.org.au/open-house-at-the-plant-accelerator)](images/img_0958-2.jpg)
+
+## Take into account the experimental design
+
+- Analysis should take into account any potential sources of variation used in the experimental design
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](images/13007_2012_Article_230_Fig7_HTML.jpeg){style="height:600px"}
+
+
+:::
+
+::: {.column width="50%"}
+
+![](images/13007_2012_Article_230_Fig8_HTML.jpeg)
+
+:::
+:::
+
+::: aside
+
+Brien et al (2013) Accounting for variation in designing greenhouse experiments with special reference to greenhouses containing plants on conveyor systems. _Plant Methods_
+
+:::
+
+## Baseline model 
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+plot_field_yield(dat) + labs(x = "Column", y = "Row", fill = "Yield (t/ha)")
+```
+
+
+```{r}
+#| fig-height: 4.8
+plot_field(dat, fill = block, max_cat = 3) + labs(x = "Column", y = "Row", fill = "Block", caption = "Text label = genotype label") + geom_text(aes(label = gen))
+```
+
+:::
+
+::: {.column width="50%" .f3}
+
+
+
+```{r}
+#| echo: true
+#| eval: false
+# Warning: packages below are in active development
+pak::pak("emitanaka/cropscan") 
+pak::pak("emitanaka/broom.asreml")
+```
+
+We'll use `asreml` to fit linear mixed models.
+
+```{r}
+#| echo: true
+#| message: false
+#| output: false
+library(asreml)
+# genotype as fixed effect, block as random effect
+fit_basef <- asreml(yield ~ gen, 
+                    random =~ block, 
+                    data = cropscan::trial_pheno)
+
+# genotype as random effect, block as random effect
+fit_baser <- asreml(yield ~ 1, 
+                    random =~ gen + block, 
+                    data = cropscan::trial_pheno)
+```
+
+And `broom.asreml` to extract model values in a tidy way.
+
+```{r}
+#| echo: true
+library(broom.asreml)
+tidy(fit_basef, "varcomp")
+# tidy(fitf, "fixed")
+# tidy(fitf, "random")
+```
+
+
+:::
+:::
+
+
+
+## Peripheral effects
+
+- Management operations often conducted in a serpentine fashion.
+
+::: {.columns}
+::: {.column width="30%"}
+
+![](images/field_harvest.gif)
+
+:::
+
+::: {.column width="30%"}
+
+
+![](images/field_spray.gif)
+
+:::
+
+
+::: {.column width="40%"}
+
+
+:::
+
+:::
+
+
+. . . 
+
+- Are plots completely independent?
+
+
+
+## Spatial modelling for local trend & extraenous variation
+
+
+```{r}
+#| echo: true
+#| output: false
+fit_ar1xar1 <- asreml(yield ~ gen, 
+                      random =~ block + units + rowf + colf, 
+                      residual =~ ar1(colf):ar1(rowf),
+                      data = cropscan::trial_pheno)
+```
+
+- Note: `units` is a specially reserved term in `asreml` that is uniquely identifies each observational unit, i.e. `factor(1:nrow(data))`.
+- In this `units` is used to create the nugget effects.
+
+```{r}
+#| echo: true
+tidy(fit_ar1xar1, "varcomp")
+```
+
+## Why AR1 $\times$ AR1?
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+#| eval: false
+residual =~ ar1(colf):ar1(rowf)
+```
+
+
+::: f2
+
+$$\sigma^2\begin{bmatrix}1 & \rho_c & \rho^2_c &\cdots &\rho_c^{C-1}\\\rho_c &1& \rho_c&\ddots&\rho_c^{C-2}\\\rho_c^2 & \rho_c & 1 &\ddots&\rho_c^{C-3}\\\vdots & \ddots & \ddots & \ddots & \vdots \\ \rho_c^{C-1} & \rho_c^{C-2} & \rho_c^{C-3} & \cdots & 1\end{bmatrix}\otimes\begin{bmatrix}1 & \rho_r & \rho^2_r &\cdots &\rho_r^{R-1}\\\rho_r &1& \rho_r&\ddots&\rho_r^{R-2}\\\rho_r^2 & \rho_r & 1 &\ddots&\rho_r^{R-3}\\\vdots & \ddots & \ddots & \ddots & \vdots \\ \rho_r^{R-1} & \rho_r^{R-2} & \rho_r^{R-3} & \cdots & 1\end{bmatrix}$$
+:::
+
+
+- Low additional number of parameters (three) to estimate but yet the structure is flexible and anisotropic (correlation in all directions can be different).
+- For positive autocorrelation, the structure captures the general idea that the plots that are geographically close together are more similar.
+- The AR1 $\times$ AR1 structure generally fits well in practice.
+
+
+::: aside
+
+Gilmour et al. (1997) “Accounting for Natural and Extraneous Variation in the Analysis of Field Experiments,” Journal of Agricultural, Biological, and Environmental Statistics.
+
+
+:::
+
+
+## Other separable processes
+
+
+- If you don't believe that plots are similar in say a row direction then you can model such that the plots are uncorrelated in row direction.
+
+
+
+```{r}
+#| echo: true
+#| output: false
+fit_ar1xid <- asreml(yield ~ gen, 
+                     random =~ block + units + rowf + colf, 
+                     residual =~ ar1(colf):id(rowf),
+                     data = cropscan::trial_pheno)
+```
+
+
+$$\sigma^2\begin{bmatrix}1 & \rho_c & \rho^2_c &\cdots &\rho_c^{C-1}\\\rho_c &1& \rho_c&\ddots&\rho_c^{C-2}\\\rho_c^2 & \rho_c & 1 &\ddots&\rho_c^{C-3}\\\vdots & \ddots & \ddots & \ddots & \vdots \\ \rho_c^{C-1} & \rho_c^{C-2} & \rho_c^{C-3} & \cdots & 1\end{bmatrix}\otimes\mathbf{I}_R$$
+
+## Comparing nested random models 
+
+- If fixed effects are the same and you have nested random models, tehn you can use the likelihood ratio test to compare models.
+- Below suggests that $H_0: \rho_r = 0$ is rejected <br>(so AR1$\times$AR1 model is better than AR1$\times$ID model).
+
+
+```{r}
+#| echo: true
+lrt(fit_ar1xar1, fit_ar1xid)
+```
+
+## Residual plot
+
+
+```{r}
+#| echo: true
+augment(fit_ar1xar1) |> 
+  ggplot(aes(.fitted, .resid)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_point()
+```
+
+. . . 
+
+
+- Typical residual plots may fail you for model diagnostics.
+
+
+## Residual plot by row
+
+
+```{r}
+#| echo: true
+#| fig-height: 10
+#| output-location: column
+augment(fit_ar1xar1) |> 
+  ggplot(aes(colf, .resid)) +
+  geom_hline(yintercept = 0, 
+             linetype = "dashed") +
+  geom_point() +
+  geom_smooth(aes(group = rowf)) + 
+  facet_wrap(~rowf, 
+             label = label_both)
+```
+
+## Smooth global trend 
+
+- Smooth global trend is incorporated using **cubic smoothing spline** indexed by the column number.
+
+
+```{r}
+#| echo: true
+#| output: false
+fit_spl <- asreml(yield ~ gen + lcol, 
+                  random =~ block + units + rowf + colf + spl(lcol), 
+                  residual =~ ar1(colf):id(rowf),
+                  data = cropscan::trial_pheno)
+```
+
+::: aside
+
+
+Verbyla et al (1999) “The analysis of designed experiments and longitudinal data by using smoothing splines,” Journal of the Royal Statistical Society. Series C (Applied Statistics)
+
+:::
+
+
+
+## Sample variograms for residuals
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](images/vario.png)
+
+
+Sample variogram is made of:
+
+
+![](images/samplevario.png)
+
+:::
+
+::: {.column width="50%"}
+
+
+- Variogram is a popular method to detect spatial dependence.
+- The idea here is that if we have modelled the spatial dependence appropriately in the model, the residuals should not exhibit any spatial dependence.
+- In theory, variogram will start with (0,0) and if no spatial dependence is exhibited then it should flatten out.
+- In practice, there is high variability for sample variogram of plots furthest away due to less information so it may not be as flat as you like.
+
+:::
+:::
+
+
+
+## Model diagnostics with variograms
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| fig-height: 8
+varioGram(fit_spl) |> 
+  ggplot(aes(rowf, gamma)) +
+  geom_line() +
+  facet_wrap(~colf)
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| fig-height: 8
+varioGram(fit_spl) |> 
+  ggplot(aes(colf, gamma)) +
+  geom_line() +
+  facet_wrap(~rowf)
+```
+
+:::
+:::
+
+
+
+
+
