@@ -3,6 +3,8 @@ title: "Analysis of a single field trial"
 author: "Emi Tanaka"
 date: 2025/07/09
 institute: Australian National University
+execute:
+  cache: true
 format: 
   anu-light-revealjs:
     width: 1920
@@ -77,9 +79,10 @@ Images courtesy of Tony Fischer and Matthew Reynolds
 
 ```{r}
 #| message: false
+#| cache: false
 library(tidyverse)
 library(cropscan)
-theme_set(theme_classic(base_size = 18))
+theme_set(theme_bw(base_size = 18))
 dat <- cropscan::trial_pheno |> 
   as_field()
 plot_field_yield(dat) + labs(x = "Column", y = "Row", fill = "Yield (t/ha)") 
@@ -551,7 +554,7 @@ Meuwissen and Luo (1992) Computing inbreeding coefficients in large populations.
 ## Modelling additive and non-additive genetic effects
 
 
-$$\texttt{yield} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_a + \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}$$
+$$\boldsymbol{y} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_a + \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}$$
 $$\begin{bmatrix}\boldsymbol{u}_a\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{bmatrix}\sim N\left(\begin{bmatrix}\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\end{bmatrix}, \begin{bmatrix}\sigma^2_a\mathbf{A} & \mathbf{0} & \mathbf{0}\\\mathbf{0} &\sigma^2_{\bar{a}}\mathbf{I}_G & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \sigma^2\mathbf{I}_{RC}\end{bmatrix}\right)$$
 
 
@@ -559,15 +562,155 @@ $$\begin{bmatrix}\boldsymbol{u}_a\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{
 #| echo: true
 #| output: false
 fit_nrm <- asreml(yield ~ 1, 
-                  random =~ vm(gen, Ainv) + gen2, 
-                  data = cropscan::trial_pheno |> 
-                    mutate(gen2 = gen))
+                  random =~ vm(gen, Ainv) + ide(gen), 
+                  data = cropscan::trial_pheno)
+```
+
+## Heritability
+
+- **Broad-sense heritability** ($H^2$) estimates the proportion of phenotypic variation in a trait that is attributable to all genetic factors, including additive, dominant, and epistatic effects. 
+- **Narrow sense heritability** ($h^2$) refers to the proportion of phenotypic variance in a trait that is due to additive genetic variance.
+
+```{r}
+#| echo: true
+tidy(fit_nrm, "varcomp")
+```
+- A naive estimate of narrow-sense heritability is 0.0125/(0.0311 + 0.0125 + 0.229) = `r 0.0125/(0.0311 + 0.0125 + 0.229)`
+
+
+
+## Estimated breeding values 
+
+- EBV is a measure of the breeding potential of an animal for a specific trait
+- You can obtain EBV as the E-BLUP (empirical best linear unbiased predictor) of $\boldsymbol{u}_a$
+
+```{r}
+#| echo: true
+ebv_nrm <- tidy(fit_nrm, "random") |> 
+  filter(str_detect(term, "^vm[(]gen, Ainv[)]")) |> 
+  mutate(gen = str_remove(term, "^vm[(]gen, Ainv[)]_")) |> 
+  filter(gen %in% cropscan::trial_pheno$gen) |> 
+  select(-term)
+
+ebv_nrm
+```
+
+
+## EBV vs Raw Yield
+
+```{r}
+#| fig-height: 8
+#| echo: true
+#| output-location: column
+cropscan::trial_pheno |> 
+  left_join(ebv_nrm, by = "gen") |> 
+  ggplot(aes(estimate, yield)) +
+  geom_point(aes(alpha = -std.error), size = 4) + 
+  geom_smooth() + 
+  guides(alpha = "none") +
+  labs(x = "EBV", y = "Yield")
 ```
 
 
 
 
+## DNA markers
+```{r}
+options(width = 70)
+```
+
+```{r}
+#| echo: true
+cropscan::trial_marker
+```
+
+```{r}
+#| fig-width: 20
+cropscan::trial_marker |> 
+  pivot_longer(-gen) |> 
+  ggplot(aes(name, gen)) +
+  geom_tile(aes(fill = factor(value))) +
+  labs(fill = "Value", x = "", y = "") +
+  theme(axis.text = element_blank()) +
+  scale_fill_manual(values = c("#A4193D", "black", "#FFDFB9"))
+```
+
+## Genomic relationship matrix 
+
+- Suppose $\mathbf{M}$ is the $G\times M$ marker matrix.
+- We can let $\boldsymbol{u}_{a'} = \mathbf{M}\boldsymbol{\alpha}$ where $\boldsymbol{\alpha}$ is the $M\times 1$ marker effects.
+- If we assume that $\boldsymbol{\alpha} \sim N(\boldsymbol{0}, \sigma^2_m\mathbf{I}_M)$ then $\boldsymbol{u}_{a'} \sim N(\boldsymbol{0}, \sigma^2_m\mathbf{M}\mathbf{M}^\top)$.
+- We refer $\mathbf{K} = \mathbf{M}\mathbf{M}^\top$ as the **genomic relationship matrix**, analogous to the $\mathbf{A}$ matrix.
+
+```{r}
+#| echo: true
+#| output: false
+# may like to remove markers with zero variance or MAF < 0.05
+M <- as.matrix(cropscan::trial_marker[, -1]) 
+rownames(M) <- cropscan::trial_marker$gen
+K <- tcrossprod(M)
+attr(K, "INVERSE") <- FALSE
+fit_grm <- asreml(yield ~ 1, 
+                  random =~ vm(gen, K) + ide(gen), 
+                  data = cropscan::trial_pheno)
+```
+
+## GRM vs NRM
 
 
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-height: 8
+ebv_grm <- tidy(fit_grm, "random") |> 
+  filter(str_detect(term, "^vm[(]gen, K[)]")) |> 
+  mutate(gen = str_remove(term, "^vm[(]gen, K[)]_")) |> 
+  select(-term, grm = estimate, grm_sd = std.error)
 
+ebv_nrm |> 
+  rename(nrm = estimate, nrm_sd = std.error) |> 
+  left_join(ebv_grm, by = "gen") |> 
+  ggplot(aes(grm, nrm)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, color = "grey") +
+  labs(x = "EBV from GRM", y = "EBV from NRM")
+```
+
+## Combining marker and pedigree information
+
+$$\boldsymbol{y} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_{a'} + \mathbf{Z}_g\boldsymbol{u}_a +   \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}$$
+$$\begin{bmatrix}\boldsymbol{u}_{a'}\\\boldsymbol{u}_{a}\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{bmatrix}\sim N\left(\begin{bmatrix}\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\end{bmatrix}, \begin{bmatrix}\sigma^2_m\mathbf{K} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\\mathbf{0} & \sigma^2_a\mathbf{A} & \mathbf{0} & \mathbf{0}\\\mathbf{0}& \mathbf{0} &\sigma^2_{\bar{a}}\mathbf{I}_G & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \mathbf{0} & \sigma^2\mathbf{I}_{RC}\end{bmatrix}\right)$$
+
+```{r}
+#| echo: true
+#| output: false
+fit_ngrm <- asreml(yield ~ 1, 
+                   random =~ vm(gen, K) + vm(gen2, Ainv) + ide(gen), 
+                   data = cropscan::trial_pheno |> 
+                     mutate(gen2 = gen))
+```
+
+## Marker effects
+
+```{r}
+#| output: false
+#| echo: true
+meff <- meff(fit_ngrm, 
+             mef = list(K = "M"), 
+             effects =~ vm(gen, K))
+```
+
+- E-BLUP of $\boldsymbol{\alpha}$ (the marker effects)
+
+```{r}
+#| echo: true
+meff$meff
+```
+
+
+## Key takeaways
+
+- Fit a baseline model that take into account experimental design factors 
+- Perform model selection and diagnosis to account for possible local trend, global trend and extraenous variation
+- Use numerator relationship matrix or genomic relationship matrix to get estimated breeding values
 

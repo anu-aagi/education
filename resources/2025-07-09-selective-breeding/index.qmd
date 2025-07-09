@@ -330,7 +330,7 @@ For other ways to calculate $\Delta G$, see Rutkoski (2019) A practical guide to
 - **Marker assisted selection**
   - Identify DNA markers related to desirable traits (e.g. disease resistance)
   - Some traits are dependent only for a small number of DNA markers
-  - Screen candidate genotypes based on the absence/presence of these markers
+  - Screen candidate genotypes based on these markers
 - **Genomic selection**
   - Use a training population to estimate the additive marker effects
   - Predict breeding values of candidate genotypes
