@@ -708,7 +708,7 @@ meff$meff
 ```
 
 
-## Key takeaways
+## Key takeaways {background-color="#F5EDDE"}
 
 - Fit a baseline model that take into account experimental design factors 
 - Perform model selection and diagnosis to account for possible local trend, global trend and extraenous variation
