@@ -266,10 +266,108 @@
     "text": "Analytical strategies for selective breeding\n\n\nImprove selection accuracy\n\nUse effective experimental design that separate out sources of variation for the response\nUse appropriate models to disaggregate “noise” from “signal” to get accurate estimates of breeding values\n\nMarker assisted selection\n\nIdentify DNA markers related to desirable traits (e.g. disease resistance)\nSome traits are dependent only for a small number of DNA markers\nScreen candidate genotypes based on these markers\n\nGenomic selection\n\nUse a training population to estimate the additive marker effects\nPredict breeding values of candidate genotypes"
   },
   {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#multi-environment-trials",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#multi-environment-trials",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Multi-environment trials",
+    "text": "Multi-environment trials\n\nMulti-environment trials (METs) are field experiments conducted in multiple locations and/or seasons to evaluate the performance of different crop genotypes.\nTrial location and season/year is used synonymously with “environment”\n\n\n\n\nlibrary(cropscan)\nplot_field(met2_pheno)\n\n\n\n\n\n\n\n\n\n\nG = 191 genotypes tested across all E = 5 environments with n = 288 observations and B = 2 blocks per trial.\n\n\nconcurrence_matrix(met2_pheno)\n\n     \n      E02 E05 E07 E08 E10\n  E02 191 191 191 191 191\n  E05 191 191 191 191 191\n  E07 191 191 191 191 191\n  E08 191 191 191 191 191\n  E10 191 191 191 191 191"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#approach-1-fit-separate-models-to-each-environment",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#approach-1-fit-separate-models-to-each-environment",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Approach 1: Fit separate models to each environment",
+    "text": "Approach 1: Fit separate models to each environment\nFor i = 1, ..., E = 5, assuming observations are ordered by row then column,\n\\boldsymbol{y}_i = \\boldsymbol{1}_{n}{\\color{orange}\\mu_i} + \\mathbf{Z}_{g_i}\\boldsymbol{u}_{g_i} + \\mathbf{Z}_{b}\\boldsymbol{u}_{b_i} + \\boldsymbol{e}_i,\n\n\\boldsymbol{u}_{g_i} \\sim N(\\boldsymbol{0}, {\\color{orange}\\sigma_{g_i}^2}\\mathbf{I}_G), \\boldsymbol{u}_{b_i} \\sim N(\\boldsymbol{0}, {\\color{orange}\\sigma_{b_i}^2}\\mathbf{I}_B) and \\boldsymbol{e}_{i} \\sim N(\\boldsymbol{0}, {\\color{orange}\\sigma_{i}^2}\\mathbf{I}_{n})\n\n\nlibrary(tidyverse)\nlibrary(asreml)\nlibrary(broom.asreml)\nfit_singles &lt;- list()\nfor(trial in c(\"E02\", \"E05\", \"E07\", \"E08\", \"E10\")) {\n  fit_singles[[trial]] &lt;- asreml(yield ~ 1, \n                                 random =~ gen + block, \n                                 data = met2_pheno |&gt; \n                                   filter(env == trial))\n}"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#approach-2-fit-a-diag-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#approach-2-fit-a-diag-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Approach 2: Fit a DIAG model",
+    "text": "Approach 2: Fit a DIAG model\n\n\\boldsymbol{y} = \\begin{bmatrix}\\boldsymbol{y}_1\\\\\\boldsymbol{y}_2\\\\\\boldsymbol{y}_3\\\\\\boldsymbol{y}_4\\\\\\boldsymbol{y}_5\\end{bmatrix} = (\\mathbf{I}_E\\otimes\\boldsymbol{1}_{n})\\boldsymbol{\\mu} + \\mathbf{Z}_{ge}{\\color{orange}\\boldsymbol{u}_{ge}} + (\\mathbf{I}_E\\otimes\\mathbf{Z}_b)\\boldsymbol{u}_b + \\boldsymbol{e}\n\\boldsymbol{u}_{ge}\\sim N\\left(\\boldsymbol{0}, {\\color{orange}\\begin{bmatrix}\\sigma^2_{g_1}\\mathbf{I}_G & \\mathbf{0} & \\mathbf{0} & \\mathbf{0} & \\mathbf{0}\\\\\\mathbf{0} & \\sigma^2_{g_2}\\mathbf{I}_G & \\mathbf{0} & \\mathbf{0} & \\mathbf{0}\\\\\\mathbf{0} & \\mathbf{0} & \\sigma^2_{g_3}\\mathbf{I}_G & \\mathbf{0} & \\mathbf{0}\\\\\\mathbf{0} & \\mathbf{0} & \\mathbf{0} & \\sigma^2_{g_4}\\mathbf{I}_G & \\mathbf{0}\\\\\\mathbf{0} & \\mathbf{0} & \\mathbf{0} & \\mathbf{0} & \\sigma^2_{g_5}\\mathbf{I}_G\\end{bmatrix}}\\right), \\boldsymbol{u}_{b}\\sim N\\left(\\boldsymbol{0}, \\text{diag}(\\sigma^2_{b_1}, \\sigma^2_{b_2}, \\sigma^2_{b_3}, \\sigma^2_{b_4}, \\sigma^2_{b_5})\\otimes \\mathbf{I}_B\\right), \\boldsymbol{e}\\sim N\\left(\\boldsymbol{0}, \\text{diag}(\\sigma^2_{1}, \\sigma^2_{2}, \\sigma^2_{3}, \\sigma^2_{4}, \\sigma^2_{5})\\otimes \\mathbf{I}_n\\right)\n\n\nfit_diag &lt;- asreml(yield ~ env, \n                   random =~ diag(env):gen + diag(env):block, \n                   residual =~ dsum(~units|env),\n                   data = met2_pheno)"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#single-site-analysis-vs-met-analysis",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#single-site-analysis-vs-met-analysis",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Single site analysis vs MET analysis",
+    "text": "Single site analysis vs MET analysis\nWhat do you notice from below?\n\n\n\ntidy(fit_diag, \"varcomp\")\n\n# A tibble: 15 × 5\n   term                 estimate std.error statistic constraint\n   &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n 1 env:block!env_E02 0.0276        0.0415      0.666 P         \n 2 env:block!env_E05 0.0257        0.0372      0.691 P         \n 3 env:block!env_E07 0.000000264  NA          NA     B         \n 4 env:block!env_E08 0.00691       0.0101      0.685 P         \n 5 env:block!env_E10 0.00127       0.00207     0.611 P         \n 6 env:gen!env_E02   0.0648        0.0303      2.14  P         \n 7 env:gen!env_E05   0.0654        0.0140      4.66  P         \n 8 env:gen!env_E07   0.151         0.0228      6.64  P         \n 9 env:gen!env_E08   0.0249        0.00514     4.85  P         \n10 env:gen!env_E10   0.0271        0.00495     5.47  P         \n11 env_E02!R         0.231         0.0317      7.28  P         \n12 env_E05!R         0.0747        0.0105      7.09  P         \n13 env_E07!R         0.0781        0.0112      7.01  P         \n14 env_E08!R         0.0277        0.00385     7.19  P         \n15 env_E10!R         0.0232        0.00325     7.12  P         \n\n\n\n\ntidy(fit_singles[[\"E02\"]], \"varcomp\")\n\n# A tibble: 3 × 5\n  term    estimate std.error statistic constraint\n  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n1 block     0.0276    0.0415     0.665 P         \n2 gen       0.0648    0.0303     2.14  P         \n3 units!R   0.231     0.0317     7.28  P         \n\ntidy(fit_singles[[\"E05\"]], \"varcomp\")\n\n# A tibble: 3 × 5\n  term    estimate std.error statistic constraint\n  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n1 block     0.0257    0.0372     0.692 P         \n2 gen       0.0654    0.0140     4.66  P         \n3 units!R   0.0747    0.0105     7.09  P         \n\ntidy(fit_singles[[\"E07\"]], \"varcomp\")\n\n# A tibble: 3 × 5\n  term         estimate std.error statistic constraint\n  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n1 block   0.00000000791   NA          NA    B         \n2 gen     0.151            0.0228      6.64 P         \n3 units!R 0.0782           0.0112      7.01 P         \n\ntidy(fit_singles[[\"E08\"]], \"varcomp\")\n\n# A tibble: 3 × 5\n  term    estimate std.error statistic constraint\n  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n1 block    0.00692   0.0101      0.684 P         \n2 gen      0.0249    0.00514     4.85  P         \n3 units!R  0.0277    0.00385     7.18  P         \n\ntidy(fit_singles[[\"E10\"]], \"varcomp\")\n\n# A tibble: 3 × 5\n  term    estimate std.error statistic constraint\n  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     \n1 block    0.00127   0.00200     0.633 P         \n2 gen      0.0271    0.00495     5.47  P         \n3 units!R  0.0232    0.00326     7.11  P"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#approach-3-fit-a-cs-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#approach-3-fit-a-cs-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Approach 3: Fit a CS model",
+    "text": "Approach 3: Fit a CS model\n\n\\boldsymbol{y}  = (\\mathbf{I}_E\\otimes\\boldsymbol{1}_{n})\\boldsymbol{\\mu} + \\mathbf{Z}_g{\\color{orange}\\boldsymbol{u}_g} + \\mathbf{Z}_{ge}{\\color{orange}\\boldsymbol{u}_{ge}} + (\\mathbf{I}_E\\otimes\\mathbf{Z}_b)\\boldsymbol{u}_b + \\boldsymbol{e}\nwhere \\boldsymbol{u}_g \\sim N(\\boldsymbol{0}, {\\color{orange}\\sigma^2_g\\mathbf{I}_G}), \\boldsymbol{u}_{ge} \\sim N(\\boldsymbol{0}, {\\color{orange}\\sigma^2_{ge}\\mathbf{I}_{GE}}) and other random effects distributed as Approach 2.\n\nfit_cs &lt;- asreml(yield ~ env, \n                 random =~ gen + env:gen + diag(env):block, \n                 residual =~ dsum(~units|env),\n                 data = met2_pheno)\n\n\\boldsymbol{1}_E \\otimes \\boldsymbol{u}_g + \\boldsymbol{u}_{ge} \\sim N\\left(\\boldsymbol{0}, \\underbrace{{\\color{orange}\\begin{bmatrix}\\small\\sigma^2_g + \\sigma^2_{ge} & \\small\\sigma^2_g & \\small\\sigma^2_g & \\small\\sigma^2_g & \\small\\sigma^2_g \\\\\\small\\sigma^2_g &\\small\\sigma^2_g + \\sigma^2_{ge} &\\small\\sigma^2_g & \\sigma^2_g &  \\small\\sigma^2_g\\\\\\sigma^2_g & \\small\\sigma^2_g &\\small\\sigma^2_g + \\sigma^2_{ge}  & \\small\\sigma^2_g &  \\small\\sigma^2_g\\\\\\small\\sigma^2_g &\\small \\sigma^2_g &\\small\\sigma^2_g & \\small\\sigma^2_g + \\sigma^2_{ge} &  \\small \\sigma^2_g\\\\\\small\\sigma^2_g &\\small\\sigma^2_g  & \\small\\sigma^2_g &\\small \\sigma^2_g &  \\small\\sigma^2_g+ \\sigma^2_{ge}\\end{bmatrix}}}_{{\\color{orange}\\text{compound symmetry}}}\\otimes \\mathbf{I}_G \\right)\n\nNote: in this forumlation \\sigma^2_g &gt; 0 so covariance/correlation between same genotype across environment is always positive."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#yield-distribution-across-environment",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#yield-distribution-across-environment",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Yield distribution across environment",
+    "text": "Yield distribution across environment"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#approach-4-fit-an-us-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#approach-4-fit-an-us-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Approach 4: Fit an US model",
+    "text": "Approach 4: Fit an US model\n\n\\boldsymbol{y} = (\\mathbf{I}_E\\otimes\\boldsymbol{1}_{n})\\boldsymbol{\\mu} + \\mathbf{Z}_{ge}{\\color{orange}\\boldsymbol{u}_{ge}} + (\\mathbf{I}_E\\otimes\\mathbf{Z}_b)\\boldsymbol{u}_b + \\boldsymbol{e}\n\\boldsymbol{u}_{ge}\\sim N\\left(\\boldsymbol{0}, \\underbrace{{\\color{orange}\\begin{bmatrix}\\small\\sigma^2_{g_1} & \\small\\sigma_{g_{12}} & \\small\\sigma_{g_{13}} & \\small\\sigma_{g_{14}} & \\small\\sigma_{g_{15}}\\\\\\small\\sigma_{g_{12}} & \\small\\sigma_{g_{2}}^2 & \\small\\sigma_{g_{23}} & \\small\\sigma_{g_{24}}  & \\small\\sigma_{g_{25}}\\\\  \\small\\sigma_{g_{13}}  & \\small\\sigma_{g_{23}} & \\small\\sigma_{g_{3}}^2  & \\small\\sigma_{g_{34}} & \\small\\sigma_{g_{35}}\\\\  \\small\\sigma_{g_{14}}  & \\small\\sigma_{g_{24}} & \\small\\sigma_{g_{34}}  & \\small\\sigma_{g_{4}}^2 & \\small\\sigma_{g_{45}}\\\\  \\small\\sigma_{g_{15}}  & \\small\\sigma_{g_{25}} & \\small\\sigma_{g_{35}}  & \\small\\sigma_{g_{45}} & \\small\\sigma_{g_{5}}^2 \\end{bmatrix}}}_{\\color{orange}\\text{unstructured}} \\otimes \\mathbf{I}_G\\right)\n\n\nfit_us &lt;- asreml(yield ~ env, \n                 random =~ us(env):gen + diag(env):block, \n                 residual =~ dsum(~units|env),\n                 data = met2_pheno)\n\n\nFlexible model that “borrows strength” across environments for more accurate prediction of \\boldsymbol{u}_{ge}."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#number-of-parameters-to-estimate-in-an-us-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#number-of-parameters-to-estimate-in-an-us-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Number of parameters to estimate in an US model",
+    "text": "Number of parameters to estimate in an US model\n\n\n\n\n\n# Environment\n# Parameters\n\n\n\n\n2\n3\n\n\n3\n6\n\n\n5\n15\n\n\n10\n55\n\n\n25\n325\n\n\n50\n1275\n\n\n100\n5050\n\n\nE\nE(E + 1)/2\n\n\n\n\n\\mathbf{G}_{e} = \\begin{bmatrix}\\small\\sigma^2_{g_1} & \\small\\sigma_{g_{12}} & \\small\\sigma_{g_{13}} & \\small\\sigma_{g_{14}} & \\small\\sigma_{g_{15}}\\\\\\small\\color{grey}\\sigma_{g_{12}} & \\small\\sigma_{g_{2}}^2 & \\small\\sigma_{g_{23}} & \\small\\sigma_{g_{24}}  & \\small\\sigma_{g_{25}}\\\\  \\color{grey}\\small\\sigma_{g_{13}}  & \\color{grey}\\small\\sigma_{g_{23}} & \\small\\sigma_{g_{3}}^2  & \\small\\sigma_{g_{34}} & \\sigma_{g_{35}}\\\\  \\color{grey}\\small\\sigma_{g_{14}}  & \\color{grey}\\small\\sigma_{g_{24}} & \\color{grey}\\small\\sigma_{g_{34}}  & \\small\\sigma_{g_{4}}^2 & \\small\\sigma_{g_{45}}\\\\  \\color{grey}\\small\\sigma_{g_{15}}  & \\color{grey}\\small\\sigma_{g_{25}} & \\color{grey}\\small\\sigma_{g_{35}}  & \\color{grey}\\small\\sigma_{g_{45}} & \\small\\sigma_{g_{5}}^2 \\end{bmatrix}\n\nThe number of parameters to be estimated grows quadratically with the number of environments so it quickly becomes too many parameters to estimate."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#approach-5-fit-a-fa-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#approach-5-fit-a-fa-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Approach 5: Fit a FA model",
+    "text": "Approach 5: Fit a FA model\nFor some order K, estimate the unstructured covariance with the factor analytic form:\n\\mathbf{G}_e \\approx \\mathbf{\\Lambda}\\mathbf{\\Lambda}^\\top + \\mathbf{\\Psi}\nwhere\n\\mathbf{\\Lambda} = \\underbrace{\\begin{bmatrix}\\lambda_{11} & 0 & \\cdots & 0\\\\\\lambda_{21} & \\lambda_{22} & \\ddots &0\\\\\\lambda_{31} & \\lambda_{32} & \\cdots &0\\\\\\lambda_{41} & \\lambda_{42} & \\cdots &0\\\\\\lambda_{51} & \\lambda_{52} & \\cdots &\\lambda_{5K}\\end{bmatrix}}_{\\text{loading matrix (with corner constraints)}}\\quad\\text{and}\\quad \\mathbf{\\Psi} = \\underbrace{\\begin{bmatrix}\\psi_1 & 0 & 0 & 0 & 0\\\\0 & \\psi_2 & 0 & 0& 0\\\\0& 0 & \\psi_3 & 0 & 0\\\\0 & 0 &0 & \\psi_4 & 0\\\\0 & 0& 0&0& \\psi_5\\end{bmatrix}}_{\\text{specific variances}}."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#number-of-parameters-to-estimate-in-a-fa-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#number-of-parameters-to-estimate-in-a-fa-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Number of parameters to estimate in a FA model",
+    "text": "Number of parameters to estimate in a FA model\n\n\n\n\n\n\n\n\n\n\n\n\n\n# Env\nUS\nFA1\nFA2\nFA3\nFA4\n\n\n\n\n2\n3\n4\n5\n\n\n\n\n3\n6\n6\n8\n9\n\n\n\n5\n15\n10\n14\n17\n19\n\n\n10\n55\n20\n29\n37\n44\n\n\n25\n325\n50\n74\n97\n119\n\n\n50\n1275\n100\n149\n197\n244\n\n\n100\n5050\n200\n299\n397\n494\n\n\n\n\n\nFA model of order K has (K+1)E - K(K - 1)/2 parameters to estimate.\n\n\n\nThe number of variance parameters to estimate for FA model grows linearly with the number of environments.\nThe FA model can be thought of as low-order approximation of the US model."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#latent-variable-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#latent-variable-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Latent variable model",
+    "text": "Latent variable model\n\nFA model is a special case of latent variable model when the responses are conditionally normally distributed\n\n\\boldsymbol{u}_{ge} = (\\mathbf{\\Lambda} \\otimes \\mathbf{I}_G)\n\\boldsymbol{f} + \\boldsymbol{\\delta} assuming \\boldsymbol{f} \\sim N(\\boldsymbol{0}, \\mathbf{I}_{GK}) \\quad\\text{and}\\quad\\boldsymbol{\\delta}\\sim N(\\boldsymbol{0}, \\mathbf{\\Psi}\\otimes \\mathbf{I}_G).\n\nUnder above assumption:\n\n\\boldsymbol{u}_{ge} \\sim N(\\boldsymbol{0}, (\\mathbf{\\Lambda}\\mathbf{\\Lambda}^\\top + \\mathbf{\\Psi})\\otimes \\mathbf{I}_G)."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#interpreting-the-latent-variable-model",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#interpreting-the-latent-variable-model",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Interpreting the latent variable model",
+    "text": "Interpreting the latent variable model\n\\boldsymbol{u}_{ge} = \\underbrace{(\\mathbf{\\Lambda} \\otimes \\mathbf{I}_G)\n\\boldsymbol{f}}_{\\text{G}\\times\\text{E Regression}} + \\underbrace{\\boldsymbol{\\delta}}_{\\text{Residual G}\\times\\text{E}}\n\nNotice that this is like a linear regression model except the covariates (\\mathbf{\\Lambda}) are estimated from the data.\nThe \\mathbf{\\Lambda} represent some shared latent environment covariate.\n\\boldsymbol{f}, referred to as common factor, represent how the genotype responds to that covariate.\n\\boldsymbol{\\delta}, referred to as specific factor, represent an effect specific to that environment."
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#fitting-fa-models",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#fitting-fa-models",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Fitting FA models",
+    "text": "Fitting FA models\n\nfit_fa2 &lt;- asreml(yield ~ env, \n                  random =~ fa(env, 2):gen + diag(env):block, \n                  residual =~ dsum(~units|env),\n                  data = met2_pheno)\n\nOr equivalently:\n\nfit_rr2 &lt;- asreml(yield ~ env, \n                  random =~ rr(env, 2):gen + diag(env):gen + diag(env):block, \n                  residual =~ dsum(~units|env),\n                  data = met2_pheno)"
+  },
+  {
+    "objectID": "resources/2025-07-10-analysis-of-MET/index.html#key-takeaways",
+    "href": "resources/2025-07-10-analysis-of-MET/index.html#key-takeaways",
+    "title": "Analysis of a multi-environmental field trial",
+    "section": "Key takeaways",
+    "text": "Key takeaways\n\nWhen you have a MET data, think of the covariance structure in the model.\nDIAG models can be equivalent to fitting separate models to each environment.\nCS models can be too restrictive to realistically model the data.\nUS models are flexible and borrow strength across environments but the number of parameters to estimate can become prohitively large.\nFA models are low-order approximation to US models.\nFA models can also have possible interpretations useful for breeding.\n\nReference\nSmith et al (2015) Factor analytic mixed models for the provision of grower information from national crop variety testing programs. Theor Appl Genet."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "ANU AAGI Education",
     "section": "",
-    "text": "Short introduction to selective breeding\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of a single field trial\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Analysis of a multi-environmental field trial\n\n\n\nEmi Tanaka\n\n\nJul 10, 2025\n\n\n\n\n\n\n\n\n\n\n\nShort introduction to selective breeding\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of a single field trial\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
