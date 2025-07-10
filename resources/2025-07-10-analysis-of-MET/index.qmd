@@ -1,0 +1,364 @@
+---
+title: "Analysis of a multi-environmental field trial"
+author: "Emi Tanaka"
+date: 2025/07/10
+institute: Australian National University
+execute:
+  cache: true
+  echo: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    code-block-height: 1000px
+    css: [/assets/tachyons-addon.css]
+---
+
+## Multi-environment trials 
+
+```{r}
+#| echo: false
+options(width = 70)
+```
+
+
+- Multi-environment trials (METs) are field experiments conducted in multiple locations and/or seasons to evaluate the performance of different crop genotypes. 
+- Trial location and season/year is used synonymously with "environment"
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| fig-height: 7
+#| cache: false
+library(cropscan)
+plot_field(met2_pheno)
+```
+
+:::
+
+::: {.column width="50%"}
+
+- $G = 191$ genotypes tested across all $E = 5$ environments with $n = 288$ observations and $B = 2$ blocks per trial.
+
+```{r}
+#| echo: true
+concurrence_matrix(met2_pheno)
+```
+
+
+:::
+:::
+
+## Approach 1: Fit separate models to each environment
+
+For $i = 1, ..., E = 5$, assuming observations are ordered by row then column,
+
+
+$$\boldsymbol{y}_i = \boldsymbol{1}_{n}{\color{orange}\mu_i} + \mathbf{Z}_{g_i}\boldsymbol{u}_{g_i} + \mathbf{Z}_{b}\boldsymbol{u}_{b_i} + \boldsymbol{e}_i,$$
+<center>
+$\boldsymbol{u}_{g_i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{g_i}^2}\mathbf{I}_G)$, $\boldsymbol{u}_{b_i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{b_i}^2}\mathbf{I}_B)$ and $\boldsymbol{e}_{i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{i}^2}\mathbf{I}_{n})$
+</center>
+
+
+
+
+```{r}
+#| output: false
+#| echo: true
+#| cache: false
+library(tidyverse)
+library(asreml)
+library(broom.asreml)
+fit_singles <- list()
+for(trial in c("E02", "E05", "E07", "E08", "E10")) {
+  fit_singles[[trial]] <- asreml(yield ~ 1, 
+                                 random =~ gen + block, 
+                                 data = met2_pheno |> 
+                                   filter(env == trial))
+}
+```
+
+## Approach 2: Fit a [DIAG]{style="color:orange"} model
+
+::: f2
+
+$$\boldsymbol{y} = \begin{bmatrix}\boldsymbol{y}_1\\\boldsymbol{y}_2\\\boldsymbol{y}_3\\\boldsymbol{y}_4\\\boldsymbol{y}_5\end{bmatrix} = (\mathbf{I}_E\otimes\boldsymbol{1}_{n})\boldsymbol{\mu} + \mathbf{Z}_{ge}{\color{orange}\boldsymbol{u}_{ge}} + (\mathbf{I}_E\otimes\mathbf{Z}_b)\boldsymbol{u}_b + \boldsymbol{e}$$
+
+
+$$\boldsymbol{u}_{ge}\sim N\left(\boldsymbol{0}, {\color{orange}\begin{bmatrix}\sigma^2_{g_1}\mathbf{I}_G & \mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\\mathbf{0} & \sigma^2_{g_2}\mathbf{I}_G & \mathbf{0} & \mathbf{0} & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \sigma^2_{g_3}\mathbf{I}_G & \mathbf{0} & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \mathbf{0} & \sigma^2_{g_4}\mathbf{I}_G & \mathbf{0}\\\mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{0} & \sigma^2_{g_5}\mathbf{I}_G\end{bmatrix}}\right), \boldsymbol{u}_{b}\sim N\left(\boldsymbol{0}, \text{diag}(\sigma^2_{b_1}, \sigma^2_{b_2}, \sigma^2_{b_3}, \sigma^2_{b_4}, \sigma^2_{b_5})\otimes \mathbf{I}_B\right),$$
+$$\boldsymbol{e}\sim N\left(\boldsymbol{0}, \text{diag}(\sigma^2_{1}, \sigma^2_{2}, \sigma^2_{3}, \sigma^2_{4}, \sigma^2_{5})\otimes \mathbf{I}_n\right)$$
+:::
+
+```{r}
+#| output: false
+fit_diag <- asreml(yield ~ env, 
+                   random =~ diag(env):gen + diag(env):block, 
+                   residual =~ dsum(~units|env),
+                   data = met2_pheno)
+```
+
+
+
+## Single site analysis vs MET analysis {.scrollable}
+
+What do you notice from below?
+
+::: {.columns .f3}
+::: {.column width="50%"}
+
+```{r}
+tidy(fit_diag, "varcomp")
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+tidy(fit_singles[["E02"]], "varcomp")
+tidy(fit_singles[["E05"]], "varcomp")
+tidy(fit_singles[["E07"]], "varcomp")
+tidy(fit_singles[["E08"]], "varcomp")
+tidy(fit_singles[["E10"]], "varcomp")
+
+```
+
+
+:::
+:::
+
+## Approach 3: Fit a [CS]{style="color:orange"} model
+
+::: f2
+
+$$\boldsymbol{y}  = (\mathbf{I}_E\otimes\boldsymbol{1}_{n})\boldsymbol{\mu} + \mathbf{Z}_g{\color{orange}\boldsymbol{u}_g} + \mathbf{Z}_{ge}{\color{orange}\boldsymbol{u}_{ge}} + (\mathbf{I}_E\otimes\mathbf{Z}_b)\boldsymbol{u}_b + \boldsymbol{e}$$
+
+where $\boldsymbol{u}_g \sim N(\boldsymbol{0}, {\color{orange}\sigma^2_g\mathbf{I}_G})$, $\boldsymbol{u}_{ge} \sim N(\boldsymbol{0}, {\color{orange}\sigma^2_{ge}\mathbf{I}_{GE}})$ and other random effects distributed as Approach 2.
+
+```{r}
+#| output: false
+fit_cs <- asreml(yield ~ env, 
+                 random =~ gen + env:gen + diag(env):block, 
+                 residual =~ dsum(~units|env),
+                 data = met2_pheno)
+```
+
+
+
+$$\boldsymbol{1}_E \otimes \boldsymbol{u}_g + \boldsymbol{u}_{ge} \sim N\left(\boldsymbol{0}, \underbrace{{\color{orange}\begin{bmatrix}\small\sigma^2_g + \sigma^2_{ge} & \small\sigma^2_g & \small\sigma^2_g & \small\sigma^2_g & \small\sigma^2_g \\\small\sigma^2_g &\small\sigma^2_g + \sigma^2_{ge} &\small\sigma^2_g & \sigma^2_g &  \small\sigma^2_g\\\sigma^2_g & \small\sigma^2_g &\small\sigma^2_g + \sigma^2_{ge}  & \small\sigma^2_g &  \small\sigma^2_g\\\small\sigma^2_g &\small \sigma^2_g &\small\sigma^2_g & \small\sigma^2_g + \sigma^2_{ge} &  \small \sigma^2_g\\\small\sigma^2_g &\small\sigma^2_g  & \small\sigma^2_g &\small \sigma^2_g &  \small\sigma^2_g+ \sigma^2_{ge}\end{bmatrix}}}_{{\color{orange}\text{compound symmetry}}}\otimes \mathbf{I}_G \right)$$
+
+- Note: in this forumlation $\sigma^2_g > 0$ so covariance/correlation between same genotype across environment is always positive.
+
+:::
+
+
+## Yield distribution across environment
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+met2_pheno |> 
+  mutate(env = fct_reorder(env, yield)) |> 
+  plot_field()
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+met2_pheno |> 
+  mutate(env = fct_reorder(env, yield)) |> 
+  ggplot(aes(env, yield)) +
+  geom_violin(aes(fill = env)) +
+  geom_boxplot(width = 0.1) +
+  theme_bw(base_size = 18) +
+  colorspace::scale_fill_discrete_qualitative()
+```
+
+
+
+
+:::
+:::
+
+
+```{r}
+#| echo: false
+#| fig-width: 20
+met2_pheno |> 
+  mutate(env = fct_reorder(env, yield)) |> 
+  mutate(gen = fct_reorder(gen, yield, mean, na.rm = TRUE)) |> 
+  ggplot(aes(gen, yield)) +
+  geom_point(aes(color = env)) + 
+  theme_bw(base_size = 18) +
+  colorspace::scale_color_discrete_qualitative()
+```
+
+## Approach 4: Fit an [US]{style="color:orange"} model
+
+::: f2
+
+$$\boldsymbol{y} = (\mathbf{I}_E\otimes\boldsymbol{1}_{n})\boldsymbol{\mu} + \mathbf{Z}_{ge}{\color{orange}\boldsymbol{u}_{ge}} + (\mathbf{I}_E\otimes\mathbf{Z}_b)\boldsymbol{u}_b + \boldsymbol{e}$$
+
+
+$$\boldsymbol{u}_{ge}\sim N\left(\boldsymbol{0}, \underbrace{{\color{orange}\begin{bmatrix}\small\sigma^2_{g_1} & \small\sigma_{g_{12}} & \small\sigma_{g_{13}} & \small\sigma_{g_{14}} & \small\sigma_{g_{15}}\\\small\sigma_{g_{12}} & \small\sigma_{g_{2}}^2 & \small\sigma_{g_{23}} & \small\sigma_{g_{24}}  & \small\sigma_{g_{25}}\\  \small\sigma_{g_{13}}  & \small\sigma_{g_{23}} & \small\sigma_{g_{3}}^2  & \small\sigma_{g_{34}} & \small\sigma_{g_{35}}\\  \small\sigma_{g_{14}}  & \small\sigma_{g_{24}} & \small\sigma_{g_{34}}  & \small\sigma_{g_{4}}^2 & \small\sigma_{g_{45}}\\  \small\sigma_{g_{15}}  & \small\sigma_{g_{25}} & \small\sigma_{g_{35}}  & \small\sigma_{g_{45}} & \small\sigma_{g_{5}}^2 \end{bmatrix}}}_{\color{orange}\text{unstructured}} \otimes \mathbf{I}_G\right)$$
+:::
+
+```{r}
+#| output: false
+fit_us <- asreml(yield ~ env, 
+                 random =~ us(env):gen + diag(env):block, 
+                 residual =~ dsum(~units|env),
+                 data = met2_pheno)
+```
+
+- Flexible model that "borrows strength" across environments for more accurate prediction of $\boldsymbol{u}_{ge}$.
+
+
+## Number of parameters to estimate in an US model 
+
+::: {.columns}
+::: {.column width="50%"}
+
+| # Environment | # Parameters|
+|:---:|:----:|
+| 2 | 3 |
+| 3 | 6 |
+| 5 | 15 |
+| 10 | 55 |
+| 25 | 325 |
+| 50 | 1275 |
+| 100 | 5050 |
+| $E$ | $E(E + 1)/2$ |
+
+:::
+
+::: {.column width="50%"}
+
+
+$$\mathbf{G}_{e} = \begin{bmatrix}\small\sigma^2_{g_1} & \small\sigma_{g_{12}} & \small\sigma_{g_{13}} & \small\sigma_{g_{14}} & \small\sigma_{g_{15}}\\\small\color{grey}\sigma_{g_{12}} & \small\sigma_{g_{2}}^2 & \small\sigma_{g_{23}} & \small\sigma_{g_{24}}  & \small\sigma_{g_{25}}\\  \color{grey}\small\sigma_{g_{13}}  & \color{grey}\small\sigma_{g_{23}} & \small\sigma_{g_{3}}^2  & \small\sigma_{g_{34}} & \sigma_{g_{35}}\\  \color{grey}\small\sigma_{g_{14}}  & \color{grey}\small\sigma_{g_{24}} & \color{grey}\small\sigma_{g_{34}}  & \small\sigma_{g_{4}}^2 & \small\sigma_{g_{45}}\\  \color{grey}\small\sigma_{g_{15}}  & \color{grey}\small\sigma_{g_{25}} & \color{grey}\small\sigma_{g_{35}}  & \color{grey}\small\sigma_{g_{45}} & \small\sigma_{g_{5}}^2 \end{bmatrix}$$
+
+
+- The number of parameters to be estimated grows _quadratically_ with the number of environments so it quickly becomes too many parameters to estimate.
+
+:::
+:::
+
+
+## Approach 5: Fit a [FA]{style="color:orange;"} model
+
+For some order $K$, estimate the unstructured covariance with the factor analytic form:
+
+$$\mathbf{G}_e \approx \mathbf{\Lambda}\mathbf{\Lambda}^\top + \mathbf{\Psi}$$
+
+where 
+
+$$\mathbf{\Lambda} = \underbrace{\begin{bmatrix}\lambda_{11} & 0 & \cdots & 0\\\lambda_{21} & \lambda_{22} & \ddots &0\\\lambda_{31} & \lambda_{32} & \cdots &0\\\lambda_{41} & \lambda_{42} & \cdots &0\\\lambda_{51} & \lambda_{52} & \cdots &\lambda_{5K}\end{bmatrix}}_{\text{loading matrix (with corner constraints)}}\quad\text{and}\quad \mathbf{\Psi} = \underbrace{\begin{bmatrix}\psi_1 & 0 & 0 & 0 & 0\\0 & \psi_2 & 0 & 0& 0\\0& 0 & \psi_3 & 0 & 0\\0 & 0 &0 & \psi_4 & 0\\0 & 0& 0&0& \psi_5\end{bmatrix}}_{\text{specific variances}}.$$
+
+
+
+## Number of parameters to estimate in a FA model 
+
+
+::: {.columns}
+::: {.column width="70%"}
+
+| # Env | US | FA1 | FA2 | FA3 | FA4 | 
+|:---:|:----:|:----:|:----:|:----:|:----:|
+| 2 | 3 | [4]{style="color:grey"} | [5]{style="color:grey"}  |
+| 3 | 6 | 6 | [8]{style="color:grey"}  | [9]{style="color:grey"} 
+| 5 | 15 | 10 | 14 |  [17]{style="color:grey"}  | [19]{style="color:grey"} 
+| 10 | 55 | 20 | 29 | 37 | 44 |
+| 25 | 325 | 50 | 74 | 97 | 119 |
+| 50 | 1275 | 100 | 149 | 197 | 244 |
+| 100 | 5050 | 200 | 299 | 397 | 494 |
+
+<br>
+
+- FA model of order $K$ has $(K+1)E - K(K - 1)/2$ parameters to estimate.
+
+:::
+
+::: {.column width="30%"}
+
+
+
+- The number of variance parameters to estimate for FA model grows _linearly_ with the number of environments.
+- The FA model can be thought of as low-order approximation of the US model.
+
+:::
+:::
+
+
+## Latent variable model 
+
+- FA model is a special case of latent variable model when the responses are conditionally normally distributed
+
+$$\boldsymbol{u}_{ge} = (\mathbf{\Lambda} \otimes \mathbf{I}_G)
+\boldsymbol{f} + \boldsymbol{\delta}$$ assuming $$\boldsymbol{f} \sim N(\boldsymbol{0}, \mathbf{I}_{GK}) \quad\text{and}\quad\boldsymbol{\delta}\sim N(\boldsymbol{0}, \mathbf{\Psi}\otimes \mathbf{I}_G).$$
+
+- Under above assumption:
+
+$$\boldsymbol{u}_{ge} \sim N(\boldsymbol{0}, (\mathbf{\Lambda}\mathbf{\Lambda}^\top + \mathbf{\Psi})\otimes \mathbf{I}_G).$$
+
+## Interpreting the latent variable model 
+
+$$\boldsymbol{u}_{ge} = \underbrace{(\mathbf{\Lambda} \otimes \mathbf{I}_G)
+\boldsymbol{f}}_{\text{G}\times\text{E Regression}} + \underbrace{\boldsymbol{\delta}}_{\text{Residual G}\times\text{E}}$$
+
+- Notice that this is like a linear regression model except the covariates ($\mathbf{\Lambda}$) are estimated from the data.
+- The $\mathbf{\Lambda}$ represent some shared latent environment covariate.
+- $\boldsymbol{f}$, referred to as **common factor**, represent how the genotype responds to that covariate.
+- $\boldsymbol{\delta}$, referred to as **specific factor**, represent an effect specific to that environment.
+
+
+## Fitting FA models 
+
+```{r}
+#| output: false
+fit_fa2 <- asreml(yield ~ env, 
+                  random =~ fa(env, 2):gen + diag(env):block, 
+                  residual =~ dsum(~units|env),
+                  data = met2_pheno)
+```
+
+Or equivalently:
+
+```{r}
+#| output: false
+fit_rr2 <- asreml(yield ~ env, 
+                  random =~ rr(env, 2):gen + diag(env):gen + diag(env):block, 
+                  residual =~ dsum(~units|env),
+                  data = met2_pheno)
+```
+
+
+
+## Key takeaways {background-color="#F5EDDE"}
+
+- When you have a MET data, think of the covariance structure in the model.
+- DIAG models can be equivalent to fitting separate models to each environment. 
+- CS models can be too restrictive to realistically model the data.
+- US models are flexible and borrow strength across environments but the number of parameters to estimate can become prohitively large.
+- FA models are low-order approximation to US models. 
+- FA models can also have possible interpretations useful for breeding. 
+
+**Reference**
+
+Smith et al (2015) Factor analytic mixed models for the provision of grower information from national crop variety testing programs. Theor Appl Genet.
+
+
+
+
