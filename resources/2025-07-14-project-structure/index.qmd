@@ -1,0 +1,68 @@
+---
+title: "Project"
+author: "Fonti Kar & Emi Tanaka"
+date: 2025/07/14
+institute: Australian National University
+execute:
+  cache: true
+  echo: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    code-block-height: 1000px
+    css: [/assets/tachyons-addon.css]
+---
+
+## AAGI Project Structure
+
+```{r}
+#| echo: false
+options(width = 70)
+```
+
+
+- Multi-environment trials (METs) are field experiments conducted in multiple locations and/or seasons to evaluate the performance of different crop genotypes. 
+- Trial location and season/year is used synonymously with "environment"
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| fig-height: 7
+#| cache: false
+library(cropscan)
+plot_field(met2_pheno)
+```
+
+:::
+
+::: {.column width="50%"}
+
+- $G = 191$ genotypes tested across all $E = 5$ environments with $n = 288$ observations and $B = 2$ blocks per trial.
+
+```{r}
+#| echo: true
+concurrence_matrix(met2_pheno)
+```
+
+
+:::
+:::
+
+
+## Key takeaways {background-color="#F5EDDE"}
+
+- Project structure gives you and your team an unspoken understanding
+  - Keeps your kitchen organised
+- This gives makes your work intuitive and efficient
+- A solid project structure sets the foundation for more reproducible workflows
+
+
+
+
+
