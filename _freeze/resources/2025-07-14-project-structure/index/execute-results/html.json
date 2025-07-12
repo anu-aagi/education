@@ -1,0 +1,19 @@
+{
+  "hash": "f3fe70f20e99b5b84c5f35bad4568065",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Project Structure\"\nauthor: \"Fonti Kar & Emi Tanaka\"\ndate: 2025/07/14\ninstitute: Australian National University\nexecute:\n  cache: true\n  echo: true\nformat: \n  anu-light-revealjs:\n    width: 1920\n    height: 1080\n    disable-layout: false\n    auto-stretch: false\n    html-math-method: katex\n    code-block-height: 1000px\n    css: [/assets/tachyons-addon.css]\n---\n\n## Motivating example\n\n\n::: {.cell}\n\n:::\n\n\n\nWhen we enter a new kitchen where do you go to find: \n\n- cutlery? \n- drinking glasses?\n- rubbish bin? \n\n![](images/kitchen.jpeg)\n\n\n## Motivating example\n\nWhen we enter a _new project_ where do you go to find: \n\n- code? \n- data?\n- supporting information? \n\n![](images/tidy-kitchen.png)\n\n## Motivating example\n\nWhen we enter a _new project_ where do you go to find: \n\n- code? \n- data?\n- supporting information? \n\n![](images/tidy-kitchen.png)\n\nA well thought-out project directory should feel intuitive and effortless! ✨\n\n## Key takeaways {background-color=\"#F5EDDE\"}\n\n- Project structure gives you and your team an unspoken understanding\n  - Keeps your kitchen organised\n- This gives makes your work intuitive and efficient\n- A solid project structure sets the foundation for more reproducible workflows\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
