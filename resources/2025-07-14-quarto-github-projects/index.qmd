@@ -1,8 +1,12 @@
 ---
-title: "Initial Data Analysis"
-author: "Emi Tanaka"
+title: "Quarto & GitHub Projects"
+author: 
+  - "Emi Tanaka"
+  - "Fonti Kar"
 date: 2025/07/14
-institute: Australian National University
+institute: 
+  - ""
+  - Australian National University
 execute:
   cache: true
 format: 
@@ -15,3 +19,33 @@ format:
     css: [/assets/tachyons-addon.css]
 ---
 
+
+
+Where does your hard work go? --> Quarto @emitanaka (15 mins)
+- A case for Quarto:
+- Fully reproduce your work
+- A note taking device for you, future you and collaborators
+- save time dont want to repeat your because data, analysis changes...
+What can be achieved (showcase):
+- ANU report template
+- Examples to show but not share from clients
+- Interoperable
+- md syntax,
+- R related projects
+- Inserting code chunks and Inline code with prose
+- So many things to make with Quarto
+- Reports (examples) - To share with clients
+- Websites (examples)
+- Slides
+- Theses
+
+How do we currently manage projects? A quick discussion @fontikar (10 mins)
+Intro to GitHub Projects (showcase!) click and point in browser
+Something familiar issue tracking
+Something new perhaps Kaban boards / backlogs
+Something wacky, Github Discussions for meetings, ideas, brainstorms
+
+
+Fonti to share: AusTraits
+Issues: https://github.com/TengMCing/lineup_residual_diagnostics/issues?q=is%3Aissue
+Emi's package discussion board https://github.com/emitanaka/edibble/discussions
