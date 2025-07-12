@@ -54,12 +54,78 @@ When we enter a _new project_ where do you go to find:
 
 ![](images/tidy-kitchen.png)
 
-A well thought-out project directory should feel intuitive and effortless! ✨
+A well thought-out project directory should feel **intuitive and effortless!** ✨
+
+## The alternative...💔
+
+- Very slow to get started
+- Sharing data via emails
+- Dropbox/Cloud conflicted copies 
+
+A consistent format and understanding will make **life easier** 💗
+
+## No need to start from scratch 👩‍🍳 
+
+[https://github.com/anu-aagi/template-project](https://github.com/anu-aagi/template-project)
+
+```
+template-project/                 # Root of the project folder (rename)
+│
+├── README.qmd                    # Edit this one
+|── README.md                     # Automatically generated from .qmd
+│
+├── data/                         # Raw and derived data
+|
+├── code/                         # Scripts  to run analysis
+|
+├── outputs/                      # Outputs (code generated)
+│
+├── misc/                         # Misc documents
+|
+├── .git/                         # Git tracking folder
+├── .gitignore                    # Files/folders to be ignored by git
+|── .Rproj                        # RStudio project file
+```
+
+## No need to start from scratch 👩‍🍳 
+
+[https://github.com/anu-aagi/template-project](https://github.com/anu-aagi/template-project)
+
+**README: The landing page**
+
+```
+template-project/                
+│
+├── README.qmd                    # Edit this one
+|── README.md                     # Automatically generated from .qmd
+│
+```
+
+![](images/template-project-readme.png)
+
+## No need to start from scratch 👩‍🍳 
+
+[https://github.com/anu-aagi/template-project](https://github.com/anu-aagi/template-project)
+
+**Data**
+
+```
+template-project/                 
+│
+├── data/                         # Raw and derived data
+│   ├── data-raw/                 # Read-only files
+│   ├── data-input/               # Extracted and coerced from raw data
+│   └── data-valid/               # Edit and imputed from input data
+│
+```
+
+![](images/data-cleaning.png)
+
 
 ## Key takeaways {background-color="#F5EDDE"}
 
 - Project structure gives you and your team an unspoken understanding
-  - Keeps your kitchen organised
+  - Keeps your workspace organised
 - This gives makes your work intuitive and efficient
 - A solid project structure sets the foundation for more reproducible workflows
 
