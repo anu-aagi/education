@@ -27,18 +27,29 @@ format:
 .red {
   color: #B1001C;
 }
+.highlight {
+  background-color: #F0EDCC;
+  padding: 7px;
+  color: #02343F;
+  font-weight: bold;
+  transform: skew(-7deg);
+  display: inline-block;
+}
 
 .box {
   background-color: #F0EDCC;
   color: #02343F;
   padding: 20px;
   border-radius: 20px;
+  margin-bottom: 7px;
 }
 .box p:first-child {
   margin: 0!important;
+  display: block;
+  margin-bottom: 20px!important;
 }
 
-.box strong {
+.box P:first-child > strong {
   background-color: #02343F;
   color: #F0EDCC;
   width: 100%;
@@ -50,6 +61,8 @@ format:
 
 - **Data analysis** is a process of cleaning, transforming, inspecting and modelling data with the aim of extracting information.
 
+. . . 
+
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -58,8 +71,8 @@ format:
 
 **Exploratory data analysis**
 
-- EDA is about exploration and discovering unknown insights
-- Flexible, iterative, visual and discovering, identifying, formulating
+- EDA is about exploration and discovering unknown insights.
+- Flexible, iterative, visual for discovering, identifying, or formulating hypothesis.
 
 "EDA is an attitude, a flexibility, and a reliance on display, NOT a bundle of techniques." -- Tukey (1980)
 
@@ -77,6 +90,7 @@ format:
 
 - CDA is to test specific, pre-defined hypotheses using statistical methods.
 - Structured, rigorous, statistical for testing, assessing, or concluding.
+- Often only when the data is from an experimental study with a proper experimental design.
 
 :::
 
@@ -95,13 +109,16 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 
 ## Initial Data Analysis
 
-- IDA is the crucial first step in analysing data, involving inspection and exploration before formal statistical analysis. 
--  It helps ensure data quality, identify potential issues, and refine the analysis plan, leading to more reliable and reproducible results. 
+::: incremental
 
+- IDA is the crucial first step in analysing data, involving [inspection and exploration _before_ formal statistical analysis]{.highlight}. 
+-  It helps to ensure data quality, identify potential issues, and refine the analysis plan, leading to more reliable and reproducible results. 
 - Different name is used to describe the same process, such as:
   - Chatfield (1985) as **_"initial examination of data"_**,
   - Cox & Snell (1981) as **_"preliminary data analysis"_**, and 
   - Rao (1983) as **_"cross-examination of data"_**.
+  
+:::
 
 
 ::: aside 
@@ -125,18 +142,26 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 
 ::: {.column width="30%" .f2}
 
-[**Tidy data**]{.red}
+
+::: box
+
+**Tidy data**
 
 1. Each column is a variable.
 2. Each row is an observation.
 3. Each cell is a single value.
 
+:::
 
-[**Tools**]{.red}
+::: box
+
+**Tools**
 
 - **Git/GitHub** for version control and collaboration
 - Open-source programming languages (e.g. **R** and **Python**) for coding
 - **Quarto** with **markdown syntax** for interoperable reproducible reports
+
+:::
 
 :::
 :::
@@ -149,7 +174,7 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 
 ::: f3
 
-- Huebner et al (2016) A systematic approach to initial data analysis is good research practice. _The Journal of Thoracic and Cardiovascular Surgery_
+- Huebner et al (2016) A systematic approach to initial data analysis is good research practice.<br> _The Journal of Thoracic and Cardiovascular Surgery_
 - Huebner et al (2018) A Contemporary Conceptual Framework for Initial Data Analysis. _Observational Studies_
 - Steegen et al (2016) Increasing Transparency Through a Multiverse Analysis. _Perspect Psychol Sci_
 - van der Loo & de Jonge (2018) Statistical Data Cleaning with Applications in R.
@@ -162,32 +187,44 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 ::: 
 
 
-## Data Description 
+## Data Description {.scrollable}
 
-- **Assess the structure and quality of the data**
-- We refer them to occasionally as **_data sniffing_** or **_data scrutinizing_**.
-- Identify the **observational unit**
-- If a comparative experiment, identify the **experimental unit** for every treatment factor
-- Describe the missing data distribution 
-- Univariate and multivariate distribution
-- Visualise the data
+::: box
+
+<b>🎯 Aim to assess the structure and quality of the data</b>
+
+:::
+
+- A non-exhaustive list of things to check could include:
+  - Studying the **missing data** patterns 
+  - **Numerical or graphical summaries** of univariate and multivariate distributions
+    - Does the distribution of the data imply violations of assumptions for the main analysis?
+    - Checking if data collection method is consistent across discrete set of variables
+    - Plotting the data entry order across variables 
+  - Identifying the **observational unit**
+  - If a comparative experiment, 
+    - Identify the **experimental unit** for every treatment factor
+    - Be aware of **pseudo-replicates**!
+    - Does the treatment group have different demographic characteristics to the control group?
+    - Does the experimental layout match the description match? 
+    - In particular, are treatments randomised?
+
+
 
 ## Sanity check your data 
 
-- Use common or domain knowledge to **check if the recorded data have sensible values**. E.g.
+::: incremental
+
+- Also referred to as [**_data scrutinizing_**]{.highlight}.
+- Use common or domain knowledge to [**_check if the recorded data have sensible values_**]{.highlight}. 
+- For example:
   - Are positive values, e.g. height and weight, recorded as positive values with a plausible range?
   - If the data are counts, do the recorded values contain non-integer values?
   - For compositional data, do the values add up to 100% (or 1)? If not is that a measurement error or due to rounding? Or is another variable missing?
-- Are data encoded correctly?
-- Use independent or external sources 
-- Consider if or how data were derived for further sanity check of your data
+  - Are data encoded correctly?
+- [**_Use independent or external sources_**]{.highlight} (quick Google or past published articles)
+- Consider if or how [**_data were derived_**]{.highlight}
 
-## Search for unwanted or unexpected structure 
+:::
 
-- In addition, numerical or graphical summaries may reveal that there is unwanted structure in the data. E.g.,
-  - Does the treatment group have different demographic characteristics to the control group?
-  - Does the distribution of the data imply violations of assumptions for the main analysis?
-
-- Consistency of data collection method
-- Check if experimental layout given in the data and the description match (In particular, have a check with a plot to see if treatments are randomised.)
 
