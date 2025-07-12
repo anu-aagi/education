@@ -20,7 +20,112 @@ format:
 ---
 
 
-What is the goal of an IDA
-What are the major components
-What are the key tools/strategies
-How does IDA then feed into final analysis?
+## Data Analysis 
+
+- **Data analysis** is a process of cleaning, transforming, inspecting and modelling data with the aim of extracting information.
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+::: callout-note 
+
+## Exploratory data analysis
+
+- EDA is about exploration and discovering unknown insights
+- Flexible, iterative, visual and discovering, identifying, formulating
+
+"EDA is an attitude, a flexibility, and a reliance on display, NOT a bundle of techniques." -- Tukey (1980)
+
+:::
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: callout-note 
+
+## Confirmatory data analysis
+
+- CDA is to test specific, pre-defined hypotheses using statistical methods.
+- Structured, rigorous, statistical for testing, assessing, or concluding.
+
+:::
+
+:::
+:::
+
+
+::: aside 
+
+Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Statistician_.
+
+:::
+
+
+
+## Initial Data Analysis
+
+- IDA is the crucial first step in analysing data, involving inspection and exploration before formal statistical analysis. 
+-  It helps ensure data quality, identify potential issues, and refine the analysis plan, leading to more reliable and reproducible results. 
+
+- Different name is used to describe the same process, such as:
+  - Chatfield (1985) as **_"initial examination of data"_**,
+  - Cox & Snell (1981) as **_"preliminary data analysis"_**, and 
+  - Rao (1983) as **_"cross-examination of data"_**.
+
+
+::: aside 
+
+- Chatfield (1985) The Initial Examination of Data. _Journal of the Royal Statistical Society. Series A (General)_
+- Cox & Snell (1981) Applied Statistics. London: Chapman and Hall.
+- Rao (1983) Optimum balance between statistical theory and application in teaching. _Proc. of the First Int Conference on Teaching Statistics_
+
+
+::: 
+
+
+## Analysis Framework 
+
+![](images/ida-framework.jpg)
+
+
+::: aside 
+
+- Huebner et al (2016) A systematic approach to initial data analysis is good research practice. _The Journal of Thoracic and Cardiovascular Surgery_
+- Huebner et al (2018) A Contemporary Conceptual Framework for Initial Data Analysis. _Observational Studies_
+- Steegen et al (2016) Increasing Transparency Through a Multiverse Analysis. _Perspect Psychol Sci_
+- van der Loo & de Jonge (2018) Statistical Data Cleaning with Applications in R.
+
+
+
+
+
+::: 
+
+
+## Data Description 
+
+- **Assess the structure and quality of the data**
+- We refer them to occasionally as **_data sniffing_** or **_data scrutinizing_**.
+
+## Sanity check your data 
+
+- These include using common or domain knowledge to check if the recorded data have sensible values. E.g.
+  - Are positive values, e.g. height and weight, recorded as positive values with a plausible range?
+  - If the data are counts, do the recorded values contain non-integer values?
+  - For compositional data, do the values add up to 100% (or 1)? If not is that a measurement error or due to rounding? Or is another variable missing?
+
+
+## Unwanted structure 
+
+- In addition, numerical or graphical summaries may reveal that there is unwanted structure in the data. E.g.,
+  - Does the treatment group have different demographic characteristics to the control group?
+  - Does the distribution of the data imply violations of assumptions for the main analysis?
+
+
+
+## Consistency of data collection method
+
