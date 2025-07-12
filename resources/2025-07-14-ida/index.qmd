@@ -1,0 +1,26 @@
+---
+title: "Initial Data Analysis"
+author: 
+  - "Emi Tanaka"
+  - "Fonti Kar"
+date: 2025/07/14
+institute: 
+  - ""
+  - Australian National University
+execute:
+  cache: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    css: [/assets/tachyons-addon.css]
+---
+
+
+What is the goal of an IDA
+What are the major components
+What are the key tools/strategies
+How does IDA then feed into final analysis?
