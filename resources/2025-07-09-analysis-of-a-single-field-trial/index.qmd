@@ -581,7 +581,7 @@ tidy(fit_nrm, "varcomp")
 
 ## Estimated breeding values 
 
-- EBV is a measure of the breeding potential of an animal for a specific trait
+- EBV is a measure of the breeding potential of an individual for a specific trait
 - You can obtain EBV as the E-BLUP (empirical best linear unbiased predictor) of $\boldsymbol{u}_a$
 
 ```{r}
