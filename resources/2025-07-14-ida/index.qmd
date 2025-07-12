@@ -7,6 +7,7 @@ date: 2025/07/14
 institute: 
   - ""
   - Australian National University
+knitr: true
 execute:
   cache: true
 format: 
@@ -22,15 +23,40 @@ format:
 
 ## Data Analysis 
 
+```{css}
+.red {
+  color: #B1001C;
+}
+
+.box {
+  background-color: #F0EDCC;
+  color: #02343F;
+  padding: 20px;
+  border-radius: 20px;
+}
+.box p:first-child {
+  margin: 0!important;
+}
+
+.box strong {
+  background-color: #02343F;
+  color: #F0EDCC;
+  width: 100%;
+  padding: 20px;
+}
+
+```
+
+
 - **Data analysis** is a process of cleaning, transforming, inspecting and modelling data with the aim of extracting information.
 
 
 ::: {.columns}
 ::: {.column width="50%"}
 
-::: callout-note 
+::: box
 
-## Exploratory data analysis
+**Exploratory data analysis**
 
 - EDA is about exploration and discovering unknown insights
 - Flexible, iterative, visual and discovering, identifying, formulating
@@ -40,19 +66,20 @@ format:
 :::
 
 
+
 :::
 
 ::: {.column width="50%"}
 
+::: box
 
-::: callout-note 
-
-## Confirmatory data analysis
+**Confirmatory data analysis**
 
 - CDA is to test specific, pre-defined hypotheses using statistical methods.
 - Structured, rigorous, statistical for testing, assessing, or concluding.
 
 :::
+
 
 :::
 :::
@@ -89,17 +116,46 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 
 ## Analysis Framework 
 
+::: {.columns}
+::: {.column width="70%"}
+
 ![](images/ida-framework.jpg)
 
+:::
 
-::: aside 
+::: {.column width="30%" .f2}
+
+[**Tidy data**]{.red}
+
+1. Each column is a variable.
+2. Each row is an observation.
+3. Each cell is a single value.
+
+
+[**Tools**]{.red}
+
+- **Git/GitHub** for version control and collaboration
+- Open-source programming languages (e.g. **R** and **Python**) for coding
+- **Quarto** with **markdown syntax** for interoperable reproducible reports
+
+:::
+:::
+
+
+
+
+
+::: {.aside}
+
+::: f3
 
 - Huebner et al (2016) A systematic approach to initial data analysis is good research practice. _The Journal of Thoracic and Cardiovascular Surgery_
 - Huebner et al (2018) A Contemporary Conceptual Framework for Initial Data Analysis. _Observational Studies_
 - Steegen et al (2016) Increasing Transparency Through a Multiverse Analysis. _Perspect Psychol Sci_
 - van der Loo & de Jonge (2018) Statistical Data Cleaning with Applications in R.
+- Wickham (2014) Tidy Data. _Journal of Statistical Software_
 
-
+:::
 
 
 
@@ -110,22 +166,28 @@ Tukey, J. W. (1980) We Need Both Exploratory and Confirmatory. _The American Sta
 
 - **Assess the structure and quality of the data**
 - We refer them to occasionally as **_data sniffing_** or **_data scrutinizing_**.
+- Identify the **observational unit**
+- If a comparative experiment, identify the **experimental unit** for every treatment factor
+- Describe the missing data distribution 
+- Univariate and multivariate distribution
+- Visualise the data
 
 ## Sanity check your data 
 
-- These include using common or domain knowledge to check if the recorded data have sensible values. E.g.
+- Use common or domain knowledge to **check if the recorded data have sensible values**. E.g.
   - Are positive values, e.g. height and weight, recorded as positive values with a plausible range?
   - If the data are counts, do the recorded values contain non-integer values?
   - For compositional data, do the values add up to 100% (or 1)? If not is that a measurement error or due to rounding? Or is another variable missing?
+- Are data encoded correctly?
+- Use independent or external sources 
+- Consider if or how data were derived for further sanity check of your data
 
-
-## Unwanted structure 
+## Search for unwanted or unexpected structure 
 
 - In addition, numerical or graphical summaries may reveal that there is unwanted structure in the data. E.g.,
   - Does the treatment group have different demographic characteristics to the control group?
   - Does the distribution of the data imply violations of assumptions for the main analysis?
 
-
-
-## Consistency of data collection method
+- Consistency of data collection method
+- Check if experimental layout given in the data and the description match (In particular, have a check with a plot to see if treatments are randomised.)
 
