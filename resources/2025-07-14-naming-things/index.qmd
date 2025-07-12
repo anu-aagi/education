@@ -1,0 +1,31 @@
+---
+title: "Naming things"
+author: 
+  - "Fonti Kar"
+  - "Emi Tanaka"
+date: 2025/07/14
+institute: 
+  - ""
+  - Australian National University
+execute:
+  cache: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    css: [/assets/tachyons-addon.css]
+---
+
+
+Naming things (5 mins)
+
+kebab-case we like!
+Repo naming
+Files
+data
+outputs
+meeting notes
+Code
