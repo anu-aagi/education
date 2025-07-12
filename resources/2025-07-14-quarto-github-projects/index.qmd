@@ -7,8 +7,7 @@ date: 2025/07/14
 institute: 
   - ""
   - Australian National University
-execute:
-  cache: true
+knitr: true
 format: 
   anu-light-revealjs:
     width: 1920
@@ -19,25 +18,206 @@ format:
     css: [/assets/tachyons-addon.css]
 ---
 
+## Quarto in a nutshell
+
+```{css}
+.color-box {
+  position: absolute;
+  bottom:10%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width:70%;
+  text-align:center;
+  color: #BE830E;
+  border-radius: 5px;
+  border: double 5px #BE830E;
+  background-color: #F5EDDE;
+  padding: 20px;
+  z-index: 350;
+}  
+```
 
 
-Where does your hard work go? --> Quarto @emitanaka (15 mins)
-- A case for Quarto:
-- Fully reproduce your work
-- A note taking device for you, future you and collaborators
-- save time dont want to repeat your because data, analysis changes...
-What can be achieved (showcase):
-- ANU report template
-- Examples to show but not share from clients
-- Interoperable
-- md syntax,
-- R related projects
-- Inserting code chunks and Inline code with prose
-- So many things to make with Quarto
-- Reports (examples) - To share with clients
-- Websites (examples)
-- Slides
-- Theses
+
+- Quarto integrates [**text**]{.anu-gold} + [`code`]{.anu-gold} in one source document with ability to render to _many output formats_ (via Pandoc).
+
+<center>
+![](images/quarto-overview.png){width="70%"}
+</center>
+
+
+- Quarto is the next generation of **R Markdown**.
+
+
+## R Markdown 
+
+- **Quarto** and **R Markdown** are very similar.
+- The same team that created R Markdown created Quarto.
+- Quarto supersedes R Markdown so we focus on Quarto.
+
+::: flex
+
+::: {.w-50}
+
+**R Markdown**
+
+![](images/rmd-system.png)
+
+:::
+
+::: {.w-50 .pl3}
+
+**Quarto**
+
+![](images/qmd-system.png)
+
+
+:::
+
+:::
+
+
+# What can you do with Quarto? {background-color="#F5EDDE"}
+
+
+## HTML slides
+
+<br>
+<center>
+<iframe src="index.html" width="80%" height="800px" style="border: solid 3px black;"></iframe>
+</center>
+
+::: color-box
+
+These **HTML slides** are made using Quarto.
+
+**ANU HTML slide template** available at 
+
+<https://github.com/anuopensci/quarto-anu-revealjs>
+
+:::
+
+
+## Embed interactive visualisations for HTML outputs
+
+```{r}
+#| echo: true
+library(ggplot2)
+p <- agridat::gilmour.serpentine |> 
+  ggplot(aes(row, col)) +
+  geom_tile(aes(fill = yield, text = gen)) +
+  theme_void(8)
+
+plotly::ggplotly(p)
+```
+
+
+
+## What can you do with Quarto? 
+
+::: flex
+
+::: {.w-50}
+
+<br>
+<center>
+<iframe src="example-00-report.html" width="80%" height="800px" style="border: solid 3px black;"></iframe>
+</center>
+
+:::
+
+::: {.w-50 .pl3}
+
+<br>
+<center>
+<object data="example-00-report.pdf" type="application/pdf" width="80%" height="800px" style="border: solid 3px black;">
+<embed src="example-00-report.pdf" type="application/pdf" width="80%" height="800px"/>
+</object>
+</center>
+
+:::
+
+:::
+
+
+
+::: color-box
+
+These **dynamic reports** are made using Quarto.
+
+**ANU report template** available at  
+<https://github.com/anuopensci/quarto-anu-report>
+
+:::
+
+
+## Book or Thesis
+
+
+::: flex
+
+::: {.w-50}
+
+<iframe src="https://thesis.patrickli.org/" width="80%" height="800px" style="border: solid 3px black;"></iframe>
+
+:::
+
+::: {.w-50 .pl3}
+
+<center>
+<a href="https://github.com/TengMCing/PhD/blob/master/Thesis/_book/Advances-in-Artificial-Intelligence-for-Data-Visualization--Developing-Computer-Vision-Models-to-Automate-Reading-of-Data-Plots%2C-with-Application-to-Regression-Diagnostics.pdf"><img src="images/patrick-li-thesis-cover.png" width="60%" style="border: solid 3px black;"/></a>
+</center>
+
+:::
+
+:::
+
+
+::: color-box
+
+This <b>thesis</b> (online and pdf) is made using Quarto.<br>
+Available at <https://thesis.patrickli.org/> <br>
+
+**ANU thesis template** available at  
+<https://github.com/anuopensci/quarto-anu-thesis>
+
+:::
+
+## Other formats
+
+Possibilities are endless...
+
+* Microsoft Word document (.doc, .docx)
+* Open Document Text (.odt)
+* Rich text format (.rtf)
+* e-book format (.epub)
+* Markdown documents (.md)
+* Dashboard (.html)
+* Typst (.pdf)
+* Books (.pdf or .html)
+* Websites (collection of web pages)
+
+# Starting your own project {background-color="#F5EDDE"}
+
+::: f1
+
+- RStudio Desktop > New Project > New Directory > New Project
+- For those without RStudio Desktop, create a new directory.
+
+:::
+
+<br><br><br>
+
+::: {.color-box style="background-color:white"}
+
+See <https://quarto.org/> for documentation.
+
+:::
+
+
+
+## GitHub Projects
 
 How do we currently manage projects? A quick discussion @fontikar (10 mins)
 Intro to GitHub Projects (showcase!) click and point in browser
