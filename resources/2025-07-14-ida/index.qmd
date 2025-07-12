@@ -1,0 +1,17 @@
+---
+title: "Initial Data Analysis"
+author: "Emi Tanaka"
+date: 2025/07/14
+institute: Australian National University
+execute:
+  cache: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    css: [/assets/tachyons-addon.css]
+---
+
