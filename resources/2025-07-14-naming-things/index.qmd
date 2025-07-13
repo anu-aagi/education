@@ -33,8 +33,8 @@ format:
 
 - `we-like-kebabs` 🍡
 - concise + declarative `03-pl-simulation.R`
-- where it's meaningful to, date-leading `YYYY-MM-DD_meeting.md`
-- client data files we do not change
+- where it's meaningful to, lead with a date `YYYY-MM-DD_meeting.md`
+- client file names, we do not change
 
 
 ## Repositories 
@@ -42,6 +42,7 @@ format:
 - `project-type-YYYY-MM-name`
   - `support-2025-06-gta-barley`
   - `research-2025-07-acid-canola`
+  - `education-2025-07-git-workflows`
 
 ## data/
 
@@ -52,11 +53,11 @@ format:
 
 - `00-utils.R`
 - `01-ida.R`
-- `02-poisson-model`
+- `02-poisson-model.R`
 
 ## outputs
 
 - `fig-1.png`
-- `project-name-report`
+- `project-name-report.html`
 - `YYYY-MM-DD-meeting.md`
 - `schmidt-et-al-2008-notes.md`
