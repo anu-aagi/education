@@ -2,6 +2,11 @@
   {
     "listing": "/index.html",
     "items": [
+      "/resources/2025-07-14-project-structure/index.html",
+      "/resources/2025-07-14-naming-things/index.html",
+      "/resources/2025-07-14-lmm/index.html",
+      "/resources/2025-07-14-quarto-github-projects/index.html",
+      "/resources/2025-07-14-ida/index.html",
       "/resources/2025-07-10-analysis-of-MET/index.html",
       "/resources/2025-07-09-selective-breeding/index.html",
       "/resources/2025-07-09-analysis-of-a-single-field-trial/index.html"

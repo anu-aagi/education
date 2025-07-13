@@ -6,14 +6,12 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
 
-  <meta name="author" content="Emi Tanaka">
-  <meta name="dcterms.date" content="2025-07-09">
-  <title>AAGI Education – Short introduction to  selective breeding</title>
+  <meta name="author" content="Fonti Kar &amp; Emi Tanaka">
+  <meta name="dcterms.date" content="2025-07-14">
+  <title>AAGI Education – Project</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,11 +29,91 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-305926508f2e4aae91082155dd2aaf34.css">
-  <link rel="stylesheet" href="../../assets/custom.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6ec42e6be62214b3b2c7f0f0a7890586.css">
   <link rel="stylesheet" href="../../assets/tachyons-addon.css">
-  <link rel="stylesheet" href="../../assets/firework.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -134,12 +212,12 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/anu-light/logo/anu-title-slide.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Short introduction to <br>selective breeding</h1>
+  <h1 class="title">Project</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Emi Tanaka 
+Fonti Kar &amp; Emi Tanaka 
 </div>
         <p class="quarto-title-affiliation">
             Australian National University
@@ -147,205 +225,54 @@ Emi Tanaka
     </div>
 </div>
 
-  <p class="date">2025-07-09</p>
+  <p class="date">2025-07-14</p>
 </section>
-<section id="wild-vs-cultivated" class="slide level2">
-<h2>Wild vs Cultivated</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>What is this?</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/wild-banana-1000.jpg"></p>
-<figcaption>Image source <a href="https://ticotimes.net/2023/05/12/wild-about-bananas"><i class="fa-solid fa-link" aria-label="link"></i></a></figcaption>
-</figure>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/banana-cavendish_0.png"></p>
-<figcaption>Image source: <a href="https://www.dole.com/en-gb/produce/bananas"><i class="fas fa-link"></i></a></figcaption>
-</figure>
-</div>
-</div></div>
-</section>
-<section id="wild-vs-cultivated-1" class="slide level2">
-<h2>Wild vs Cultivated</h2>
-<p>What is this?</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/teosinte-corn-ancestor-closeup-e02.jpeg"></p>
-<figcaption>Image source: <a href="https://eos.org/articles/corns-ancestor-could-help-it-go-green">Matt Lavin</a></figcaption>
-</figure>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/Ears-corn.jpg"></p>
-<figcaption>Image source: <a href="https://www.britannica.com/plant/corn-plant"><i class="fas fa-link"></i></a></figcaption>
-</figure>
-</div>
-</div></div>
-</section>
-<section id="evolution-of-corn-maize" class="slide level2">
-<h2>Evolution of corn (maize)</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/484973437_658150280238678_1019421871484228107_n.jpg"></p>
-<figcaption>Image source: <a href="https://www.facebook.com/GetWildwithNik/posts/evolution-of-corn-farmers-saved-kernels-from-plants-with-desirable-characteristi/556695640384143/"><i class="fas fa-link"></i></a></figcaption>
-</figure>
-</div>
-</section>
-<section id="breeding-cycle" class="slide level2">
-<h2>Breeding cycle</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<center>
-<p><img data-src="images/breeding-cycle.svg"></p>
-</center>
-<p><br></p>
-<center class="fragment">
-<p><img data-src="images/breeding-spiral.svg"></p>
-</center>
-</div><div class="column fragment" style="width:50%;">
-<p>For plant breeding, the number of locations generally increase for later stages.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="why-do-selective-breeding" class="slide level2">
-<h2>Why do selective breeding?</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Production</a></li><li><a href="#tabset-1-2">Population</a></li><li><a href="#tabset-1-3">Production per capita</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-1-3">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="column fragment" style="width:40%;">
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Arable land</a></li><li><a href="#tabset-2-2">Yield</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-2-2">
-<p>Yield = Production / Area Harvested</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="what-trait-to-optimise" class="slide level2">
-<h2>What trait to optimise?</h2>
-<div class="columns">
-<div class="column fragment" style="width:33%;">
-<p><br><br><br></p>
-<center>
-<p><span style="font-size:3em;">Yield</span></p>
-<p>(economic driver)</p>
-</center>
-</div><div class="column fragment" style="width:33%;">
-<p><img data-src="images/broiler-chicken-weight.png" style="height:900px"></p>
-</div><div class="column fragment" style="width:33%;">
-<p><br><br><br><br></p>
-<p>Quality traits, disease resistance, and other desirable traits.</p>
-</div></div>
-</section>
-<section id="aim-of-selective-breeding-in-a-nutshell" class="slide level2">
-<h2>Aim of selective breeding in a nutshell</h2>
-<p><span style="border:4px solid black;border-radius:5px;background-color:#FFFACD;padding:10px;font-size:1.5em;">🎯 Increase <strong>genetic gain</strong></span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
+<section id="aagi-project-structure" class="slide level2">
+<h2>AAGI Project Structure</h2>
 <ul>
-<li><strong>Genetic gain</strong> measures improvement in the average genotype performance of a population over time due to selection for specific traits.</li>
+<li>Multi-environment trials (METs) are field experiments conducted in multiple locations and/or seasons to evaluate the performance of different crop genotypes.</li>
+<li>Trial location and season/year is used synonymously with “environment”</li>
 </ul>
-<p><img data-src="images/genetic-gain-eq.png"></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(cropscan)</span>
+<span id="cb1-2"><a></a><span class="fu">plot_field</span>(met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:50%;">
-<p><img data-src="images/genetic-gain-img.png"></p>
+<ul>
+<li><span class="math inline">G = 191</span> genotypes tested across all <span class="math inline">E = 5</span> environments with <span class="math inline">n = 288</span> observations and <span class="math inline">B = 2</span> blocks per trial.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">concurrence_matrix</span>(met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     
+      E02 E05 E07 E08 E10
+  E02 191 191 191 191 191
+  E05 191 191 191 191 191
+  E07 191 191 191 191 191
+  E08 191 191 191 191 191
+  E10 191 191 191 191 191</code></pre>
+</div>
+</div>
 </div></div>
-
-<aside><div>
-<p>For other ways to calculate <span class="math inline">\(\Delta G\)</span>, see Rutkoski (2019) A practical guide to genetic gain. Advances in Agronomy</p>
-</div></aside></section>
-<section id="analytical-strategies-for-selective-breeding" class="slide level2">
-<h2>Analytical strategies for selective breeding</h2>
+</section>
+<section id="key-takeaways" class="slide level2" data-background-color="#F5EDDE">
+<h2>Key takeaways</h2>
 <ul>
-<li class="fragment"><strong>Improve selection accuracy</strong>
+<li>Project structure gives you and your team an unspoken understanding
 <ul>
-<li class="fragment">Use effective experimental design that separate out sources of variation for the response</li>
-<li class="fragment">Use appropriate models to disaggregate “noise” from “signal” to get accurate estimates of breeding values</li>
+<li>Keeps your kitchen organised</li>
 </ul></li>
-<li class="fragment"><strong>Marker assisted selection</strong>
-<ul>
-<li class="fragment">Identify DNA markers related to desirable traits (e.g.&nbsp;disease resistance)</li>
-<li class="fragment">Some traits are dependent only for a small number of DNA markers</li>
-<li class="fragment">Screen candidate genotypes based on these markers</li>
-</ul></li>
-<li class="fragment"><strong>Genomic selection</strong>
-<ul>
-<li class="fragment">Use a training population to estimate the additive marker effects</li>
-<li class="fragment">Predict breeding values of candidate genotypes</li>
-</ul></li>
+<li>This gives makes your work intuitive and efficient</li>
+<li>A solid project structure sets the foundation for more reproducible workflows</li>
 </ul>
 
 
@@ -370,7 +297,6 @@ Emi Tanaka
   <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -538,27 +464,9 @@ Emi Tanaka
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -690,7 +598,7 @@ Emi Tanaka
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/anu-aagi\.github\.io\/education\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
