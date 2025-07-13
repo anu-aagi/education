@@ -1,5 +1,5 @@
 ---
-title: "Naming things"
+title: "Naming AAGI things"
 author: 
   - "Fonti Kar"
   - "Emi Tanaka"
@@ -19,13 +19,44 @@ format:
     css: [/assets/tachyons-addon.css]
 ---
 
+## The inspiration
 
-Naming things (5 mins)
 
-kebab-case we like!
-Repo naming
-Files
-data
-outputs
-meeting notes
-Code
+[Jenny Byran](https://jennybryan.org) 💜
+
+![](images/jenny-bryans-talk.png)
+
+[_"How to name things like a normie"_](https://youtu.be/ES1LTlnpLMk)
+
+
+## A guide
+
+- `we-like-kebabs` 🍡
+- concise + declarative `03-pl-simulation.R`
+- where it's meaningful to, date-leading `YYYY-MM-DD_meeting.md`
+- client data files we do not change
+
+
+## Repositories 
+
+- `project-type-YYYY-MM-name`
+  - `support-2025-06-gta-barley`
+  - `research-2025-07-acid-canola`
+
+## data/
+
+- `data-input-project-name.csv`
+- `data-valid-project-name.csv`
+
+## code/
+
+- `00-utils.R`
+- `01-ida.R`
+- `02-poisson-model`
+
+## outputs
+
+- `fig-1.png`
+- `project-name-report`
+- `YYYY-MM-DD-meeting.md`
+- `schmidt-et-al-2008-notes.md`
