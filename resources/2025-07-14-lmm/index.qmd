@@ -1,0 +1,651 @@
+---
+title: "Linear mixed models"
+author:  "Emi Tanaka"
+date: 2025/07/14
+institute: Australian National University
+knitr: true
+execute: 
+  echo: true
+format: 
+  anu-light-revealjs:
+    width: 1920
+    height: 1080
+    disable-layout: false
+    auto-stretch: false
+    html-math-method: katex
+    css: [/assets/tachyons-addon.css]
+---
+
+
+## Linear mixed model
+
+A general form for the linear mixed model is given by 
+
+```{css, echo = FALSE}
+.error {
+  color: rgb(252, 42, 141);
+}
+.random {
+  color: rgb(7, 149, 80);
+}
+.fixede {
+  color: rgb(8, 101, 181);
+}
+
+.highlight {
+  background-color: #F0EDCC;
+  padding: 7px;
+  color: #02343F;
+  font-weight: bold;
+  transform: skew(-7deg);
+  display: inline-block;
+}
+
+.box {
+  background-color: #F0EDCC;
+  color: #02343F;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 7px;
+}
+.box p:first-child {
+  margin: 0!important;
+  display: block;
+  margin-bottom: 20px!important;
+}
+
+.box p:first-child > strong {
+  background-color: #02343F;
+  color: #F0EDCC;
+  padding: 20px;
+}
+
+```
+
+
+<center>
+
+![](images/lmm-processed.png)
+
+</center>
+
+- We let $\boldsymbol{\sigma} = (\boldsymbol{\sigma}^\top_g, \boldsymbol{\sigma}^\top_r)^\top$ denote the complete vectors of variance parameters. 
+- We need to estimate the [fixed effects $\boldsymbol{\beta}$]{.fixede} and [variance parameters $\boldsymbol{\sigma}$]{.fixede}.
+
+
+## Variance structures of [random effects]{.random}
+
+- The $q\times 1$ vector of random effects is often composed of ${n_b}$ sub-vectors [$$\boldsymbol{b} = (\boldsymbol{b}_1^\top,\boldsymbol{b}_2^\top,\dots,\boldsymbol{b}_{n_b}^\top)^\top$$]{.random} where the sub-vectors $\boldsymbol{b}_i$ are of length $q_i$ and $\sum_{i=1}^{n_b}q_i = q$.
+- Let $\text{var}(\boldsymbol{b}_i) = \mathbf{G}_i$ and assuming $\boldsymbol{b}_i$ are mutually independent, then
+
+$$\mathbf{G} = \oplus^{n_b}_{i=1} \mathbf{G}_i = \begin{bmatrix} \mathbf{G}_1 & \mathbf{0} & \cdots & \mathbf{0} \\ \mathbf{0} & \mathbf{G}_2 & \cdots & \mathbf{0} \\ \vdots & \vdots  & \ddots & \vdots \\ \mathbf{0} & \mathbf{0} &\cdots & \mathbf{G}_{n_b} \\ \end{bmatrix} .$$
+
+- $\mathbf{Z} =  \begin{bmatrix} \mathbf{Z}_1 & \mathbf{Z}_2 & ... & \mathbf{Z}_{n_b} \\ \end{bmatrix}$ and $\mathbf{Z}\boldsymbol{b} = \mathbf{Z}_1\boldsymbol{b}_1 + \cdots + \mathbf{Z}_{n_b}\boldsymbol{b}_{n_b} = \sum_{i=1}^{n_b}\mathbf{Z}_i\boldsymbol{b}_i.$
+
+
+## Variance structures of [errors]{.error} 
+
+- Classical assumption is that the errors are assumed to be independent and identically distributed (i.i.d)  $\rightarrow\mathbf{R} = \sigma^2 \mathbf{I}_n$.
+- In some situations, $\boldsymbol{e}$ will be sub-divided into [_sections_]{.error}, e.g. multi-clinic trials or multi-environment variety trials.
+- We let [$\boldsymbol{e} = (\boldsymbol{e}_1^\top, \boldsymbol{e}_2^\top, \dots, \boldsymbol{e}_{n_e}^\top)^\top$]{.error} so that $\boldsymbol{e}_j$ represents the vector of errors of the $j$th section of the data.
+
+<center>
+
+$$\mathbf{R} = \oplus_{j=1}^{n_e} \mathbf{R}_j = 
+\begin{bmatrix} 
+\mathbf{R}_1 & \mathbf{0} & \dots  &  \mathbf{0} \\
+\mathbf{0} & \mathbf{R}_2 & \dots  &  \mathbf{0} \\
+\vdots & \vdots & \ddots & \vdots \\
+\mathbf{0} & \mathbf{0} & \dots & \mathbf{R}_{n_e}
+\end{bmatrix}$$
+      
+where $\oplus$ is the direct sum operator. 
+
+</center>
+
+## Variance models
+
+- There are three types of variance model for $\mathbf{R}_i$ and $\mathbf{G}_i$:  
+
+<br>
+
+::: {.columns .f2}
+
+::: {.column width="33%"}
+
+::: box
+
+ **Correlation**
+
+ - diagonal elements are all 1
+ - off-diagonal elements are between -1 and 1  
+ - If $\mathbf{C}$ is a $n\times n$ correlation model, then there are $\frac{1}{2}n(n - 1)$ parameters. 
+ 
+:::
+
+:::
+ 
+::: {.column width="33%"}
+
+::: box
+
+**Homogeneous**
+
+- diagonal elements all have the same
+positive value $\sigma^2$ (say)
+- $\sigma^2\mathbf{C}$ is a homogeneous model, so it has $\frac{1}{2}n(n - 1) + 1$ parameters. 
+
+:::
+
+:::
+
+::: {.column width="33%"}
+
+::: box
+
+**Heterogeneous**
+
+- diagonal elements are positive but can differ $(\sigma_1^2, \sigma^2_2, \cdots, \sigma^2_n)$
+- $\mathbf{D}\mathbf{C}\mathbf{D}$ where $\mathbf{D} = \oplus_{i=1}^n \sigma_i$ is a heteregenous model, so it has $\frac{1}{2}n(n - 1) + n$ parameters. 
+
+:::
+
+:::
+
+:::
+
+
+
+ 
+
+## Variance model functions in `asreml`
+
+::: {.columns .f2}
+
+::: {.column width="25%"}
+
+::: box
+
+**Default**
+
+`id()` $= \mathbf{I}_n$
+
+`idv()` $= \sigma^2\mathbf{I}_n$
+
+`idh()` 
+
+$$= \begin{bmatrix}\sigma^2_1 & 0 & \cdots & 0 \\ 
+0 & \sigma^2_2 & \ddots & \vdots\\
+\vdots & \ddots  & \ddots & 0 \\
+0 & \cdots & 0 & \sigma^2_n
+\end{bmatrix}$$
+
+:::
+
+:::
+
+::: {.column width="25%"}
+
+::: box
+
+**Time series**
+
+<br>
+
+
+`ar1()`, `ar2()`, `ar3()`, `sar()`, `sar2()`, `ma1()`, `ma3()`, `arma()`
+
+
+- Suffix name with `v` or `h` to convert correlation model to homogeneous or heterogeneous models.
+- E.g. `ar1v()` or `ar1h()`
+
+:::
+
+:::
+
+::: {.column width="25%"}
+
+::: box
+
+**Metric-based**
+
+<br>
+
+
+`exp()`, `gau()`, `lvr()`, `iexp()`, `igau()`, `ieuc()`, `sph()`, `cir()`, `aexp()`, `agau()`, `mtrn()`
+
+- Suffix name with `v` or `h` to convert correlation model to homogeneous or heterogeneous models.
+
+:::
+
+:::
+
+::: {.column width="25%"}
+
+::: box
+
+**General structures**
+
+<br>
+
+`cor()`, `corb()`, `corg()`, `diag()`, `us()`, `chol()`, `cholc()`, `ante()`, `sfa()`, `fa()`, `facv()`, `rr()`
+
+- For `cor()`, `corb()`, and `corg()`, suffix name with `v` or `h` to convert correlation model to homogeneous or heterogeneous models.
+
+:::
+
+:::
+
+:::
+
+- Some combination are equivalent, e.g. `idh()` $\equiv$ `diag()` and `corgh()` $\equiv$ `us()`, but default starting values or computation under the hood may differ.
+
+
+
+## Aliasing of variance parameters
+
+
+::: incremental
+ 
+- Variance models may not be:
+  - identifiable if they are over-parameterised,
+  - insufficient data to estimate the parameters of the chosen variance
+ model.
+- Note that if you have $\mathbf{V}_1 \otimes \mathbf{V}_2$, where $\mathbf{V}_1$ and $\mathbf{V}_2$ are variance models, then this is over-parameterised. E.g. `idv(col):idv(row)`.
+- $\mathbf{C} \otimes \mathbf{V}$ or $\mathbf{V} \otimes \mathbf{C}$, where $\mathbf{V}$ is a variance model and $\mathbf{C}$ is a correlation model, may be acceptable. This is referred to as the **_sigma parameterization_** in `asreml`. E.g. `idv(col):id(row)`. 
+- $\mathbf{C} \otimes \mathbf{C}$ is generally converted to $\sigma^2 \mathbf{C} \otimes \mathbf{C}$ by `asreml`. This is referred to as the **_gamma parameterization_** in `asreml`. E.g. `id(col):id(row)`. 
+
+:::
+
+
+## Example 🌾 different variance models
+
+::: f3
+
+
+
+::: {.columns }
+::: {.column width="50%"}
+
+```{r}
+#| output: false
+#| code-line-numbers: "5,11,17"
+library(asreml)
+# gamma parameterization.
+fiti <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ id(column):id(row),
+               data = naf)
+
+# sigma parameterization
+fitv <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ idv(column):id(row),
+               data = naf)
+
+# sigma parameterization
+fith <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ idh(column):id(row),
+               data = naf)
+```
+
+Below cannot be fitted. 
+
+```{r}
+#| eval: false
+#| code-line-numbers: "3"
+fitn <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ idv(column):idv(row),
+               data = naf)
+```
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+```{r}
+library(broom.asreml)
+
+tidy(fiti, "varcomp")
+tidy(fitv, "varcomp")
+tidy(fith, "varcomp")
+
+```
+
+:::
+:::
+
+
+
+:::
+
+
+
+
+## BLUEs and BLUPs
+
+- Suppose that $\text{var}(\boldsymbol{y}) = \mathbf{V} = \mathbf{Z}\mathbf{G}\mathbf{Z}^\top + \mathbf{R}$.
+- Also assume $\boldsymbol{\sigma}$ is known, $\mathbf{V}$ is non-singular and $\mathbf{X}$ is full rank. 
+- Let $\mathbf{P} = \mathbf{V}^{-1} - \mathbf{V}^{-1}\mathbf{X}(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{V}^{-1}$
+
+
+::: columns
+
+::: {.column width = "50%"}
+
+::: box
+
+**Best linear unbiased estimates (BLUEs)**
+
+$$\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{V}^{-1}\boldsymbol{y}$$
+
+:::
+
+:::
+
+::: {.column width = "50%"}
+
+
+::: box
+
+**Best linear unbiased predictions (BLUPs)**
+
+$$\tilde{\boldsymbol{b}} = \mathbf{G}\mathbf{Z}^\top\mathbf{P}\boldsymbol{y} = \mathbf{G}\mathbf{Z}^\top\mathbf{V}^{-1}(\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}})$$
+
+
+
+:::
+
+
+:::
+
+:::
+
+
+- But since $\mathbf{V}$ is often unknown, it is estimated from the data. 
+- Correspondingly, we plug the estimate of $\mathbf{V}$ to above to get the E-BLUEs and E-BLUPs (where E = empirical).
+
+::: aside
+
+First usage of the term BLUP in Goldberger (1962) Best Linear Unbiased Prediction in the Generalized Linear Regression Model. _Journal of American Statistical Association_
+
+:::
+
+
+## Example 🌾 BLUEs and BLUPs by hand
+
+::: {.columns .f3}
+::: {.column width="40%"}
+
+By `asreml`
+
+
+```{r}
+#| output: false
+fits <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ units,
+               data = shf)
+```
+
+
+```{r}
+tidy(fits, "fixed")
+tidy(fits, "random")
+```
+
+
+:::
+
+::: {.column width="60%" .fragment}
+
+By "hand"
+
+```{r}
+vars <- tidy(fits, "varcomp")$estimate
+G <- vars[1] * diag(nlevels(shf$Variety))
+R <- vars[2] * diag(nrow(shf))
+Z <- model.matrix(~Variety - 1, data = shf)
+X <- matrix(1, nrow = nrow(shf))
+V <- Z %*% G %*% t(Z) + R
+y <- shf$yield
+(BLUE <- solve(t(X) %*% solve(V) %*% X) %*% t(X) %*% solve(V) %*% y)
+(BLUP <- G %*% t(Z) %*% solve(V) %*% (y - X %*% BLUE))
+```
+
+
+
+:::
+:::
+
+
+
+## Best linear unbiased estimator
+
+- A statistic $\hat{\boldsymbol{\beta}}$ is the [best linear unbiased estimator]{.fixede} of $\boldsymbol{\beta}$ if 
+  - $\hat{\boldsymbol{\beta}} =  \mathbf{A}\boldsymbol{y}$ for some $\mathbf{A}$,  
+  - $E(\hat{\boldsymbol{\beta}}) = \boldsymbol{\beta}$, and
+  - $\text{var}(\hat{\boldsymbol{\beta}})$ is the smallest of all linear unbiased estimator of $\boldsymbol{\beta}$.
+  
+  
+- Homework: prove $\boldsymbol{c}_1^\top\hat{\boldsymbol{\beta}} + \boldsymbol{c}_2^\top\tilde{\boldsymbol{b}}$ is BLUE for $\boldsymbol{c}_1^\top\boldsymbol{\beta} + \boldsymbol{c}_2^\top\boldsymbol{b}$ for any $\boldsymbol{c}_1 \in\mathbb{R}^p$ and $\boldsymbol{c}_2 \in\mathbb{R}^q$.
+
+
+
+
+## Objective function to derive BLUEs and BLUPs
+
+- Find $(\boldsymbol{\beta}, \boldsymbol{b})$ which maximises the [log-density function of the joint distribution of $\boldsymbol{y}$ and $\boldsymbol{b}$]{.fixede} assuming $\boldsymbol{\sigma}$ is known.
+- Note $\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{V})$, $\boldsymbol{b} \sim N(\boldsymbol{0}, \mathbf{G})$ and $\boldsymbol{y}|\boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{b}, \mathbf{R})$.
+
+
+\begin{align*}
+l &= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
+&= \log f(\boldsymbol{y}|\boldsymbol{b};\boldsymbol{\sigma}_r) + \log f(\boldsymbol{b};\boldsymbol{\sigma}_g) \\
+&= -\frac{1}{2}\log |\mathbf{R}| - \frac{1}{2}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b}) \\
+& \qquad - \frac{1}{2}\log|\mathbf{G}|  - \frac{1}{2} \boldsymbol{b}^\top\mathbf{G}^{-1}\boldsymbol{b} - \frac{n+q}{2}\log 2\pi.
+\end{align*}
+
+## Mixed model equations 
+
+\begin{align*}
+\frac{\partial \ell}{\partial\boldsymbol{\beta}} &= \mathbf{X}^\top \mathbf{R}^{-1}(\boldsymbol{y} - \mathbf{X}\boldsymbol{\beta} - \mathbf{Z}\boldsymbol{b}) = \boldsymbol{0} \\
+\frac{\partial \ell}{\partial\boldsymbol{b}} &= \mathbf{Z}^\top \mathbf{R}^{-1}(\boldsymbol{y} - \mathbf{X}\boldsymbol{\beta} - \mathbf{Z}\boldsymbol{b}) - \mathbf{G}^{-1} \boldsymbol{u}= \boldsymbol{0}. 
+\end{align*}
+
+Rearranging the above results in the [**mixed model equations**]{.fixede}:
+
+$$\underbrace{\begin{bmatrix}
+\mathbf{X}^\top \mathbf{R}^{-1}\mathbf{X} & \mathbf{X}^\top \mathbf{R}^{-1}\mathbf{Z} \\
+\mathbf{Z}^\top \mathbf{R}^{-1}\mathbf{X} & \mathbf{Z}^\top \mathbf{R}^{-1}\mathbf{Z} + \mathbf{G}^{-1} \\
+\end{bmatrix}}_{\normalsize\mathbf{C}}
+\begin{bmatrix}
+\hat{\boldsymbol{\beta}} \\
+\tilde{\boldsymbol{b}}
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\mathbf{X}^\top\mathbf{R}^{-1}\boldsymbol{y}\\
+\mathbf{Z}^\top\mathbf{R}^{-1}\boldsymbol{y}
+\end{bmatrix}$$
+
+Solving this results in the same BLUE and BLUP as before.
+
+::: aside
+
+Henderson (1949) Estimation of changes in herd environment. (Abstract) _Journal of Dairy Science_  
+Henderson (1950) Estimation of genetic parameters. _Annals of Mathematical Statistics_
+
+
+
+:::
+
+
+
+
+## Inference
+
+::: box
+
+**Variance of prediction errors**
+
+$$\text{var}\left(\begin{bmatrix}\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}\\\tilde{\boldsymbol{b}} - \boldsymbol{b}\end{bmatrix}\right) = \mathbf{C}^{-1} = {\scriptsize\begin{bmatrix}(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1} & -(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{Z}\mathbf{G}\\ -\mathbf{G}\mathbf{Z}^\top\mathbf{V}^{-1}\mathbf{X}(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1} & \mathbf{G} - \mathbf{G}\mathbf{Z}^\top\mathbf{P}\mathbf{Z}\mathbf{G} \end{bmatrix}}$$
+
+:::
+
+
+- Note $\text{var}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) = \text{var}(\hat{\boldsymbol{\beta}})$.
+
+
+
+## Estimation of variance parameters
+
+- Variance parameters $\boldsymbol{\sigma}$ can be estimated using **maximum likelihood** (ML) approach or **residual (or restricted) maximum likelihood** (REML) approach.
+- REML estimates takes into account the loss of degrees of freedom associated with estimation of fixed effects, so are _less biased_ than ML estimates. 
+
+::: {.columns .f3}
+::: {.column width="40%"}
+
+::: box
+
+**ML**
+
+\begin{align*}
+\hat{\boldsymbol{\sigma}}_{\text{ML}} &= \operatorname*{arg\,max}_{\boldsymbol{\sigma}} f(\boldsymbol{y}; \boldsymbol{\sigma})\\
+&= \operatorname*{arg\,max}_{\boldsymbol{\sigma}}~ \log f(\boldsymbol{y}; \boldsymbol{\sigma})\\
+&= \operatorname*{arg\,max}_{\boldsymbol{\sigma}}~  -\frac{1}{2}\left( \log |\mathbf{V}| + (\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}})^\top\mathbf{V}^{-1}(\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}})\right)
+\end{align*}
+
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+
+::: box
+
+**REML**
+
+
+
+\begin{align*}
+\hat{\boldsymbol{\sigma}}_{\text{REML}} &= \operatorname*{arg\,max}_{\boldsymbol{\sigma}} \ell_R(\boldsymbol{\sigma}) \quad(\textbf{residual log-likelihood})\\
+&= \operatorname*{arg\,max}_{\boldsymbol{\sigma}}~  -\frac{1}{2}\left( \log |\mathbf{V}| + {\color{RoyalBlue} \log|\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X}|}   + (\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}})^\top\mathbf{V}^{-1}(\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}})\right)\\
+&= \operatorname*{arg\,max}_{\boldsymbol{\sigma}}~ -\frac{1}{2}\left(\log |\mathbf{G}| +  \log |\mathbf{R}| + \log |\mathbf{C}| + \boldsymbol{y}^\top\mathbf{P}\boldsymbol{y}\right)
+\end{align*}
+
+
+:::
+
+:::
+:::
+
+
+
+
+::: aside 
+
+Hartley & Rao (1967) Maximum-likelihood estimation for the mixed analysis of variance model. _Biometrika_
+
+Patterson & Thompson (1971) Recovery of inter-block information when block sizes are unequal. _Biometrika_
+
+
+Verbyla (1990) A conditional derivation of residual maximum likelihood. _Australian & New Zealand Journal of Statistics_
+
+
+:::
+
+
+## REML score equations {.f2}
+
+::: {.box}
+
+**REML score equations**
+
+REML estimates for $\boldsymbol{\sigma}_{m\times1} = (\sigma_1, \dots, \sigma_m)^\top$ are obtained by solving  $$s_i(\boldsymbol{\sigma}) = \frac{\partial\ell_R(\boldsymbol{\sigma})}{\partial  \sigma_i} = 0 \quad\text{for } i = 1, \dots, m.$$
+
+:::
+
+- We solve numerically using a Newton-Raphson algorithm: $$\boldsymbol{\sigma}^{(t + 1)} = \boldsymbol{\sigma}^{(t)} + \left({\color{RoyalBlue}\mathcal{J}(\boldsymbol{\sigma}^{(t)}})\right)^{-1}\boldsymbol{s}(\boldsymbol{\sigma}^{(t)})$$ where 
+
+  - $\boldsymbol{s}(\boldsymbol{\sigma}^{(t)}) = (s_1(\boldsymbol{\sigma}^{(t)}), s_2(\boldsymbol{\sigma}^{(t)}), \dots, s_m(\boldsymbol{\sigma}^{(t)}))^\top$ is the $m\times 1$ scores at iteration $t$, and
+  - $\mathcal{J}(\boldsymbol{\sigma}^{(t)})$ is the $m\times m$ [**observed information matrix**]{.fixede} at iteration $t$ where the $(i,j)$-th entry is given as $$\mathcal{J}_{ij}(\boldsymbol{\sigma}^{(t)}) = -\dfrac{\partial s_i(\boldsymbol{\sigma}^{(t)})}{\partial \sigma_j} = -\frac{\partial^2\ell_R(\boldsymbol{\sigma}^{(t)})}{\delta\sigma_i\delta\sigma_j}.$$
+  
+  
+## Information matrices
+
+::: f2
+
+Let $\mathbf{V}'_i = \frac{\partial \mathbf{V}}{\partial \sigma_i}$ and $\mathbf{V}''_i = \frac{\partial^2 \mathbf{V}}{\partial \sigma_i\partial \sigma_j}$.
+
+
+
+::: box
+
+**Observed information matrix**
+
+$$\mathcal{J}_{ij} = \frac{1}{2}\text{tr}(\mathbf{P}\mathbf{V}''_{ij}) - \frac{1}{2}\text{tr}(\mathbf{P}\mathbf{V}_{i}'\mathbf{P}\mathbf{V}_j') + \boldsymbol{y}\mathbf{P}\mathbf{V}'_i\mathbf{P}\mathbf{V}_j'\mathbf{P}\boldsymbol{y}-\frac{1}{2}\boldsymbol{y}^\top\mathbf{P}\mathbf{V}''_{ij}\mathbf{P}\boldsymbol{y}$$
+
+:::
+
+::: box
+
+**Expected information matrix (Fisher information)**
+
+$$\mathcal{I}_{ij} = E(\mathcal{J}_{ij}) = \frac{1}{2}\text{tr}(\mathbf{P}\mathbf{V}_{i}'\mathbf{P}\mathbf{V}_j') $$
+
+:::
+
+
+::: box
+
+**Average information matrix**
+
+$$\mathcal{A}_{ij} = \frac{1}{2}\boldsymbol{y}\mathbf{P}\mathbf{V}'_i\mathbf{P}\mathbf{V}_j'\mathbf{P}\boldsymbol{y} = \frac{1}{2}(\mathcal{J}_{ij} + \mathcal{I}_{ij})\quad\text{assuming }\boldsymbol{y}^\top\mathbf{P}\mathbf{V}''_{ij}\mathbf{P}\boldsymbol{y} = \text{tr}(\mathbf{P}\mathbf{V}''_{ij})$$
+
+:::
+
+:::
+
+
+::: aside 
+
+
+::: f3
+
+Johnson & Thompson (1995) Restricted Maximum Likelihood Estimation of Variance Components for Univariate Animal Models Using Sparse Matrix Techniques and Average Information. _Journal of Dairy Science_
+
+
+Gilmour, Thompson & Cullis (1995) Average Information REML: An Efficient Algorithm for Variance Parameter Estimation in Linear Mixed Models. _Biometrics_
+
+:::
+
+:::
+
+
+## Algorithm {style="font-size:0.9em;"}
+
+Start with initial estimate of $\boldsymbol{\sigma} = \boldsymbol{\sigma}^{(0)}$.
+
+For $t = 1, \dots, \texttt{maxit}$,
+
+1. Calculate $\hat{\boldsymbol{\beta}}^{(t - 1)} = (\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\boldsymbol{y}$ and $\tilde{\boldsymbol{b}}^{(t - 1)} = \mathbf{G}\mathbf{Z}^\top\mathbf{P}^{(t - 1)}\boldsymbol{y}$.
+2. Calculate residual likelihood $\ell_R^{(t- 1)} = -\frac{1}{2}\left(\log |\mathbf{G}^{(t-1)}| +  \log |\mathbf{R}^{(t-1)}| + \log |\mathbf{C}^{(t-1)}| + \boldsymbol{y}^\top\mathbf{P}^{(t-1)}\boldsymbol{y}\right)$'
+3. Calculate the scores $\boldsymbol{s}(\boldsymbol{\sigma}^{(t - 1)})$
+4. Calculate the average informaton matrix $\mathcal{A}_{ij}^{(t - 1)} = \frac{1}{2}\boldsymbol{y}\mathbf{P}^{(t-1)}\mathbf{V}'^{(t-1)}_i\mathbf{P}^{(t-1)}\mathbf{V}_j'^{(t-1)}\mathbf{P}^{(t-1)}\boldsymbol{y}$
+5. Update $\boldsymbol{\sigma}^{(t)} = \boldsymbol{\sigma}^{(t - 1)} + \left(\mathcal{A}^{(t - 1)}\right)^{-1}\boldsymbol{s}(\boldsymbol{\sigma}^{(t-1)})$
+6. Repeat 1-2, if $\ell_R^{(t)} - \ell_R^{(t-1)} < \text{threshold}$ the break.
+
+  
+
+## Reference
+
+
+- Smith (1999) Multiplicative mixed models for the analysis of multi-environment trial data. PhD Thesis.
