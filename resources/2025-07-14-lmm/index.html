@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
 
   <meta name="author" content="Emi Tanaka">
   <meta name="dcterms.date" content="2025-07-14">
@@ -30,9 +30,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-305926508f2e4aae91082155dd2aaf34.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0c51170ea13fc562ad8ec721ddbfe0d6.css">
   <link rel="stylesheet" href="../../assets/tachyons-addon.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -312,7 +311,7 @@ Emi Tanaka
 <section id="variance-models" class="slide level2">
 <h2>Variance models</h2>
 <ul>
-<li>There are three types of variance model for <span class="math inline">\mathbf{R}_i</span> and <span class="math inline">\mathbf{G}_i</span>:</li>
+<li>There are three types of variance model for <span class="math inline">\mathbf{R}_j</span> and <span class="math inline">\mathbf{G}_i</span>:</li>
 </ul>
 <p><br></p>
 <div class="columns f2">
@@ -394,6 +393,7 @@ Emi Tanaka
 </section>
 <section id="aliasing-of-variance-parameters" class="slide level2">
 <h2>Aliasing of variance parameters</h2>
+<div>
 <ul>
 <li class="fragment">Variance models may not be:
 <ul>
@@ -404,6 +404,7 @@ Emi Tanaka
 <li class="fragment"><span class="math inline">\mathbf{C} \otimes \mathbf{V}</span> or <span class="math inline">\mathbf{V} \otimes \mathbf{C}</span>, where <span class="math inline">\mathbf{V}</span> is a variance model and <span class="math inline">\mathbf{C}</span> is a correlation model, may be acceptable. This is referred to as the <strong><em>sigma parameterization</em></strong> in <code>asreml</code>. E.g. <code>idv(col):id(row)</code>.</li>
 <li class="fragment"><span class="math inline">\mathbf{C} \otimes \mathbf{C}</span> is generally converted to <span class="math inline">\sigma^2 \mathbf{C} \otimes \mathbf{C}</span> by <code>asreml</code>. This is referred to as the <strong><em>gamma parameterization</em></strong> in <code>asreml</code>. E.g. <code>id(col):id(row)</code>.</li>
 </ul>
+</div>
 </section>
 <section id="example-different-variance-models" class="slide level2">
 <h2>Example 🌾 different variance models</h2>
@@ -515,7 +516,7 @@ Emi Tanaka
 <div class="column" style="width:40%;">
 <p>By <code>asreml</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fits <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fits  <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb9-2"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
 <span id="cb9-3"><a></a>               <span class="at">residual =</span><span class="sc">~</span> units,</span>
 <span id="cb9-4"><a></a>               <span class="at">data =</span> shf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -526,23 +527,23 @@ Emi Tanaka
 <pre><code># A tibble: 1 × 3
   term        estimate std.error
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    1470.      26.6</code></pre>
+1 (Intercept)    1470.    0.0161</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tidy</span>(fits, <span class="st">"random"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 3
    term       estimate std.error
    &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
- 1 Variety_1   -156.        67.3
- 2 Variety_2     20.8       67.3
- 3 Variety_3     -7.78      67.3
- 4 Variety_4    -26.3       67.3
- 5 Variety_5    -18.2       67.3
- 6 Variety_6      4.43      67.3
- 7 Variety_7    -42.2       67.3
- 8 Variety_8     45.6       67.3
- 9 Variety_9    -92.2       67.3
-10 Variety_10  -161.        67.3
+ 1 Variety_1   -156.       0.103
+ 2 Variety_2     20.8      0.103
+ 3 Variety_3     -7.78     0.103
+ 4 Variety_4    -26.3      0.103
+ 5 Variety_5    -18.2      0.103
+ 6 Variety_6      4.43     0.103
+ 7 Variety_7    -42.2      0.103
+ 8 Variety_8     45.6      0.103
+ 9 Variety_9    -92.2      0.103
+10 Variety_10  -161.       0.103
 # ℹ 15 more rows</code></pre>
 </div>
 </div>
@@ -613,7 +614,7 @@ Emi Tanaka
 <li>Note <span class="math inline">\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{V})</span>, <span class="math inline">\boldsymbol{b} \sim N(\boldsymbol{0}, \mathbf{G})</span> and <span class="math inline">\boldsymbol{y}|\boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{b}, \mathbf{R})</span>.</li>
 </ul>
 <p><span class="math display">\begin{align*}
-l &amp;= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
+\ell &amp;= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
 &amp;= \log f(\boldsymbol{y}|\boldsymbol{b};\boldsymbol{\sigma}_r) + \log f(\boldsymbol{b};\boldsymbol{\sigma}_g) \\
 &amp;= -\frac{1}{2}\log |\mathbf{R}| - \frac{1}{2}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b}) \\
 &amp; \qquad - \frac{1}{2}\log|\mathbf{G}|  - \frac{1}{2} \boldsymbol{b}^\top\mathbf{G}^{-1}\boldsymbol{b} - \frac{n+q}{2}\log 2\pi.
@@ -645,8 +646,8 @@ l &amp;= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
 <p>Henderson (1949) Estimation of changes in herd environment. (Abstract) <em>Journal of Dairy Science</em><br>
 Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical Statistics</em></p>
 </div></aside></section>
-<section id="inference" class="slide level2">
-<h2>Inference</h2>
+<section id="prediction-error-variance" class="slide level2">
+<h2>Prediction error variance</h2>
 <div class="box">
 <p><strong>Variance of prediction errors</strong></p>
 <p><span class="math display">\text{var}\left(\begin{bmatrix}\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}\\\tilde{\boldsymbol{b}} - \boldsymbol{b}\end{bmatrix}\right) = \mathbf{C}^{-1} = {\scriptsize\begin{bmatrix}(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1} &amp; -(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{Z}\mathbf{G}\\ -\mathbf{G}\mathbf{Z}^\top\mathbf{V}^{-1}\mathbf{X}(\mathbf{X}^\top\mathbf{V}^{-1}\mathbf{X})^{-1} &amp; \mathbf{G} - \mathbf{G}\mathbf{Z}^\top\mathbf{P}\mathbf{Z}\mathbf{G} \end{bmatrix}}</span></p>
@@ -654,6 +655,55 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
 <ul>
 <li>Note <span class="math inline">\text{var}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) = \text{var}(\hat{\boldsymbol{\beta}})</span>.</li>
 </ul>
+<p><br></p>
+<div class="columns f3">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fitc <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb18-2"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
+<span id="cb18-3"><a></a>               <span class="at">residual =</span><span class="sc">~</span> units,</span>
+<span id="cb18-4"><a></a>               <span class="at">data =</span> shf,</span>
+<span id="cb18-5"><a></a>               <span class="at">options =</span> <span class="fu">asreml.options</span>(</span>
+<span id="cb18-6"><a></a>                 <span class="at">Cfixed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-7"><a></a>                 <span class="at">Csparse =</span><span class="sc">~</span> Variety</span>
+<span id="cb18-8"><a></a>               ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fitc<span class="sc">$</span>Cfixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 707.637</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">sp2mat</span>(fitc<span class="sc">$</span>Csparse)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 4534.929    0.000    0.000    0.000    0.000
+[2,]    0.000 4534.929    0.000    0.000    0.000
+[3,]    0.000    0.000 4534.929    0.000    0.000
+[4,]    0.000    0.000    0.000 4534.929    0.000
+[5,]    0.000    0.000    0.000    0.000 4534.929</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>By “hand”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 707.8299</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>P <span class="ot">&lt;-</span> <span class="fu">solve</span>(V) <span class="sc">-</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V)</span>
+<span id="cb25-2"><a></a>CZZ <span class="ot">&lt;-</span> G <span class="sc">-</span> G <span class="sc">%*%</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> P <span class="sc">%*%</span> Z <span class="sc">%*%</span> G</span>
+<span id="cb25-3"><a></a>CZZ[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]      [,2]      [,3]      [,4]      [,5]
+[1,] 4535.9150  243.1447  243.1447  243.1447  243.1447
+[2,]  243.1447 4535.9150  243.1447  243.1447  243.1447
+[3,]  243.1447  243.1447 4535.9150  243.1447  243.1447
+[4,]  243.1447  243.1447  243.1447 4535.9150  243.1447
+[5,]  243.1447  243.1447  243.1447  243.1447 4535.9150</code></pre>
+</div>
+</div>
+</div></div>
 </section>
 <section id="estimation-of-variance-parameters" class="slide level2">
 <h2>Estimation of variance parameters</h2>
@@ -686,6 +736,7 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
 <p>Hartley &amp; Rao (1967) Maximum-likelihood estimation for the mixed analysis of variance model. <em>Biometrika</em></p>
 <p>Patterson &amp; Thompson (1971) Recovery of inter-block information when block sizes are unequal. <em>Biometrika</em></p>
 <p>Verbyla (1990) A conditional derivation of residual maximum likelihood. <em>Australian &amp; New Zealand Journal of Statistics</em></p>
+<p>Smith (1999) Multiplicative mixed models for the analysis of multi-environment trial data. <em>PhD Thesis</em></p>
 </div></aside></section>
 <section id="reml-score-equations" class="slide level2 f2">
 <h2>REML score equations</h2>
@@ -725,23 +776,26 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
 <p>Gilmour, Thompson &amp; Cullis (1995) Average Information REML: An Efficient Algorithm for Variance Parameter Estimation in Linear Mixed Models. <em>Biometrics</em></p>
 </div>
 </div></aside></section>
-<section id="algorithm" class="slide level2" style="font-size:0.9em;">
-<h2>Algorithm</h2>
+
+<section id="algorithm-overview" class="slide level2" style="font-size:0.9em;">
+<h2>Algorithm overview</h2>
 <p>Start with initial estimate of <span class="math inline">\boldsymbol{\sigma} = \boldsymbol{\sigma}^{(0)}</span>.</p>
 <p>For <span class="math inline">t = 1, \dots, \texttt{maxit}</span>,</p>
 <ol type="1">
 <li>Calculate <span class="math inline">\hat{\boldsymbol{\beta}}^{(t - 1)} = (\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\boldsymbol{y}</span> and <span class="math inline">\tilde{\boldsymbol{b}}^{(t - 1)} = \mathbf{G}\mathbf{Z}^\top\mathbf{P}^{(t - 1)}\boldsymbol{y}</span>.</li>
 <li>Calculate residual likelihood <span class="math inline">\ell_R^{(t- 1)} = -\frac{1}{2}\left(\log |\mathbf{G}^{(t-1)}| +  \log |\mathbf{R}^{(t-1)}| + \log |\mathbf{C}^{(t-1)}| + \boldsymbol{y}^\top\mathbf{P}^{(t-1)}\boldsymbol{y}\right)</span>’</li>
-<li>Calculate the scores <span class="math inline">\boldsymbol{s}(\boldsymbol{\sigma}^{(t - 1)})</span></li>
+<li>Calculate the scores <span class="math inline">\boldsymbol{s}(\boldsymbol{\sigma}^{(t - 1)})</span>.</li>
 <li>Calculate the average informaton matrix <span class="math inline">\mathcal{A}_{ij}^{(t - 1)} = \frac{1}{2}\boldsymbol{y}\mathbf{P}^{(t-1)}\mathbf{V}'^{(t-1)}_i\mathbf{P}^{(t-1)}\mathbf{V}_j'^{(t-1)}\mathbf{P}^{(t-1)}\boldsymbol{y}</span></li>
 <li>Update <span class="math inline">\boldsymbol{\sigma}^{(t)} = \boldsymbol{\sigma}^{(t - 1)} + \left(\mathcal{A}^{(t - 1)}\right)^{-1}\boldsymbol{s}(\boldsymbol{\sigma}^{(t-1)})</span></li>
-<li>Repeat 1-2, if <span class="math inline">\ell_R^{(t)} - \ell_R^{(t-1)} &lt; \text{threshold}</span> the break.</li>
+<li>Repeat 1-2, if <span class="math inline">\ell_R^{(t)} - \ell_R^{(t-1)} &lt; \text{threshold}</span> then break, otherwise continue from Step 3.</li>
 </ol>
 </section>
-<section id="reference" class="slide level2">
-<h2>Reference</h2>
+<section id="references" class="slide level2">
+<h2>References</h2>
 <ul>
 <li>Smith (1999) Multiplicative mixed models for the analysis of multi-environment trial data. PhD Thesis.</li>
+<li>Searle (2006) Matrix Algebra Useful for Statistics.</li>
+<li>Searle et al (2006) Variance Components.</li>
 </ul>
 
 
@@ -999,172 +1053,190 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
-          }
-          return false;
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
         }
-        const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
-            }
-            return codeEl.innerText;
-        }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/anu-aagi\.github\.io\/education\/");
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
-            } else {
-              return "";
-            }
-          });
-        }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
-            }
-          } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
-            });
-          }
-        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
       });
-      </script>
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/anu-aagi\.github\.io\/AAGI-education\/");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
     
 
 </body></html>
