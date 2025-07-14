@@ -105,7 +105,7 @@ where $\oplus$ is the direct sum operator.
 
 ## Variance models
 
-- There are three types of variance model for $\mathbf{R}_i$ and $\mathbf{G}_i$:  
+- There are three types of variance model for $\mathbf{R}_j$ and $\mathbf{G}_i$:  
 
 <br>
 
@@ -387,7 +387,7 @@ By `asreml`
 
 ```{r}
 #| output: false
-fits <- asreml(yield ~ 1,
+fits  <- asreml(yield ~ 1,
                random =~ Variety,
                residual =~ units,
                data = shf)
@@ -445,7 +445,7 @@ y <- shf$yield
 
 
 \begin{align*}
-l &= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
+\ell &= \log f(\boldsymbol{y}, \boldsymbol{b} ; \boldsymbol{\sigma})\\
 &= \log f(\boldsymbol{y}|\boldsymbol{b};\boldsymbol{\sigma}_r) + \log f(\boldsymbol{b};\boldsymbol{\sigma}_g) \\
 &= -\frac{1}{2}\log |\mathbf{R}| - \frac{1}{2}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}-\mathbf{Z}\boldsymbol{b}) \\
 & \qquad - \frac{1}{2}\log|\mathbf{G}|  - \frac{1}{2} \boldsymbol{b}^\top\mathbf{G}^{-1}\boldsymbol{b} - \frac{n+q}{2}\log 2\pi.
@@ -488,7 +488,7 @@ Henderson (1950) Estimation of genetic parameters. _Annals of Mathematical Stati
 
 
 
-## Inference
+## Prediction error variance
 
 ::: box
 
@@ -500,6 +500,52 @@ $$\text{var}\left(\begin{bmatrix}\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}\\
 
 
 - Note $\text{var}(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta}) = \text{var}(\hat{\boldsymbol{\beta}})$.
+
+<br>
+
+::: {.columns .f3}
+::: {.column width="50%"}
+
+```{r}
+#| output: false
+fitc <- asreml(yield ~ 1,
+               random =~ Variety,
+               residual =~ units,
+               data = shf,
+               options = asreml.options(
+                 Cfixed = TRUE,
+                 Csparse =~ Variety
+               ))
+```
+```{r}
+fitc$Cfixed
+sp2mat(fitc$Csparse)[1:5, 1:5]
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+By "hand"
+
+```{r}
+solve(t(X) %*% solve(V) %*% X)
+P <- solve(V) - solve(V) %*% X %*% solve(t(X) %*% solve(V) %*% X) %*% t(X) %*% solve(V)
+CZZ <- G - G %*% t(Z) %*% P %*% Z %*% G
+CZZ[1:5, 1:5]
+```
+
+
+
+:::
+:::
+
+
+
+
+
+
 
 
 
@@ -559,6 +605,8 @@ Patterson & Thompson (1971) Recovery of inter-block information when block sizes
 
 Verbyla (1990) A conditional derivation of residual maximum likelihood. _Australian & New Zealand Journal of Statistics_
 
+
+Smith (1999) Multiplicative mixed models for the analysis of multi-environment trial data. _PhD Thesis_
 
 :::
 
@@ -630,7 +678,12 @@ Gilmour, Thompson & Cullis (1995) Average Information REML: An Efficient Algorit
 :::
 
 
-## Algorithm {style="font-size:0.9em;"}
+## Scores  {visibility="hidden"}
+
+$$s_i = \begin{cases}-\frac{1}{2}\left(\text{tr}(\mathbf{G}^{-1}_i\mathbf{G}'_{ij} - \text{tr}(\mathbf{G}_i^{-1}\mathbf{G}'_{ij}\mathbf{G}_i^{-1}\mathbf{C}^{Z_iZ_i}) - \tilde{\boldsymbol{b}}^\top_i\mathbf{G}_i^{-1}\mathbf{G}'_{ij}\mathbf{G}_i^{-1}\tilde{\boldsymbol{b}}_i)\right)\\-\frac{1}{2}\left(\text{tr}(\mathbf{R}^{-1}\mathbf{R}'_i) - \text{tr}(\mathbf{C}^{-1}\mathbf{W}^\top\mathbf{R}^{-1}\mathbf{R}'_i\mathbf{R}^{-1}\mathbf{W}) - \tilde{\boldsymbol{e}}^\top\mathbf{R}^{-1}\mathbf{R}'_i\mathbf{R}^{-1}\tilde{\boldsymbol{e}}\right)\end{cases}$$
+
+
+## Algorithm overview {style="font-size:0.9em;"}
 
 Start with initial estimate of $\boldsymbol{\sigma} = \boldsymbol{\sigma}^{(0)}$.
 
@@ -638,14 +691,18 @@ For $t = 1, \dots, \texttt{maxit}$,
 
 1. Calculate $\hat{\boldsymbol{\beta}}^{(t - 1)} = (\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{V}^{(t -1)})^{-1}\boldsymbol{y}$ and $\tilde{\boldsymbol{b}}^{(t - 1)} = \mathbf{G}\mathbf{Z}^\top\mathbf{P}^{(t - 1)}\boldsymbol{y}$.
 2. Calculate residual likelihood $\ell_R^{(t- 1)} = -\frac{1}{2}\left(\log |\mathbf{G}^{(t-1)}| +  \log |\mathbf{R}^{(t-1)}| + \log |\mathbf{C}^{(t-1)}| + \boldsymbol{y}^\top\mathbf{P}^{(t-1)}\boldsymbol{y}\right)$'
-3. Calculate the scores $\boldsymbol{s}(\boldsymbol{\sigma}^{(t - 1)})$
+3. Calculate the scores $\boldsymbol{s}(\boldsymbol{\sigma}^{(t - 1)})$.
 4. Calculate the average informaton matrix $\mathcal{A}_{ij}^{(t - 1)} = \frac{1}{2}\boldsymbol{y}\mathbf{P}^{(t-1)}\mathbf{V}'^{(t-1)}_i\mathbf{P}^{(t-1)}\mathbf{V}_j'^{(t-1)}\mathbf{P}^{(t-1)}\boldsymbol{y}$
 5. Update $\boldsymbol{\sigma}^{(t)} = \boldsymbol{\sigma}^{(t - 1)} + \left(\mathcal{A}^{(t - 1)}\right)^{-1}\boldsymbol{s}(\boldsymbol{\sigma}^{(t-1)})$
-6. Repeat 1-2, if $\ell_R^{(t)} - \ell_R^{(t-1)} < \text{threshold}$ the break.
+6. Repeat 1-2, if $\ell_R^{(t)} - \ell_R^{(t-1)} < \text{threshold}$ then break, otherwise continue from Step 3.
 
   
 
-## Reference
+## References
 
 
 - Smith (1999) Multiplicative mixed models for the analysis of multi-environment trial data. PhD Thesis.
+- Searle (2006) Matrix Algebra Useful for Statistics. 
+- Searle et al (2006) Variance Components.
+
+
