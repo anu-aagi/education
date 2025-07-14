@@ -488,7 +488,7 @@ Henderson (1950) Estimation of genetic parameters. _Annals of Mathematical Stati
 
 
 
-## Prediction error variance
+## Prediction error variance {.scrollable}
 
 ::: box
 
