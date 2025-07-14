@@ -302,7 +302,7 @@ $$\sigma^2\begin{bmatrix}1 & \rho_c & \rho^2_c &\cdots &\rho_c^{C-1}\\\rho_c &1&
 
 ## Comparing nested random models 
 
-- If fixed effects are the same and you have nested random models, tehn you can use the likelihood ratio test to compare models.
+- If fixed effects are the same and you have nested random models, then you can use the likelihood ratio test to compare models.
 - Below suggests that $H_0: \rho_r = 0$ is rejected <br>(so AR1$\times$AR1 model is better than AR1$\times$ID model).
 
 
