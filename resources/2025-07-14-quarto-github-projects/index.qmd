@@ -219,13 +219,14 @@ See <https://quarto.org/> for documentation.
 
 ## GitHub Projects
 
-How do we currently manage projects? A quick discussion @fontikar (10 mins)
-Intro to GitHub Projects (showcase!) click and point in browser
-Something familiar issue tracking
-Something new perhaps Kaban boards / backlogs
-Something wacky, Github Discussions for meetings, ideas, brainstorms
+- How do we currently manage projects? A quick discussion @fontikar (10 mins)
+- Github and it's project managing capabilities:
+  - [Issue tracking](https://github.com/TengMCing/lineup_residual_diagnostics/issues?q=is%3Aissue) (something familiar)
+  - Projects (something new perhaps)
+    - Fully linked with issues and [milestones](https://github.com/traitecoevo/austraits.portal/milestone/1?closed=1)
+    - [Kaban boards](https://github.com/orgs/traitecoevo/projects/9/views/14?layout=board) / backlogs 
+  - Discussions (something wacky) 
+     - For [new ideas](https://github.com/emitanaka/edibble/discussions)
+     - For meetings and [brainstorms](https://github.com/traitecoevo/austraits/discussions/92)
 
 
-Fonti to share: AusTraits
-Issues: https://github.com/TengMCing/lineup_residual_diagnostics/issues?q=is%3Aissue
-Emi's package discussion board https://github.com/emitanaka/edibble/discussions
