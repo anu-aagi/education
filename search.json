@@ -18,7 +18,7 @@
     "href": "resources/2025-07-14-ida/index.html#initial-data-analysis",
     "title": "Initial Data Analysis",
     "section": "Initial Data Analysis",
-    "text": "Initial Data Analysis\n\n\nIDA is the crucial first step in analysing data, involving inspection and exploration before formal statistical analysis.\nIt helps to ensure data quality, identify potential issues, and refine the analysis plan, leading to more reliable and reproducible results.\nDifferent name is used to describe the same process, such as:\n\nChatfield (1985) as “initial examination of data”,\nCox & Snell (1981) as “preliminary data analysis”, and\nRao (1983) as “cross-examination of data”.\n\n\n\n\n\n\nChatfield (1985) The Initial Examination of Data. Journal of the Royal Statistical Society. Series A (General)\nCox & Snell (1981) Applied Statistics. London: Chapman and Hall.\nRao (1983) Optimum balance between statistical theory and application in teaching. Proc. of the First Int Conference on Teaching Statistics"
+    "text": "Initial Data Analysis\n\nIDA is the crucial first step in analysing data, involving inspection and exploration before formal statistical analysis.\nIt helps to ensure data quality, identify potential issues, and refine the analysis plan, leading to more reliable and reproducible results.\nDifferent name is used to describe the same process, such as:\n\nChatfield (1985) as “initial examination of data”,\nCox & Snell (1981) as “preliminary data analysis”, and\nRao (1983) as “cross-examination of data”.\n\n\n\n\n\nChatfield (1985) The Initial Examination of Data. Journal of the Royal Statistical Society. Series A (General)\nCox & Snell (1981) Applied Statistics. London: Chapman and Hall.\nRao (1983) Optimum balance between statistical theory and application in teaching. Proc. of the First Int Conference on Teaching Statistics"
   },
   {
     "objectID": "resources/2025-07-14-ida/index.html#analysis-framework",
@@ -39,7 +39,7 @@
     "href": "resources/2025-07-14-ida/index.html#sanity-check-your-data",
     "title": "Initial Data Analysis",
     "section": "Sanity check your data",
-    "text": "Sanity check your data\n\n\nAlso referred to as data scrutinizing.\nUse common or domain knowledge to check if the recorded data have sensible values.\nFor example:\n\nAre positive values, e.g. height and weight, recorded as positive values with a plausible range?\nIf the data are counts, do the recorded values contain non-integer values?\nFor compositional data, do the values add up to 100% (or 1)? If not is that a measurement error or due to rounding? Or is another variable missing?\nAre data encoded correctly?\n\nUse independent or external sources (quick Google or past published articles)\nConsider if or how data were derived"
+    "text": "Sanity check your data\n\nAlso referred to as data scrutinizing.\nUse common or domain knowledge to check if the recorded data have sensible values.\nFor example:\n\nAre positive values, e.g. height and weight, recorded as positive values with a plausible range?\nIf the data are counts, do the recorded values contain non-integer values?\nFor compositional data, do the values add up to 100% (or 1)? If not is that a measurement error or due to rounding? Or is another variable missing?\nAre data encoded correctly?\n\nUse independent or external sources (quick Google or past published articles)\nConsider if or how data were derived"
   },
   {
     "objectID": "resources/2025-07-14-quarto-github-projects/index.html#quarto-in-a-nutshell",
@@ -326,7 +326,7 @@
     "href": "resources/2025-07-09-selective-breeding/index.html#analytical-strategies-for-selective-breeding",
     "title": "Short introduction to selective breeding",
     "section": "Analytical strategies for selective breeding",
-    "text": "Analytical strategies for selective breeding\n\n\nImprove selection accuracy\n\nUse effective experimental design that separate out sources of variation for the response\nUse appropriate models to disaggregate “noise” from “signal” to get accurate estimates of breeding values\n\nMarker assisted selection\n\nIdentify DNA markers related to desirable traits (e.g. disease resistance)\nSome traits are dependent only for a small number of DNA markers\nScreen candidate genotypes based on these markers\n\nGenomic selection\n\nUse a training population to estimate the additive marker effects\nPredict breeding values of candidate genotypes"
+    "text": "Analytical strategies for selective breeding\n\nImprove selection accuracy\n\nUse effective experimental design that separate out sources of variation for the response\nUse appropriate models to disaggregate “noise” from “signal” to get accurate estimates of breeding values\n\nMarker assisted selection\n\nIdentify DNA markers related to desirable traits (e.g. disease resistance)\nSome traits are dependent only for a small number of DNA markers\nScreen candidate genotypes based on these markers\n\nGenomic selection\n\nUse a training population to estimate the additive marker effects\nPredict breeding values of candidate genotypes"
   },
   {
     "objectID": "resources/2025-07-14-naming-things/index.html#the-inspiration",
@@ -410,7 +410,7 @@
     "href": "resources/2025-07-14-lmm/index.html#aliasing-of-variance-parameters",
     "title": "Linear mixed models",
     "section": "Aliasing of variance parameters",
-    "text": "Aliasing of variance parameters\n\n\nVariance models may not be:\n\nidentifiable if they are over-parameterised,\ninsufficient data to estimate the parameters of the chosen variance model.\n\nNote that if you have \\mathbf{V}_1 \\otimes \\mathbf{V}_2, where \\mathbf{V}_1 and \\mathbf{V}_2 are variance models, then this is over-parameterised. E.g. idv(col):idv(row).\n\\mathbf{C} \\otimes \\mathbf{V} or \\mathbf{V} \\otimes \\mathbf{C}, where \\mathbf{V} is a variance model and \\mathbf{C} is a correlation model, may be acceptable. This is referred to as the sigma parameterization in asreml. E.g. idv(col):id(row).\n\\mathbf{C} \\otimes \\mathbf{C} is generally converted to \\sigma^2 \\mathbf{C} \\otimes \\mathbf{C} by asreml. This is referred to as the gamma parameterization in asreml. E.g. id(col):id(row)."
+    "text": "Aliasing of variance parameters\n\nVariance models may not be:\n\nidentifiable if they are over-parameterised,\ninsufficient data to estimate the parameters of the chosen variance model.\n\nNote that if you have \\mathbf{V}_1 \\otimes \\mathbf{V}_2, where \\mathbf{V}_1 and \\mathbf{V}_2 are variance models, then this is over-parameterised. E.g. idv(col):idv(row).\n\\mathbf{C} \\otimes \\mathbf{V} or \\mathbf{V} \\otimes \\mathbf{C}, where \\mathbf{V} is a variance model and \\mathbf{C} is a correlation model, may be acceptable. This is referred to as the sigma parameterization in asreml. E.g. idv(col):id(row).\n\\mathbf{C} \\otimes \\mathbf{C} is generally converted to \\sigma^2 \\mathbf{C} \\otimes \\mathbf{C} by asreml. This is referred to as the gamma parameterization in asreml. E.g. id(col):id(row)."
   },
   {
     "objectID": "resources/2025-07-14-lmm/index.html#example-different-variance-models",
@@ -704,6 +704,6 @@
     "href": "index.html",
     "title": "ANU AAGI Education",
     "section": "",
-    "text": "Project Structure\n\n\n\nFonti Kar & Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nNaming AAGI things\n\n\n\nFonti Kar, Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nLinear mixed models\n\n\n\nEmi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nQuarto & GitHub Projects\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nInitial Data Analysis\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of a multi-environmental field trial\n\n\n\nEmi Tanaka\n\n\nJul 10, 2025\n\n\n\n\n\n\n\n\n\n\n\nShort introduction to selective breeding\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of a single field trial\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Project Structure\n\n\n\nFonti Kar & Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nNaming AAGI things\n\n\n\nFonti Kar, Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nLinear mixed models\n\n\n\nEmi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nQuarto & GitHub Projects\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nInitial Data Analysis\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nAnalysis of a multi-environmental field trial\n\n\n\nEmi Tanaka\n\n\nJul 10, 2025\n\n\n\n\n\n\n\n\n\n\nShort introduction to selective breeding\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\n\n\nAnalysis of a single field trial\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\nNo matching items"
   }
 ]
