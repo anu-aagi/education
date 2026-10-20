@@ -292,7 +292,7 @@ Quality traits, disease resistance, and other desirable traits.
 ::: {.columns}
 ::: {.column width="50%"}
 
-- **Genetic gain** measures improvement in the average genotype performance of a population over time due to selection for specific traits.
+**Genetic gain** measures improvement in the average genotype performance of a population over time due to selection for specific traits.
 
 
 ![](images/genetic-gain-eq.png)

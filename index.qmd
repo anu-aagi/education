@@ -1,5 +1,6 @@
 ---
-title: "ANU AAGI Education"
+pagetitle: "ANU AAGI Education"
+toc: false
 listing: 
   contents: resources
   type: grid
@@ -10,3 +11,20 @@ listing:
     - date
 ---
 
+::: {.grains-hero .column-screen}
+::: {.hero-inner}
+::: {.hero-text}
+[ANU · Analytics for the Australian Grains Industry]{.eyebrow}
+
+# Growing analytics capacity across the grains industry
+
+[Training materials in statistics, data analytics and reproducible workflows for the people who design and analyse data for the Australian grains industry.]{.lead}
+
+::: {.topic-chips}
+[Field trials]{} [Linear mixed models]{} [Multi-environment trials]{} [Selective breeding]{} [Reproducible workflows]{}
+:::
+:::
+:::
+:::
+
+## Resources {.section-heading}

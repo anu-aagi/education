@@ -2,4 +2,29 @@
 title: "About"
 ---
 
-This website contains materials that are developed as part of the upskilling for [ANU-AAGI](https://anu-aagi.github.io/).
+This website contains materials developed as part of the upskilling program at [ANU-AAGI](https://anu-aagi.github.io/). While they were created with the ANU AAGI team in mind, the materials are openly available and anyone is welcome to use them, whether you work in the grains industry, study agricultural science or statistics, or are simply curious about analytics.
+
+## Our aim {.section-heading}
+
+::: {.aagi-aim}
+[Analytics for the Australian Grains Industry (AAGI) aims to **improve the analytics capacity of the Australian grains sector**, empowering data-driven decision making for growers and delivering research innovations that enhance the productivity, sustainability and global competitiveness of Australia's grains industry.]{.aim-statement}
+
+AAGI is a Grains Research and Development Corporation (GRDC) investment led by Adelaide University, Curtin University and the University of Queensland, with partners including the Australian National University. It works through three programs:
+
+::: {.aim-programs}
+::: {.aim-program}
+#### Service & Support
+Analytics and statistical support for researchers on GRDC-funded investments.
+:::
+::: {.aim-program}
+#### Research & Development
+Research that improves the productivity, sustainability and competitiveness of the grains industry.
+:::
+::: {.aim-program .is-here}
+#### Upskilling & Awareness
+Training that builds analytics capacity across the sector. 
+:::
+:::
+
+
+:::

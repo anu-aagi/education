@@ -1,20 +1,29 @@
 project:
   type: website
+  resources:
+    - assets/site/
 
 website:
   title: "AAGI Education"
+  favicon: assets/site/aagi-mark.png
   navbar:
+    title: "Education"
+    logo: assets/site/aagi-logo-white.png
+    logo-alt: "AAGI: Analytics for the Australian Grains Industry"
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+  page-footer:
+    left: '<a href="https://www.anu.edu.au/"><img src="assets/site/anu-logo-white.png" alt="Australian National University" class="footer-logo"></a>'
+    center: "Analytics education for the Australian grains industry"
+    right: "[ANU-AAGI](https://anu-aagi.github.io/)"
 
 format:
   html:
     theme:
       - cosmo
-      - brand
-    css: styles.css
+      - theme.scss
     toc: true
 
 
