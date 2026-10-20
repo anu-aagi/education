@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="../../assets/site/aagi-mark.png" rel="icon" type="image/png">
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Emi Tanaka">
   <meta name="dcterms.date" content="2025-07-09">
@@ -96,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-305926508f2e4aae91082155dd2aaf34.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-15eecdebe90d0155d99cc158ac166de4.css">
   <link rel="stylesheet" href="../../assets/tachyons-addon.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -347,13 +348,13 @@ Emi Tanaka
 </div>
 </div><div class="column f3" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Warning: packages below are in active development</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Warning: packages below are in active development</span></span>
 <span id="cb1-2"><a></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"emitanaka/cropscan"</span>) </span>
-<span id="cb1-3"><a></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"emitanaka/broom.asreml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"emitanaka/broom.asreml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We’ll use <code>asreml</code> to fit linear mixed models.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(asreml)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(asreml)</span>
 <span id="cb2-2"><a></a><span class="co"># genotype as fixed effect, block as random effect</span></span>
 <span id="cb2-3"><a></a>fit_basef <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen, </span>
 <span id="cb2-4"><a></a>                    <span class="at">random =</span><span class="sc">~</span> block, </span>
@@ -362,12 +363,12 @@ Emi Tanaka
 <span id="cb2-7"><a></a><span class="co"># genotype as random effect, block as random effect</span></span>
 <span id="cb2-8"><a></a>fit_baser <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb2-9"><a></a>                    <span class="at">random =</span><span class="sc">~</span> gen <span class="sc">+</span> block, </span>
-<span id="cb2-10"><a></a>                    <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a></a>                    <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>And <code>broom.asreml</code> to extract model values in a tidy way.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(broom.asreml)</span>
-<span id="cb3-2"><a></a><span class="fu">tidy</span>(fit_basef, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(broom.asreml)</span>
+<span id="cb3-2"><a></a><span class="fu">tidy</span>(fit_basef, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term    estimate std.error statistic constraint
@@ -375,8 +376,8 @@ Emi Tanaka
 1 block     0.0159    0.0258     0.615 P         
 2 units!R   0.229     0.0330     6.93  P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># tidy(fitf, "fixed")</span></span>
-<span id="cb5-2"><a></a><span class="co"># tidy(fitf, "random")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># tidy(fitf, "fixed")</span></span>
+<span id="cb5-2"><a></a><span class="co"># tidy(fitf, "random")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
@@ -402,17 +403,17 @@ Emi Tanaka
 <section id="spatial-modelling-for-local-trend-extraenous-variation" class="slide level2">
 <h2>Spatial modelling for local trend &amp; extraenous variation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>fit_ar1xar1 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>fit_ar1xar1 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen, </span>
 <span id="cb6-2"><a></a>                      <span class="at">random =</span><span class="sc">~</span> block <span class="sc">+</span> units <span class="sc">+</span> rowf <span class="sc">+</span> colf, </span>
 <span id="cb6-3"><a></a>                      <span class="at">residual =</span><span class="sc">~</span> <span class="fu">ar1</span>(colf)<span class="sc">:</span><span class="fu">ar1</span>(rowf),</span>
-<span id="cb6-4"><a></a>                      <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a></a>                      <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Note: <code>units</code> is a specially reserved term in <code>asreml</code> that is uniquely identifies each observational unit, i.e.&nbsp;<code>factor(1:nrow(data))</code>.</li>
 <li>In this <code>units</code> is used to create the nugget effects.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">tidy</span>(fit_ar1xar1, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">tidy</span>(fit_ar1xar1, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   term                   estimate std.error statistic constraint
@@ -430,7 +431,7 @@ Emi Tanaka
 <section id="why-ar1-times-ar1" class="slide level2">
 <h2>Why AR1 <span class="math inline">\times</span> AR1?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>residual <span class="ot">=</span><span class="er">~</span> <span class="fu">ar1</span>(colf)<span class="sc">:</span><span class="fu">ar1</span>(rowf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>residual <span class="ot">=</span><span class="er">~</span> <span class="fu">ar1</span>(colf)<span class="sc">:</span><span class="fu">ar1</span>(rowf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="f2">
 <p><span class="math display">\sigma^2\begin{bmatrix}1 &amp; \rho_c &amp; \rho^2_c &amp;\cdots &amp;\rho_c^{C-1}\\\rho_c &amp;1&amp; \rho_c&amp;\ddots&amp;\rho_c^{C-2}\\\rho_c^2 &amp; \rho_c &amp; 1 &amp;\ddots&amp;\rho_c^{C-3}\\\vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ \rho_c^{C-1} &amp; \rho_c^{C-2} &amp; \rho_c^{C-3} &amp; \cdots &amp; 1\end{bmatrix}\otimes\begin{bmatrix}1 &amp; \rho_r &amp; \rho^2_r &amp;\cdots &amp;\rho_r^{R-1}\\\rho_r &amp;1&amp; \rho_r&amp;\ddots&amp;\rho_r^{R-2}\\\rho_r^2 &amp; \rho_r &amp; 1 &amp;\ddots&amp;\rho_r^{R-3}\\\vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ \rho_r^{R-1} &amp; \rho_r^{R-2} &amp; \rho_r^{R-3} &amp; \cdots &amp; 1\end{bmatrix}</span></p>
@@ -450,10 +451,10 @@ Emi Tanaka
 <li>If you don’t believe that plots are similar in say a row direction then you can model such that the plots are uncorrelated in row direction.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>fit_ar1xid <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>fit_ar1xid <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen, </span>
 <span id="cb10-2"><a></a>                     <span class="at">random =</span><span class="sc">~</span> block <span class="sc">+</span> units <span class="sc">+</span> rowf <span class="sc">+</span> colf, </span>
 <span id="cb10-3"><a></a>                     <span class="at">residual =</span><span class="sc">~</span> <span class="fu">ar1</span>(colf)<span class="sc">:</span><span class="fu">id</span>(rowf),</span>
-<span id="cb10-4"><a></a>                     <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a></a>                     <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><span class="math display">\sigma^2\begin{bmatrix}1 &amp; \rho_c &amp; \rho^2_c &amp;\cdots &amp;\rho_c^{C-1}\\\rho_c &amp;1&amp; \rho_c&amp;\ddots&amp;\rho_c^{C-2}\\\rho_c^2 &amp; \rho_c &amp; 1 &amp;\ddots&amp;\rho_c^{C-3}\\\vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ \rho_c^{C-1} &amp; \rho_c^{C-2} &amp; \rho_c^{C-3} &amp; \cdots &amp; 1\end{bmatrix}\otimes\mathbf{I}_R</span></p>
 </section>
@@ -464,7 +465,7 @@ Emi Tanaka
 <li>Below suggests that <span class="math inline">H_0: \rho_r = 0</span> is rejected <br>(so AR1<span class="math inline">\times</span>AR1 model is better than AR1<span class="math inline">\times</span>ID model).</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">lrt</span>(fit_ar1xar1, fit_ar1xid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">lrt</span>(fit_ar1xar1, fit_ar1xid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Likelihood ratio test(s) assuming nested random models.
 (See Self &amp; Liang, 1987)
@@ -479,10 +480,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="residual-plot" class="slide level2">
 <h2>Residual plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">augment</span>(fit_ar1xar1) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">augment</span>(fit_ar1xar1) <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fitted, .resid)) <span class="sc">+</span></span>
 <span id="cb13-3"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb13-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -501,14 +502,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2>Residual plot by row</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">augment</span>(fit_ar1xar1) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">augment</span>(fit_ar1xar1) <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(colf, .resid)) <span class="sc">+</span></span>
 <span id="cb14-3"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, </span>
 <span id="cb14-4"><a></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb14-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb14-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> rowf)) <span class="sc">+</span> </span>
 <span id="cb14-7"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rowf, </span>
-<span id="cb14-8"><a></a>             <span class="at">label =</span> label_both)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-8"><a></a>             <span class="at">label =</span> label_both)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -525,10 +526,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Smooth global trend is incorporated using <strong>cubic smoothing spline</strong> indexed by the column number.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit_spl <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> lcol, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit_spl <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> lcol, </span>
 <span id="cb15-2"><a></a>                  <span class="at">random =</span><span class="sc">~</span> block <span class="sc">+</span> units <span class="sc">+</span> rowf <span class="sc">+</span> colf <span class="sc">+</span> <span class="fu">spl</span>(lcol), </span>
 <span id="cb15-3"><a></a>                  <span class="at">residual =</span><span class="sc">~</span> <span class="fu">ar1</span>(colf)<span class="sc">:</span><span class="fu">id</span>(rowf),</span>
-<span id="cb15-4"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <aside><div>
@@ -555,10 +556,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">varioGram</span>(fit_spl) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">varioGram</span>(fit_spl) <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(rowf, gamma)) <span class="sc">+</span></span>
 <span id="cb16-3"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>colf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>colf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -569,10 +570,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">varioGram</span>(fit_spl) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">varioGram</span>(fit_spl) <span class="sc">|&gt;</span> </span>
 <span id="cb17-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(colf, gamma)) <span class="sc">+</span></span>
 <span id="cb17-3"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb17-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rowf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rowf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -590,12 +591,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><img data-src="images/pedigree.png" style="width:100.0%"></p>
 </div><div class="column" style="width:65%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>ped <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">me=</span><span class="fu">paste0</span>(<span class="st">"I"</span>, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>, <span class="dv">13</span>)),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>ped <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">me=</span><span class="fu">paste0</span>(<span class="st">"I"</span>, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>, <span class="dv">13</span>)),</span>
 <span id="cb18-2"><a></a>                  <span class="at">mum=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"I1"</span>, <span class="st">"I1"</span>, <span class="st">"I1"</span>, <span class="st">"I2"</span>, <span class="st">"I3"</span>, <span class="st">"I5"</span>, <span class="st">"I7"</span>, <span class="st">"I9"</span>),</span>
 <span id="cb18-3"><a></a>                  <span class="at">dad=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"I2"</span>, <span class="st">"I2"</span>, <span class="st">"I3"</span>, <span class="st">"I3"</span>, <span class="st">"I4"</span>, <span class="st">"I6"</span>, <span class="st">"I8"</span>, <span class="st">"I9"</span>),</span>
 <span id="cb18-4"><a></a>                  <span class="at">fgen=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">11</span>), <span class="dv">2</span>))</span>
 <span id="cb18-5"><a></a></span>
-<span id="cb18-6"><a></a>ped</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-6"><a></a>ped</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    me mum dad fgen
 1   I1   0   0    0
@@ -850,7 +851,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>cropscan<span class="sc">::</span>met_pedigree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>cropscan<span class="sc">::</span>met_pedigree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9,333 × 4
    Me    Mum   Dad    fgen
@@ -870,8 +871,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>Ainv <span class="ot">&lt;-</span> <span class="fu">ainverse</span>(cropscan<span class="sc">::</span>met_pedigree, <span class="at">fgen =</span> <span class="fu">list</span>(<span class="st">"fgen"</span>, <span class="dv">0</span>))</span>
-<span id="cb22-2"><a></a>Ainv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>Ainv <span class="ot">&lt;-</span> <span class="fu">ainverse</span>(cropscan<span class="sc">::</span>met_pedigree, <span class="at">fgen =</span> <span class="fu">list</span>(<span class="st">"fgen"</span>, <span class="dv">0</span>))</span>
+<span id="cb22-2"><a></a>Ainv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Row Column      Ainverse
     [1,]    1      1  1.173913e+00
@@ -33855,9 +33856,9 @@ attr(,"class")
 <h2>Modelling additive and non-additive genetic effects</h2>
 <p><span class="math display">\boldsymbol{y} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_a + \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}</span> <span class="math display">\begin{bmatrix}\boldsymbol{u}_a\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{bmatrix}\sim N\left(\begin{bmatrix}\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\end{bmatrix}, \begin{bmatrix}\sigma^2_a\mathbf{A} &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0} &amp;\sigma^2_{\bar{a}}\mathbf{I}_G &amp; \mathbf{0}\\\mathbf{0} &amp; \mathbf{0} &amp; \sigma^2\mathbf{I}_{RC}\end{bmatrix}\right)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>fit_nrm <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>fit_nrm <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb24-2"><a></a>                  <span class="at">random =</span><span class="sc">~</span> <span class="fu">vm</span>(gen, Ainv) <span class="sc">+</span> <span class="fu">ide</span>(gen), </span>
-<span id="cb24-3"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="heritability" class="slide level2">
@@ -33867,7 +33868,7 @@ attr(,"class")
 <li><strong>Narrow sense heritability</strong> (<span class="math inline">h^2</span>) refers to the proportion of phenotypic variance in a trait that is due to additive genetic variance.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">tidy</span>(fit_nrm, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">tidy</span>(fit_nrm, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term          estimate std.error statistic constraint
@@ -33888,13 +33889,13 @@ attr(,"class")
 <li>You can obtain EBV as the E-BLUP (empirical best linear unbiased predictor) of <span class="math inline">\boldsymbol{u}_a</span></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>ebv_nrm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit_nrm, <span class="st">"random"</span>) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>ebv_nrm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit_nrm, <span class="st">"random"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb27-2"><a></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"^vm[(]gen, Ainv[)]"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb27-3"><a></a>  <span class="fu">mutate</span>(<span class="at">gen =</span> <span class="fu">str_remove</span>(term, <span class="st">"^vm[(]gen, Ainv[)]_"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb27-4"><a></a>  <span class="fu">filter</span>(gen <span class="sc">%in%</span> cropscan<span class="sc">::</span>trial_pheno<span class="sc">$</span>gen) <span class="sc">|&gt;</span> </span>
 <span id="cb27-5"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>term)</span>
 <span id="cb27-6"><a></a></span>
-<span id="cb27-7"><a></a>ebv_nrm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-7"><a></a>ebv_nrm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 191 × 3
    estimate std.error gen  
@@ -33917,13 +33918,13 @@ attr(,"class")
 <h2>EBV vs Raw Yield</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cropscan<span class="sc">::</span>trial_pheno <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cropscan<span class="sc">::</span>trial_pheno <span class="sc">|&gt;</span> </span>
 <span id="cb29-2"><a></a>  <span class="fu">left_join</span>(ebv_nrm, <span class="at">by =</span> <span class="st">"gen"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb29-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate, yield)) <span class="sc">+</span></span>
 <span id="cb29-4"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="sc">-</span>std.error), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> </span>
 <span id="cb29-5"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span> </span>
 <span id="cb29-6"><a></a>  <span class="fu">guides</span>(<span class="at">alpha =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb29-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"EBV"</span>, <span class="at">y =</span> <span class="st">"Yield"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"EBV"</span>, <span class="at">y =</span> <span class="st">"Yield"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -33937,7 +33938,7 @@ attr(,"class")
 <section id="dna-markers" class="slide level2">
 <h2>DNA markers</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>cropscan<span class="sc">::</span>trial_marker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>cropscan<span class="sc">::</span>trial_marker</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 191 × 17,317
    gen   M00001 M00002 M00003 M00004 M00005 M00006 M00007 M00008
@@ -33980,21 +33981,21 @@ attr(,"class")
 <li>We refer <span class="math inline">\mathbf{K} = \mathbf{M}\mathbf{M}^\top</span> as the <strong>genomic relationship matrix</strong>, analogous to the <span class="math inline">\mathbf{A}</span> matrix.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># may like to remove markers with zero variance or MAF &lt; 0.05</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># may like to remove markers with zero variance or MAF &lt; 0.05</span></span>
 <span id="cb32-2"><a></a>M <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(cropscan<span class="sc">::</span>trial_marker[, <span class="sc">-</span><span class="dv">1</span>]) </span>
 <span id="cb32-3"><a></a><span class="fu">rownames</span>(M) <span class="ot">&lt;-</span> cropscan<span class="sc">::</span>trial_marker<span class="sc">$</span>gen</span>
 <span id="cb32-4"><a></a>K <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>(M)</span>
 <span id="cb32-5"><a></a><span class="fu">attr</span>(K, <span class="st">"INVERSE"</span>) <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
 <span id="cb32-6"><a></a>fit_grm <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb32-7"><a></a>                  <span class="at">random =</span><span class="sc">~</span> <span class="fu">vm</span>(gen, K) <span class="sc">+</span> <span class="fu">ide</span>(gen), </span>
-<span id="cb32-8"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-8"><a></a>                  <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="grm-vs-nrm" class="slide level2">
 <h2>GRM vs NRM</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>ebv_grm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit_grm, <span class="st">"random"</span>) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>ebv_grm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit_grm, <span class="st">"random"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb33-2"><a></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"^vm[(]gen, K[)]"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb33-3"><a></a>  <span class="fu">mutate</span>(<span class="at">gen =</span> <span class="fu">str_remove</span>(term, <span class="st">"^vm[(]gen, K[)]_"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb33-4"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>term, <span class="at">grm =</span> estimate, <span class="at">grm_sd =</span> std.error)</span>
@@ -34005,7 +34006,7 @@ attr(,"class")
 <span id="cb33-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(grm, nrm)) <span class="sc">+</span></span>
 <span id="cb33-10"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb33-11"><a></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb33-12"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"EBV from GRM"</span>, <span class="at">y =</span> <span class="st">"EBV from NRM"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-12"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"EBV from GRM"</span>, <span class="at">y =</span> <span class="st">"EBV from NRM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -34020,24 +34021,24 @@ attr(,"class")
 <h2>Combining marker and pedigree information</h2>
 <p><span class="math display">\boldsymbol{y} = \boldsymbol{1}_{RC}\cdot \mu + \mathbf{Z}_g\boldsymbol{u}_{a'} + \mathbf{Z}_g\boldsymbol{u}_a +   \mathbf{Z}_g\boldsymbol{u}_{\bar{a}} + \boldsymbol{e}</span> <span class="math display">\begin{bmatrix}\boldsymbol{u}_{a'}\\\boldsymbol{u}_{a}\\\boldsymbol{u}_{\bar{a}}\\\boldsymbol{e}\end{bmatrix}\sim N\left(\begin{bmatrix}\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\\\boldsymbol{0}\end{bmatrix}, \begin{bmatrix}\sigma^2_m\mathbf{K} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0} &amp; \sigma^2_a\mathbf{A} &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0}&amp; \mathbf{0} &amp;\sigma^2_{\bar{a}}\mathbf{I}_G &amp; \mathbf{0}\\\mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \sigma^2\mathbf{I}_{RC}\end{bmatrix}\right)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>fit_ngrm <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>fit_ngrm <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb34-2"><a></a>                   <span class="at">random =</span><span class="sc">~</span> <span class="fu">vm</span>(gen, K) <span class="sc">+</span> <span class="fu">vm</span>(gen2, Ainv) <span class="sc">+</span> <span class="fu">ide</span>(gen), </span>
 <span id="cb34-3"><a></a>                   <span class="at">data =</span> cropscan<span class="sc">::</span>trial_pheno <span class="sc">|&gt;</span> </span>
-<span id="cb34-4"><a></a>                     <span class="fu">mutate</span>(<span class="at">gen2 =</span> gen))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-4"><a></a>                     <span class="fu">mutate</span>(<span class="at">gen2 =</span> gen))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="marker-effects" class="slide level2">
 <h2>Marker effects</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>meff <span class="ot">&lt;-</span> <span class="fu">meff</span>(fit_ngrm, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>meff <span class="ot">&lt;-</span> <span class="fu">meff</span>(fit_ngrm, </span>
 <span id="cb35-2"><a></a>             <span class="at">mef =</span> <span class="fu">list</span>(<span class="at">K =</span> <span class="st">"M"</span>), </span>
-<span id="cb35-3"><a></a>             <span class="at">effects =</span><span class="sc">~</span> <span class="fu">vm</span>(gen, K))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-3"><a></a>             <span class="at">effects =</span><span class="sc">~</span> <span class="fu">vm</span>(gen, K))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>E-BLUP of <span class="math inline">\boldsymbol{\alpha}</span> (the marker effects)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>meff<span class="sc">$</span>meff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>meff<span class="sc">$</span>meff</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`vm(gen, K)`
               effect
@@ -51670,13 +51671,14 @@ M17316 -5.359843e-08</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="../../assets/site/aagi-mark.png" rel="icon" type="image/png">
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Emi Tanaka">
   <meta name="dcterms.date" content="2025-07-10">
@@ -96,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6ec42e6be62214b3b2c7f0f0a7890586.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-3026e64fe01cbb291a752733c9d9faa9.css">
   <link rel="stylesheet" href="../../assets/tachyons-addon.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -236,8 +237,8 @@ Emi Tanaka
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(cropscan)</span>
-<span id="cb1-2"><a></a><span class="fu">plot_field</span>(met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(cropscan)</span>
+<span id="cb1-2"><a></a><span class="fu">plot_field</span>(met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -251,7 +252,7 @@ Emi Tanaka
 <li><span class="math inline">G = 191</span> genotypes tested across all <span class="math inline">E = 5</span> environments with <span class="math inline">n = 288</span> observations and <span class="math inline">B = 2</span> blocks per trial.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">concurrence_matrix</span>(met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">concurrence_matrix</span>(met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
       E02 E05 E07 E08 E10
@@ -272,7 +273,7 @@ Emi Tanaka
 <span class="math inline">\boldsymbol{u}_{g_i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{g_i}^2}\mathbf{I}_G)</span>, <span class="math inline">\boldsymbol{u}_{b_i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{b_i}^2}\mathbf{I}_B)</span> and <span class="math inline">\boldsymbol{e}_{i} \sim N(\boldsymbol{0}, {\color{orange}\sigma_{i}^2}\mathbf{I}_{n})</span>
 </center>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-2"><a></a><span class="fu">library</span>(asreml)</span>
 <span id="cb4-3"><a></a><span class="fu">library</span>(broom.asreml)</span>
 <span id="cb4-4"><a></a>fit_singles <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
@@ -281,7 +282,7 @@ Emi Tanaka
 <span id="cb4-7"><a></a>                                 <span class="at">random =</span><span class="sc">~</span> gen <span class="sc">+</span> block, </span>
 <span id="cb4-8"><a></a>                                 <span class="at">data =</span> met2_pheno <span class="sc">|&gt;</span> </span>
 <span id="cb4-9"><a></a>                                   <span class="fu">filter</span>(env <span class="sc">==</span> trial))</span>
-<span id="cb4-10"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-10"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="approach-2-fit-a-diag-model" class="slide level2">
@@ -291,10 +292,10 @@ Emi Tanaka
 <p><span class="math display">\boldsymbol{u}_{ge}\sim N\left(\boldsymbol{0}, {\color{orange}\begin{bmatrix}\sigma^2_{g_1}\mathbf{I}_G &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0} &amp; \sigma^2_{g_2}\mathbf{I}_G &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0} &amp; \mathbf{0} &amp; \sigma^2_{g_3}\mathbf{I}_G &amp; \mathbf{0} &amp; \mathbf{0}\\\mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \sigma^2_{g_4}\mathbf{I}_G &amp; \mathbf{0}\\\mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \sigma^2_{g_5}\mathbf{I}_G\end{bmatrix}}\right), \boldsymbol{u}_{b}\sim N\left(\boldsymbol{0}, \text{diag}(\sigma^2_{b_1}, \sigma^2_{b_2}, \sigma^2_{b_3}, \sigma^2_{b_4}, \sigma^2_{b_5})\otimes \mathbf{I}_B\right),</span> <span class="math display">\boldsymbol{e}\sim N\left(\boldsymbol{0}, \text{diag}(\sigma^2_{1}, \sigma^2_{2}, \sigma^2_{3}, \sigma^2_{4}, \sigma^2_{5})\otimes \mathbf{I}_n\right)</span></p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>fit_diag <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>fit_diag <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
 <span id="cb5-2"><a></a>                   <span class="at">random =</span><span class="sc">~</span> <span class="fu">diag</span>(env)<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>block, </span>
 <span id="cb5-3"><a></a>                   <span class="at">residual =</span><span class="sc">~</span> <span class="fu">dsum</span>(<span class="sc">~</span>units<span class="sc">|</span>env),</span>
-<span id="cb5-4"><a></a>                   <span class="at">data =</span> met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a></a>                   <span class="at">data =</span> met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="single-site-analysis-vs-met-analysis" class="slide level2 scrollable">
@@ -303,7 +304,7 @@ Emi Tanaka
 <div class="columns f3">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">tidy</span>(fit_diag, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">tidy</span>(fit_diag, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 5
    term                 estimate std.error statistic constraint
@@ -327,7 +328,7 @@ Emi Tanaka
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E02"</span>]], <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E02"</span>]], <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term    estimate std.error statistic constraint
@@ -336,7 +337,7 @@ Emi Tanaka
 2 gen       0.0648    0.0303     2.14  P         
 3 units!R   0.231     0.0317     7.28  P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E05"</span>]], <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E05"</span>]], <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term    estimate std.error statistic constraint
@@ -345,7 +346,7 @@ Emi Tanaka
 2 gen       0.0654    0.0140     4.66  P         
 3 units!R   0.0747    0.0105     7.09  P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E07"</span>]], <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E07"</span>]], <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term         estimate std.error statistic constraint
@@ -354,7 +355,7 @@ Emi Tanaka
 2 gen     0.151            0.0228      6.64 P         
 3 units!R 0.0782           0.0112      7.01 P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E08"</span>]], <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E08"</span>]], <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term    estimate std.error statistic constraint
@@ -363,7 +364,7 @@ Emi Tanaka
 2 gen      0.0249    0.00514     4.85  P         
 3 units!R  0.0277    0.00385     7.18  P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E10"</span>]], <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">tidy</span>(fit_singles[[<span class="st">"E10"</span>]], <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term    estimate std.error statistic constraint
@@ -381,10 +382,10 @@ Emi Tanaka
 <p><span class="math display">\boldsymbol{y}  = (\mathbf{I}_E\otimes\boldsymbol{1}_{n})\boldsymbol{\mu} + \mathbf{Z}_g{\color{orange}\boldsymbol{u}_g} + \mathbf{Z}_{ge}{\color{orange}\boldsymbol{u}_{ge}} + (\mathbf{I}_E\otimes\mathbf{Z}_b)\boldsymbol{u}_b + \boldsymbol{e}</span></p>
 <p>where <span class="math inline">\boldsymbol{u}_g \sim N(\boldsymbol{0}, {\color{orange}\sigma^2_g\mathbf{I}_G})</span>, <span class="math inline">\boldsymbol{u}_{ge} \sim N(\boldsymbol{0}, {\color{orange}\sigma^2_{ge}\mathbf{I}_{GE}})</span> and other random effects distributed as Approach 2.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fit_cs <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fit_cs <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
 <span id="cb18-2"><a></a>                 <span class="at">random =</span><span class="sc">~</span> gen <span class="sc">+</span> env<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>block, </span>
 <span id="cb18-3"><a></a>                 <span class="at">residual =</span><span class="sc">~</span> <span class="fu">dsum</span>(<span class="sc">~</span>units<span class="sc">|</span>env),</span>
-<span id="cb18-4"><a></a>                 <span class="at">data =</span> met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-4"><a></a>                 <span class="at">data =</span> met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><span class="math display">\boldsymbol{1}_E \otimes \boldsymbol{u}_g + \boldsymbol{u}_{ge} \sim N\left(\boldsymbol{0}, \underbrace{{\color{orange}\begin{bmatrix}\small\sigma^2_g + \sigma^2_{ge} &amp; \small\sigma^2_g &amp; \small\sigma^2_g &amp; \small\sigma^2_g &amp; \small\sigma^2_g \\\small\sigma^2_g &amp;\small\sigma^2_g + \sigma^2_{ge} &amp;\small\sigma^2_g &amp; \sigma^2_g &amp;  \small\sigma^2_g\\\sigma^2_g &amp; \small\sigma^2_g &amp;\small\sigma^2_g + \sigma^2_{ge}  &amp; \small\sigma^2_g &amp;  \small\sigma^2_g\\\small\sigma^2_g &amp;\small \sigma^2_g &amp;\small\sigma^2_g &amp; \small\sigma^2_g + \sigma^2_{ge} &amp;  \small \sigma^2_g\\\small\sigma^2_g &amp;\small\sigma^2_g  &amp; \small\sigma^2_g &amp;\small \sigma^2_g &amp;  \small\sigma^2_g+ \sigma^2_{ge}\end{bmatrix}}}_{{\color{orange}\text{compound symmetry}}}\otimes \mathbf{I}_G \right)</span></p>
 <ul>
@@ -433,10 +434,10 @@ Emi Tanaka
 <p><span class="math display">\boldsymbol{u}_{ge}\sim N\left(\boldsymbol{0}, \underbrace{{\color{orange}\begin{bmatrix}\small\sigma^2_{g_1} &amp; \small\sigma_{g_{12}} &amp; \small\sigma_{g_{13}} &amp; \small\sigma_{g_{14}} &amp; \small\sigma_{g_{15}}\\\small\sigma_{g_{12}} &amp; \small\sigma_{g_{2}}^2 &amp; \small\sigma_{g_{23}} &amp; \small\sigma_{g_{24}}  &amp; \small\sigma_{g_{25}}\\  \small\sigma_{g_{13}}  &amp; \small\sigma_{g_{23}} &amp; \small\sigma_{g_{3}}^2  &amp; \small\sigma_{g_{34}} &amp; \small\sigma_{g_{35}}\\  \small\sigma_{g_{14}}  &amp; \small\sigma_{g_{24}} &amp; \small\sigma_{g_{34}}  &amp; \small\sigma_{g_{4}}^2 &amp; \small\sigma_{g_{45}}\\  \small\sigma_{g_{15}}  &amp; \small\sigma_{g_{25}} &amp; \small\sigma_{g_{35}}  &amp; \small\sigma_{g_{45}} &amp; \small\sigma_{g_{5}}^2 \end{bmatrix}}}_{\color{orange}\text{unstructured}} \otimes \mathbf{I}_G\right)</span></p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fit_us <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fit_us <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
 <span id="cb19-2"><a></a>                 <span class="at">random =</span><span class="sc">~</span> <span class="fu">us</span>(env)<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>block, </span>
 <span id="cb19-3"><a></a>                 <span class="at">residual =</span><span class="sc">~</span> <span class="fu">dsum</span>(<span class="sc">~</span>units<span class="sc">|</span>env),</span>
-<span id="cb19-4"><a></a>                 <span class="at">data =</span> met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a></a>                 <span class="at">data =</span> met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Flexible model that “borrows strength” across environments for more accurate prediction of <span class="math inline">\boldsymbol{u}_{ge}</span>.</li>
@@ -621,17 +622,17 @@ Emi Tanaka
 <section id="fitting-fa-models" class="slide level2">
 <h2>Fitting FA models</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>fit_fa2 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>fit_fa2 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
 <span id="cb20-2"><a></a>                  <span class="at">random =</span><span class="sc">~</span> <span class="fu">fa</span>(env, <span class="dv">2</span>)<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>block, </span>
 <span id="cb20-3"><a></a>                  <span class="at">residual =</span><span class="sc">~</span> <span class="fu">dsum</span>(<span class="sc">~</span>units<span class="sc">|</span>env),</span>
-<span id="cb20-4"><a></a>                  <span class="at">data =</span> met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a></a>                  <span class="at">data =</span> met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Or equivalently:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>fit_rr2 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>fit_rr2 <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> env, </span>
 <span id="cb21-2"><a></a>                  <span class="at">random =</span><span class="sc">~</span> <span class="fu">rr</span>(env, <span class="dv">2</span>)<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>gen <span class="sc">+</span> <span class="fu">diag</span>(env)<span class="sc">:</span>block, </span>
 <span id="cb21-3"><a></a>                  <span class="at">residual =</span><span class="sc">~</span> <span class="fu">dsum</span>(<span class="sc">~</span>units<span class="sc">|</span>env),</span>
-<span id="cb21-4"><a></a>                  <span class="at">data =</span> met2_pheno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a></a>                  <span class="at">data =</span> met2_pheno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="key-takeaways" class="slide level2" data-background-color="#F5EDDE">
@@ -949,13 +950,14 @@ Emi Tanaka
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

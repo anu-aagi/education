@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="../../assets/site/aagi-mark.png" rel="icon" type="image/png">
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Emi Tanaka">
   <meta name="dcterms.date" content="2025-07-14">
@@ -96,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-305926508f2e4aae91082155dd2aaf34.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-15eecdebe90d0155d99cc158ac166de4.css">
   <link rel="stylesheet" href="../../assets/tachyons-addon.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -411,7 +412,7 @@ Emi Tanaka
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="5,11,17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(asreml)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="5,11,17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(asreml)</span>
 <span id="cb1-2"><a></a><span class="co"># gamma parameterization.</span></span>
 <span id="cb1-3"><a></a>fiti <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb1-4"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
@@ -428,20 +429,20 @@ Emi Tanaka
 <span id="cb1-15"><a></a>fith <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb1-16"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
 <span id="cb1-17"><a></a>               <span class="at">residual =</span><span class="sc">~</span> <span class="fu">idh</span>(column)<span class="sc">:</span><span class="fu">id</span>(row),</span>
-<span id="cb1-18"><a></a>               <span class="at">data =</span> naf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-18"><a></a>               <span class="at">data =</span> naf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Below cannot be fitted.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>fitn <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>fitn <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb2-2"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
 <span id="cb2-3"><a></a>               <span class="at">residual =</span><span class="sc">~</span> <span class="fu">idv</span>(column)<span class="sc">:</span><span class="fu">idv</span>(row),</span>
-<span id="cb2-4"><a></a>               <span class="at">data =</span> naf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a></a>               <span class="at">data =</span> naf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(broom.asreml)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(broom.asreml)</span>
 <span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="fu">tidy</span>(fiti, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a></a><span class="fu">tidy</span>(fiti, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term         estimate std.error statistic constraint
@@ -449,7 +450,7 @@ Emi Tanaka
 1 Variety        0.0860    0.0303      2.84 P         
 2 column:row!R   0.102     0.0220      4.63 P         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">tidy</span>(fitv, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">tidy</span>(fitv, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term              estimate std.error statistic constraint
@@ -458,7 +459,7 @@ Emi Tanaka
 2 column:row!column   0.102     0.0220      4.63 P         
 3 column:row!R        1        NA          NA    F         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">tidy</span>(fith, <span class="st">"varcomp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">tidy</span>(fith, <span class="st">"varcomp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 5
    term                 estimate std.error statistic constraint
@@ -515,20 +516,20 @@ Emi Tanaka
 <div class="column" style="width:40%;">
 <p>By <code>asreml</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fits  <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fits  <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb9-2"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
 <span id="cb9-3"><a></a>               <span class="at">residual =</span><span class="sc">~</span> units,</span>
-<span id="cb9-4"><a></a>               <span class="at">data =</span> shf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a></a>               <span class="at">data =</span> shf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">tidy</span>(fits, <span class="st">"fixed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">tidy</span>(fits, <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   term        estimate std.error
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)    1470.    0.0161</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tidy</span>(fits, <span class="st">"random"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tidy</span>(fits, <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 3
    term       estimate std.error
@@ -549,19 +550,19 @@ Emi Tanaka
 </div><div class="column fragment" style="width:60%;">
 <p>By “hand”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>vars <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fits, <span class="st">"varcomp"</span>)<span class="sc">$</span>estimate</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>vars <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fits, <span class="st">"varcomp"</span>)<span class="sc">$</span>estimate</span>
 <span id="cb14-2"><a></a>G <span class="ot">&lt;-</span> vars[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">diag</span>(<span class="fu">nlevels</span>(shf<span class="sc">$</span>Variety))</span>
 <span id="cb14-3"><a></a>R <span class="ot">&lt;-</span> vars[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">diag</span>(<span class="fu">nrow</span>(shf))</span>
 <span id="cb14-4"><a></a>Z <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>Variety <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> shf)</span>
 <span id="cb14-5"><a></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(shf))</span>
 <span id="cb14-6"><a></a>V <span class="ot">&lt;-</span> Z <span class="sc">%*%</span> G <span class="sc">%*%</span> <span class="fu">t</span>(Z) <span class="sc">+</span> R</span>
 <span id="cb14-7"><a></a>y <span class="ot">&lt;-</span> shf<span class="sc">$</span>yield</span>
-<span id="cb14-8"><a></a>(BLUE <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-8"><a></a>(BLUE <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        [,1]
 [1,] 1470.44</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>(BLUP <span class="ot">&lt;-</span> G <span class="sc">%*%</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> BLUE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>(BLUP <span class="ot">&lt;-</span> G <span class="sc">%*%</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> BLUE))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             [,1]
  [1,] -156.452173
@@ -658,21 +659,21 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
 <div class="columns f3">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fitc <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fitc <span class="ot">&lt;-</span> <span class="fu">asreml</span>(yield <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb18-2"><a></a>               <span class="at">random =</span><span class="sc">~</span> Variety,</span>
 <span id="cb18-3"><a></a>               <span class="at">residual =</span><span class="sc">~</span> units,</span>
 <span id="cb18-4"><a></a>               <span class="at">data =</span> shf,</span>
 <span id="cb18-5"><a></a>               <span class="at">options =</span> <span class="fu">asreml.options</span>(</span>
 <span id="cb18-6"><a></a>                 <span class="at">Cfixed =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb18-7"><a></a>                 <span class="at">Csparse =</span><span class="sc">~</span> Variety</span>
-<span id="cb18-8"><a></a>               ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-8"><a></a>               ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fitc<span class="sc">$</span>Cfixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fitc<span class="sc">$</span>Cfixed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 707.637</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">sp2mat</span>(fitc<span class="sc">$</span>Csparse)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">sp2mat</span>(fitc<span class="sc">$</span>Csparse)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]     [,3]     [,4]     [,5]
 [1,] 4534.929    0.000    0.000    0.000    0.000
@@ -685,14 +686,14 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
 </div><div class="column" style="width:50%;">
 <p>By “hand”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
 [1,] 707.8299</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>P <span class="ot">&lt;-</span> <span class="fu">solve</span>(V) <span class="sc">-</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>P <span class="ot">&lt;-</span> <span class="fu">solve</span>(V) <span class="sc">-</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> <span class="fu">solve</span>(V)</span>
 <span id="cb25-2"><a></a>CZZ <span class="ot">&lt;-</span> G <span class="sc">-</span> G <span class="sc">%*%</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> P <span class="sc">%*%</span> Z <span class="sc">%*%</span> G</span>
-<span id="cb25-3"><a></a>CZZ[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-3"><a></a>CZZ[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]      [,2]      [,3]      [,4]      [,5]
 [1,] 4535.9150  243.1447  243.1447  243.1447  243.1447
@@ -1099,13 +1100,14 @@ Henderson (1950) Estimation of genetic parameters. <em>Annals of Mathematical St
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

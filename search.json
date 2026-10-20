@@ -4,7 +4,14 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This website contains materials that are developed as part of the upskilling for ANU-AAGI."
+    "text": "This website contains materials developed as part of the upskilling program at ANU-AAGI. While they were created with the ANU AAGI team in mind, the materials are openly available and anyone is welcome to use them, whether you work in the grains industry, study agricultural science or statistics, or are simply curious about analytics."
+  },
+  {
+    "objectID": "about.html#our-aim",
+    "href": "about.html#our-aim",
+    "title": "About",
+    "section": "Our aim",
+    "text": "Our aim\n\nAnalytics for the Australian Grains Industry (AAGI) aims to improve the analytics capacity of the Australian grains sector, empowering data-driven decision making for growers and delivering research innovations that enhance the productivity, sustainability and global competitiveness of Australia’s grains industry.\nAAGI is a Grains Research and Development Corporation (GRDC) investment led by Adelaide University, Curtin University and the University of Queensland, with partners including the Australian National University. It works through three programs:\n\n\nService & Support\nAnalytics and statistical support for researchers on GRDC-funded investments.\n\n\nResearch & Development\nResearch that improves the productivity, sustainability and competitiveness of the grains industry.\n\n\nUpskilling & Awareness\nTraining that builds analytics capacity across the sector."
   },
   {
     "objectID": "resources/2025-07-14-ida/index.html#data-analysis",
@@ -702,8 +709,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ANU AAGI Education",
+    "title": "Growing analytics capacity across the grains industry",
     "section": "",
-    "text": "Project Structure\n\n\n\nFonti Kar & Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nNaming AAGI things\n\n\n\nFonti Kar, Emi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nLinear mixed models\n\n\n\nEmi Tanaka\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nQuarto & GitHub Projects\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nInitial Data Analysis\n\n\n\nEmi Tanaka, Fonti Kar\n\n\nJul 14, 2025\n\n\n\n\n\n\n\n\n\n\nAnalysis of a multi-environmental field trial\n\n\n\nEmi Tanaka\n\n\nJul 10, 2025\n\n\n\n\n\n\n\n\n\n\nShort introduction to selective breeding\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\n\n\n\n\nAnalysis of a single field trial\n\n\n\nEmi Tanaka\n\n\nJul 9, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "ANU · Analytics for the Australian Grains Industry\n\n\nTraining materials in statistics, data analytics and reproducible workflows for the people who design and analyse data for the Australian grains industry.\n\nField trials Linear mixed models Multi-environment trials Selective breeding Reproducible workflows"
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "Growing analytics capacity across the grains industry",
+    "section": "Resources",
+    "text": "Resources"
   }
 ]
