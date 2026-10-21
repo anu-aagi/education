@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d7536748d867454debbda6649b26cb43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f6c0ebca71a84790080ae226bea8eed8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -83,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -141,8 +141,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./assets/site/aagi-logo-white.png" alt="AAGI: Analytics for the Australian Grains Industry" class="navbar-logo light-content">
-    <img src="./assets/site/aagi-logo-white.png" alt="AAGI: Analytics for the Australian Grains Industry" class="navbar-logo dark-content">
+    <img src="./assets/site/aagi-logo.png" alt="AAGI: Analytics for the Australian Grains Industry" class="navbar-logo light-content">
+    <img src="./assets/site/aagi-logo.png" alt="AAGI: Analytics for the Australian Grains Industry" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Education</span>
@@ -161,6 +161,13 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/anu-aagi/AAGI-education"> <i class="bi bi-github" role="img" aria-label="AAGI Education on GitHub">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -183,14 +190,14 @@ window.Quarto = {
 <div class="grains-hero column-screen">
 <div class="hero-inner">
 <div class="hero-text">
-<p><span class="eyebrow">ANU · Analytics for the Australian Grains Industry</span></p>
-<section id="growing-analytics-capacity-across-the-grains-industry" class="level1">
-<h1>Growing analytics capacity across the grains industry</h1>
+<p class="hero-title" role="heading" aria-level="1">Growing analytics capacity across the grains industry</p>
 <p><span class="lead">Training materials in statistics, data analytics and reproducible workflows for the people who design and analyse data for the Australian grains industry.</span></p>
 <div class="topic-chips">
 <p><span>Field trials</span> <span>Linear mixed models</span> <span>Multi-environment trials</span> <span>Selective breeding</span> <span>Reproducible workflows</span></p>
 </div>
-</section>
+</div>
+<div class="hero-art">
+<p><img src="assets/site/wheat.svg" class="img-fluid" alt="Illustration of wheat stalks"></p>
 </div>
 </div>
 </div>
@@ -201,151 +208,143 @@ window.Quarto = {
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752311111000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1049">
-<a href="./resources/2025-07-14-project-structure/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Project Structure
-</h5>
-<div class="card-attribution card-text-small justify">
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752311111000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1049">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-14-project-structure/index.html" class="no-external">Project Structure</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-14-project-structure/index.html" class="no-external">
+<div class="listing-date">
+Jul 14, 2025
+</div>
 <div class="listing-author">
 Fonti Kar &amp; Emi Tanaka
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752385990000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="57">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-14-naming-things/index.html" class="no-external">Naming AAGI things</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-14-naming-things/index.html" class="no-external">
 <div class="listing-date">
 Jul 14, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752385990000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="57">
-<a href="./resources/2025-07-14-naming-things/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Naming AAGI things
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Fonti Kar, Emi Tanaka
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752471044558" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2139">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-14-lmm/index.html" class="no-external">Linear mixed models</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-14-lmm/index.html" class="no-external">
 <div class="listing-date">
 Jul 14, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752471044558" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2139">
-<a href="./resources/2025-07-14-lmm/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Linear mixed models
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Emi Tanaka
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752463838612" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="380">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-14-quarto-github-projects/index.html" class="no-external">Quarto &amp; GitHub Projects</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-14-quarto-github-projects/index.html" class="no-external">
 <div class="listing-date">
 Jul 14, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752463838612" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="380">
-<a href="./resources/2025-07-14-quarto-github-projects/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Quarto &amp; GitHub Projects
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Emi Tanaka, Fonti Kar
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752317501000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="715">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-14-ida/index.html" class="no-external">Initial Data Analysis</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-14-ida/index.html" class="no-external">
 <div class="listing-date">
 Jul 14, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-date-sort="1752415200000" data-listing-file-modified-sort="1752317501000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="715">
-<a href="./resources/2025-07-14-ida/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Initial Data Analysis
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Emi Tanaka, Fonti Kar
 </div>
-<div class="listing-date">
-Jul 14, 2025
+</a>
 </div>
 </div>
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1752069600000" data-listing-file-modified-sort="1752119861963" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1594">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-10-analysis-of-MET/index.html" class="no-external">Analysis of a multi-environmental field trial</a>
+</h3>
 </div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="5" data-listing-date-sort="1752069600000" data-listing-file-modified-sort="1752119861963" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1594">
-<a href="./resources/2025-07-10-analysis-of-MET/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Analysis of a multi-environmental field trial
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Emi Tanaka
-</div>
+<div class="metadata">
+<a href="./resources/2025-07-10-analysis-of-MET/index.html" class="no-external">
 <div class="listing-date">
 Jul 10, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="6" data-listing-date-sort="1751983200000" data-listing-file-modified-sort="1755468005466" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1006">
-<a href="./resources/2025-07-09-selective-breeding/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Short introduction to <br>selective breeding
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Emi Tanaka
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1751983200000" data-listing-file-modified-sort="1755468005466" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1006">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-09-selective-breeding/index.html" class="no-external">Short introduction to <br>selective breeding</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-09-selective-breeding/index.html" class="no-external">
 <div class="listing-date">
 Jul 9, 2025
 </div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="7" data-listing-date-sort="1751983200000" data-listing-file-modified-sort="1752529416000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2520">
-<a href="./resources/2025-07-09-analysis-of-a-single-field-trial/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Analysis of a single field trial
-</h5>
-<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Emi Tanaka
 </div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1751983200000" data-listing-file-modified-sort="1752529416000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2520">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./resources/2025-07-09-analysis-of-a-single-field-trial/index.html" class="no-external">Analysis of a single field trial</a>
+</h3>
+</div>
+<div class="metadata">
+<a href="./resources/2025-07-09-analysis-of-a-single-field-trial/index.html" class="no-external">
 <div class="listing-date">
 Jul 9, 2025
 </div>
+<div class="listing-author">
+Emi Tanaka
 </div>
+</a>
 </div>
-</div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
@@ -754,7 +753,7 @@ Jul 9, 2025
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p><a href="https://www.anu.edu.au/"><img src="assets/site/anu-logo-white.png" alt="Australian National University" class="footer-logo"></a></p>
+<p><a href="https://www.anu.edu.au/"><img src="assets/site/anu-logo.png" alt="Australian National University" class="footer-logo"></a></p>
 </div>   
     <div class="nav-footer-center">
 <p>Analytics education for the Australian grains industry</p>
