@@ -8,14 +8,18 @@ website:
   favicon: assets/site/aagi-mark.png
   navbar:
     title: "Education"
-    logo: assets/site/aagi-logo-white.png
+    logo: assets/site/aagi-logo.png
     logo-alt: "AAGI: Analytics for the Australian Grains Industry"
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+    right:
+      - icon: github
+        href: https://github.com/anu-aagi/AAGI-education
+        aria-label: "AAGI Education on GitHub"
   page-footer:
-    left: '<a href="https://www.anu.edu.au/"><img src="assets/site/anu-logo-white.png" alt="Australian National University" class="footer-logo"></a>'
+    left: '<a href="https://www.anu.edu.au/"><img src="assets/site/anu-logo.png" alt="Australian National University" class="footer-logo"></a>'
     center: "Analytics education for the Australian grains industry"
     right: "[ANU-AAGI](https://anu-aagi.github.io/)"
 

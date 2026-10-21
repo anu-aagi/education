@@ -1,180 +1,195 @@
 /*-- scss:defaults --*/
 
-// Palette: deep navy, ripe-wheat gold, eucalypt green, red soil
-$navy:   #012169;
-$red:    #C8102E;
-$wheat:       #E9B949;
-$wheat-deep:  #B8860B;
-$eucalypt:    #2F6B4F;
-$paddock:     #FBF7EC;
+// Palette drawn from the AAGI logo: teal stem, leaf green, slate wordmark
+$ink:       #13292F;
+$slate:     #4B5B60;
+$teal:      #0F7A73;
+$teal-deep: #0B5F5A;
+$leaf:      #B9D45A;
+$mist:      #F3F6F2;
+$line:      #DCE4DF;
 
-$primary:   $navy;
-$secondary: $wheat-deep;
-$success:   $eucalypt;
-$danger:    $red;
+$primary:   $teal;
+$secondary: $slate;
+$success:   #3C9450;
 
-$body-bg:    $paddock;
-$body-color: #1f2430;
-$link-color: $navy;
+$body-bg:    #ffffff;
+$body-color: $ink;
+$link-color: $teal;
+$link-decoration: none;
 
-$navbar-bg: $navy;
-$navbar-fg: #ffffff;
-$navbar-hl: $wheat;
+$navbar-bg: #ffffff;
+$navbar-fg: $ink;
+$navbar-hl: $teal;
 
-$footer-bg: $navy;
-$footer-fg: rgba(255, 255, 255, 0.85);
+$footer-bg: $mist;
+$footer-fg: $slate;
 
-$font-family-sans-serif: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
-$headings-font-family: "Fraunces", Georgia, serif;
-$headings-color: $navy;
+$font-family-sans-serif: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+$headings-font-family: $font-family-sans-serif;
+$headings-color: $ink;
+$headings-font-weight: 700;
 
 /*-- scss:rules --*/
 
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Source+Sans+3:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap");
 
-// Navbar: navy with a wheat-gold rule underneath
+body {
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { letter-spacing: -0.02em; }
+
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 3px solid $leaf;
+  outline-offset: 2px;
+}
+
+// Navbar: white, hairline underneath
 .navbar {
-  border-bottom: 4px solid $wheat;
-  .navbar-brand {
-    font-family: $headings-font-family;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-  }
-  .navbar-logo {
-    height: 40px;
-    max-height: none;
-  }
+  border-bottom: 1px solid $line;
+  .navbar-logo { height: 40px; max-height: none; }
   .navbar-title {
-    padding-left: 0.75rem;
-    border-left: 2px solid $wheat;
+    font-weight: 500;
+    color: $slate;
+    padding-left: 0.85rem;
+    border-left: 1px solid $line;
   }
+  .nav-link { font-weight: 500; }
+  .nav-link.active { color: $teal; }
   @media (max-width: 575.98px) {
     .navbar-title { display: none; }
   }
 }
 
-// Home page hero
+// Home page hero: headline beside a field-trial plot map
 .grains-hero {
-  position: relative;
-  overflow: hidden;
-  margin-top: -3rem;
-  margin-bottom: 2.5rem;
-  padding: 4rem 16px 7.5rem;
-  color: #fff;
-  background:
-    url("assets/site/wheat.svg") repeat-x left bottom / 46px auto,
-    linear-gradient(180deg, $navy 0%, #1d3f8f 55%, #c98f2a 100%);
+  margin-top: -2rem;
+  @media (min-width: 992px) { margin-top: -2.9rem; }
+  margin-bottom: 3.5rem;
+  padding: clamp(2.5rem, 6vw, 5rem) 16px;
+  background: $mist;
+  border-bottom: 1px solid $line;
 
   .hero-inner {
-    max-width: 1100px;
+    max-width: 1180px;
     margin: 0 auto;
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: end;
+    @media (max-width: 860px) { grid-template-columns: 1fr; }
   }
-  .hero-text { flex: 1 1 20rem; min-width: 0; }
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: $wheat;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  h1 {
-    color: #fff;
-    font-size: clamp(2.1rem, 5vw, 3.4rem);
+  .hero-title {
+    font-size: clamp(2.4rem, 5.4vw, 4.4rem);
     font-weight: 800;
-    line-height: 1.08;
-    margin: 0 0 1rem;
-    border: none;
+    color: $ink;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: 0 0 1.5rem;
+    max-width: 13ch;
   }
-  .lead { color: rgba(255, 255, 255, 0.9); max-width: 38rem; }
+  .lead {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: $slate;
+    max-width: 34rem;
+  }
   .topic-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     p { display: contents; }
+    span {
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid $line;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: $ink;
+    }
   }
-  .topic-chips span {
-    padding: 0.3rem 0.85rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(233, 185, 73, 0.6);
-    font-size: 0.9rem;
+  .hero-art {
+    margin: 0;
+    img { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto calc(-1 * clamp(2.5rem, 6vw, 5rem)); }
+    @media (max-width: 860px) { img { max-width: 360px; } }
   }
 }
 
-.section-heading > h2 {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+h2.section-heading {
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
   border-bottom: none;
-  &::after {
-    content: "";
-    flex: 1;
-    height: 3px;
-    background: linear-gradient(90deg, $wheat, transparent);
+  padding-bottom: 0;
+}
+
+// Resources listing as a clean list of rows
+.quarto-listing-default {
+  border-top: 1px solid $ink;
+  .quarto-post {
+    padding: 1.1rem 0;
+    margin: 0;
+    border-bottom: 1px solid $line;
+    gap: 1.5rem;
+    .thumbnail { display: none; }
+    .body .listing-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0;
+    }
+    .body a { color: $ink; font-weight: inherit; }
+    &:hover .listing-title { color: $teal; }
+    .metadata {
+      flex: 0 0 11rem;
+      text-align: right;
+      font-size: 0.9rem;
+      color: $slate;
+      font-variant-numeric: tabular-nums;
+      .listing-date { color: $ink; font-weight: 500; }
+    }
+    @media (max-width: 575.98px) {
+      gap: 0.4rem;
+      .metadata { text-align: left; flex-basis: auto; }
+    }
   }
 }
 
-// AAGI aim
+// About page
 .aagi-aim {
-  margin-bottom: 3rem;
   .aim-statement {
     display: block;
-    font-family: $headings-font-family;
-    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
-    line-height: 1.4;
-    color: $navy;
-    padding-left: 1.25rem;
-    border-left: 5px solid $wheat;
-    margin-bottom: 1.25rem;
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    strong { font-weight: 800; color: $teal-deep; }
   }
   .aim-programs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
   }
   .aim-program {
-    background: #fff;
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
-    box-shadow: 0 2px 10px rgba(1, 33, 105, 0.08);
-    h4 { margin-top: 0; font-size: 1.05rem; }
-    p { margin-bottom: 0; font-size: 0.95rem; }
-    &.is-here {
-      background: $navy;
-      color: rgba(255, 255, 255, 0.9);
-      h4 { color: $wheat; }
-    }
+    padding-top: 0.9rem;
+    border-top: 3px solid $line;
+    h4 { margin: 0 0 0.4rem; font-size: 1.1rem; }
+    p { margin: 0; color: $slate; }
+    &.is-here { border-top-color: $teal; h4 { color: $teal; } }
   }
-  .aim-source { font-size: 0.85rem; color: #5b6170; }
 }
 
-// Listing cards
-.quarto-listing .card {
-  border: none;
-  border-top: 5px solid $wheat;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(1, 33, 105, 0.08);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgba(1, 33, 105, 0.16);
-  }
-  .card-title { font-family: $headings-font-family; color: $navy; }
-  .listing-date { color: $wheat-deep; font-weight: 600; }
-}
-
+// Footer
 .nav-footer {
-  border-top: 4px solid $wheat;
+  border-top: 1px solid $line;
   align-items: center;
-  a { color: $wheat; }
   .footer-logo { height: 44px; width: auto; }
 }
